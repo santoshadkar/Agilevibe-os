@@ -211,16 +211,8 @@
     }
   ];
 
-  const KANBAN_SCRUMBAN_CARDS = [
-    {
-      title: 'The 6 Core Principles of Kanban', icon: '🎛️',
-      items: ['Visualize Workflow', 'Limit Work in Progress (WIP)', 'Manage Flow', 'Make Process Policies Explicit', 'Implement Feedback Loops', 'Improve Collaboratively (Kaizen)']
-    },
-    {
-      title: 'Scrumban Hybrid Framework', icon: '🔄',
-      items: ['On-Demand Pull System', 'WIP Limits on Columns', 'Regular Retrospectives preserved from Scrum', 'No rigid sprint estimations needed when Flow is mature']
-    }
-  ];
+  // (KANBAN_SCRUMBAN_CARDS defined below)
+
 
   const METRICS_ENCYCLOPEDIA = [
     {
@@ -570,7 +562,6 @@
       icon: '🛡️',
       summary: 'DORA 4 Metrics (Deployment Frequency, Lead Time for Changes, CFR, MTTR) and Code Coverage.',
       content: `### 🛡️ Engineering Health & DORA Dashboard
-
 #### Target Audience: VP of Engineering, DevOps Leads, Tech Leads
 
 #### Core Widgets (DORA 4)
@@ -581,6 +572,33 @@
       links: [
         { label: '📖 Google DevOps Research & Assessment (DORA) Guide', url: 'https://dora.dev/' }
       ]
+    }
+  ];
+
+  const KANBAN_SCRUMBAN_CARDS = [
+    {
+      title: 'The 6 Core Practices of Kanban', icon: '🎛️',
+      items: ['1. Visualize Workflow (Kanban Board)', '2. Limit Work in Progress (WIP Limits)', '3. Manage Flow (Bottleneck Elimination)', '4. Make Process Policies Explicit', '5. Implement Feedback Loops (Cadences)', '6. Improve Collaboratively, Evolve Experimentally (Kaizen)']
+    },
+    {
+      title: 'Scrumban Hybrid Framework', icon: '🔄',
+      items: ['On-Demand Pull System replacing batch sprint commitments', 'Strict Column WIP Limits to enforce focus', 'Buffer Columns (Ready for QA, Ready for Release)', 'Trigger Points for Replenishment meetings when Backlog hits min threshold']
+    },
+    {
+      title: 'The 4 Kanban Feedback Cadences', icon: '⏱️',
+      items: ['1. Daily Kanban Standup (10 Mins - Walk the board Right-to-Left)', '2. Replenishment Meeting (Weekly pull of ready backlog items)', '3. Service Delivery Review (Bi-weekly flow metrics & cycle time inspection)', '4. Operations / Risk Review (Monthly dependency & queue waste audit)']
+    },
+    {
+      title: 'STATIK 6-Step Implementation Guide', icon: '📐',
+      items: ['Step 1: Understand what makes the service fit for purpose', 'Step 2: Map sources of dissatisfaction (Internal & External)', 'Step 3: Analyze demand signals (Arrival rates & work item types)', 'Step 4: Analyze delivery capability & bottleneck capacity', 'Step 5: Design the workflow states & explicit policies', 'Step 6: Build board, enforce WIP limits, & run first experiment']
+    },
+    {
+      title: 'Kanban vs Scrum Comparison Matrix', icon: '📊',
+      items: ['Delivery Cadence: Continuous Flow (Kanban) vs Timeboxed Sprints (Scrum)', 'WIP Limits: Per Workflow State (Kanban) vs Per Sprint Capacity (Scrum)', 'Role Changes: No mandatory new roles (Kanban) vs SM/PO/Dev (Scrum)', 'Estimation: Throughput & Cycle Time (Kanban) vs Story Points (Scrum)']
+    },
+    {
+      title: 'Little’s Law Flow Math & Queue Control', icon: '🧮',
+      items: ['Little’s Law Formula: Lead Time = Work-In-Progress / Average Throughput', 'Key Rule: Reducing WIP directly reduces Customer Lead Time without adding headcount', 'Classes of Service: Expedite (Blocker), Fixed Date, Standard, Intangible tech debt']
     }
   ];
 
@@ -649,6 +667,62 @@ The GROW model provides a structured, non-directive coaching conversation framew
       links: [
         { label: '📖 Dave Snowden Cynefin Framework Guide', url: 'https://cynefin.io/' }
       ]
+    },
+    {
+      id: 'adkar-change',
+      title: 'The ADKAR Change Management Model',
+      icon: '🏛️',
+      author: 'Jeff Hiatt (Prosci)',
+      summary: 'Individual change framework: Awareness, Desire, Knowledge, Ability, Reinforcement.',
+      content: `### 🏛️ Deep Dive: The ADKAR Change Management Model
+
+#### Overview
+Organizational transformation fails when individual team members resist change. ADKAR models the 5 sequential building blocks every person must experience to successfully adopt agile ways of working.
+
+#### The 5 ADKAR Building Blocks:
+1. **A - Awareness**: Awareness of the business need for agile transformation.
+2. **D - Desire**: Desire to support and participate in agile practices.
+3. **K - Knowledge**: Knowledge of how to split stories, run retros, and use Jira/ADO.
+4. **A - Ability**: Demonstrated ability to deliver working increments continuously.
+5. **R - Reinforcement**: Reinforcement to sustain the change and avoid slipping into legacy habits.`,
+      links: [
+        { label: '📖 Official Prosci ADKAR Model Overview', url: 'https://www.prosci.com/methodology/adkar' }
+      ]
+    },
+    {
+      id: 'clear-model',
+      title: 'The CLEAR Coaching Model',
+      icon: '💎',
+      author: 'Peter Hawkins',
+      summary: '5-stage transformational coaching framework: Contract, Listen, Explore, Action, Review.',
+      content: `### 💎 Deep Dive: The CLEAR Coaching Model
+
+#### 5 Stages
+1. **Contract**: Establish ground rules and session goals.
+2. **Listen**: Active empathetic listening to coachee narrative.
+3. **Explore**: Help coachee reframe assumptions and emotional blocks.
+4. **Action**: Coachee commits to practical next steps.
+5. **Review**: Evaluate coaching effectiveness and agreements.`,
+      links: [
+        { label: '📖 Peter Hawkins Transformational Coaching Guide', url: 'https://www.renewal-coaching.com/' }
+      ]
+    },
+    {
+      id: 'fuel-model',
+      title: 'The FUEL Coaching Framework',
+      icon: '⛽',
+      author: 'John Zenger & Kathleen Stinnett',
+      summary: 'Behavioral conversation model: Frame, Understand, Explore, Lay out action plan.',
+      content: `### ⛽ Deep Dive: The FUEL Coaching Model
+
+#### Steps
+1. **Frame the Conversation**: Set context and boundaries.
+2. **Understand the Current State**: Uncover root causes without judgment.
+3. **Explore the Desired State**: Envision breakthrough outcomes.
+4. **Lay Out an Action Plan**: Specific time-bound commitments.`,
+      links: [
+        { label: '📖 Zenger Folkman Coaching Guide', url: 'https://zengerfolkman.com/' }
+      ]
     }
   ];
 
@@ -699,6 +773,77 @@ The GROW model provides a structured, non-directive coaching conversation framew
 1. Tell 2. Sell 3. Consult 4. Agree 5. Advise 6. Inquire 7. Delegate`,
       links: [
         { label: '📖 Management 3.0 Delegation Poker Guide', url: 'https://management30.com/practice/delegation-poker/' }
+      ]
+    },
+    {
+      id: 'fishbowl-conversation',
+      title: 'Fishbowl Conversation',
+      icon: '🐠',
+      time: '30-45 Minutes',
+      summary: 'Large-group discussion format where an inner circle converses while an outer circle listens.',
+      content: `### 🎪 Facilitation Playbook: Fishbowl Conversation
+
+#### Setup & Process
+1. Place 4 chairs in an inner circle (the Fishbowl) and surrounding chairs in outer circle.
+2. 3 participants sit inside to discuss a complex topic; 1 chair remains EMPTY.
+3. Anyone from the outer listening circle can step into the empty chair to speak.
+4. When someone enters, one existing inner speaker MUST voluntarily exit to keep 1 chair open.`,
+      links: [
+        { label: '📖 Liberating Structures Fishbowl Guide', url: 'https://www.liberatingstructures.com/18-open-space/' }
+      ]
+    },
+    {
+      id: 'six-thinking-hats',
+      title: '6 Thinking Hats (Edward de Bono)',
+      icon: '🎩',
+      time: '45-60 Minutes',
+      summary: 'Parallel thinking technique evaluating retros, risks, and strategies through 6 distinct perspectives.',
+      content: `### 🎪 Facilitation Playbook: 6 Thinking Hats
+
+#### The 6 Hats:
+- ⚪ **White Hat**: Data, facts, and verified metrics.
+- 🔴 **Red Hat**: Intuition, feelings, and gut reactions without justification.
+- 🖤 **Black Hat**: Caution, risks, vulnerabilities, and worst-case scenarios.
+- 🟡 **Yellow Hat**: Optimism, benefits, and positive possibilities.
+- 🟢 **Green Hat**: Creativity, out-of-the-box ideas, and new experiments.
+- 🔵 **Blue Hat**: Facilitator control, agenda focus, and process synthesis.`,
+      links: [
+        { label: '📖 De Bono 6 Thinking Hats Official Guide', url: 'https://www.debonogroup.com/services/core-powers/six-thinking-hats/' }
+      ]
+    },
+    {
+      id: 'fist-of-five',
+      title: 'Fist of Five Consensus Voting',
+      icon: '🖐️',
+      time: '5 Minutes',
+      summary: 'Instant consensus voting technique evaluating team commitment to sprint goals or retro actions.',
+      content: `### 🎪 Facilitation Playbook: Fist of Five Voting
+
+#### Scale
+- ✊ **Fist (0 Finger)**: Absolute objection / Blocked. Will veto action.
+- ☝️ **1 Finger**: Major concerns that must be addressed immediately.
+- ✌️ **2 Fingers**: Minor reservations, but will not block team.
+- 🤟 **3 Fingers**: Agreement & full support.
+- 🖐️ **5 Fingers**: Enthusiastic support & ready to lead execution!`,
+      links: [
+        { label: '📖 Agile Alliance Fist of Five Voting', url: 'https://www.agilealliance.org/glossary/fist-of-five/' }
+      ]
+    },
+    {
+      id: 'dot-voting',
+      title: 'Dot Voting & Prioritization Matrix',
+      icon: '🔴',
+      time: '10 Minutes',
+      summary: 'Democratic prioritization technique allocating limited vote tokens to rank retro items.',
+      content: `### 🎪 Facilitation Playbook: Dot Voting
+
+#### Rules
+1. Every team member receives 3 dot tokens (or sticky note votes).
+2. Members place votes on their top priority action items.
+3. Multiple votes CAN be placed on a single high-priority item.
+4. Top 2 items by vote count become committed SMART action items for next sprint.`,
+      links: [
+        { label: '📖 NNN Group Dot Voting Best Practices', url: 'https://www.nngroup.com/articles/dot-voting/' }
       ]
     }
   ];
