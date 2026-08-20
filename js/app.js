@@ -1454,8 +1454,10 @@ Output:
         { title: 'SAFe vs LeSS vs Spotify Scaling', tab: 'scaling', desc: 'Enterprise scaling compass & diagnostic wizard' },
         { title: 'INVEST Story & Gherkin AI Prompt', tab: 'ai', desc: 'AI Coach Superpower prompt engineering template' },
         { title: 'Psychological Safety Audit', tab: 'psych', desc: 'Dr. Amy Edmondson 7 team trust questions' },
-        { title: 'Executive DORA Metrics Dashboard', tab: 'dashboards', desc: 'Deployment frequency, MTTR, CFR blueprints' }
+        { title: 'Executive DORA Metrics Dashboard', tab: 'dashboards', desc: 'Deployment frequency, MTTR, CFR blueprints' },
+        { title: 'Agile Books & Certification Exams (PSM/CSM/SAFe)', tab: 'knowledge', desc: 'Coaching Agile Teams, Lyssa Adkins, PSM I study guide, DORA report' }
       ];
+
 
       input?.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
