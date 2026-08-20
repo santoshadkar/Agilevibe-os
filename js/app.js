@@ -223,11 +223,104 @@
   ];
 
   const METRICS_ENCYCLOPEDIA = [
-    { id: 'cycle-time', name: 'Cycle Time', category: 'Flow & Delivery', icon: '⏱️', formula: 'Cycle Time = Time Work Completed - Time Work Started', target: '< 3 days per story', summary: 'Elapsed time from when dev starts until deployment to production.', desc: 'Cycle Time is the single most critical metric for Agile flow efficiency.' },
-    { id: 'lead-time', name: 'Lead Time', category: 'Flow & Customer Value', icon: '⏳', formula: 'Lead Time = Customer Delivery Date - Feature Request Date', target: '< 14 days', summary: 'Total customer waiting time from backlog entry to live feature.', desc: 'Lead time measures customer responsiveness.' },
-    { id: 'flow-efficiency', name: 'Flow Efficiency %', category: 'Flow Waste Elimination', icon: '⚡', formula: 'Flow Efficiency % = (Active Work Time / Total Lead Time) × 100', target: '> 35%', summary: 'Ratio of active touch time versus waiting time in queues.', desc: 'Most traditional software teams have flow efficiency under 15%.' },
-    { id: 'defect-escape-rate', name: 'Defect Escape Rate %', category: 'Engineering Quality', icon: '🐞', formula: 'Defect Escape Rate = (Bugs Found in Prod / Total Bugs Found) × 100', target: '< 5%', summary: 'Percentage of bugs discovered by end-users in production versus QA.', desc: 'High defect escape rates indicate gaps in automated regression suites.' }
+    {
+      id: 'cycle-time', name: 'Cycle Time', category: 'Flow & Delivery', icon: '⏱️',
+      formula: 'Cycle Time = Time Work Completed - Time Work Started', target: '< 3 days per story',
+      summary: 'Elapsed time from when dev starts until deployment to production.',
+      desc: 'Cycle Time is the single most critical metric for Agile flow efficiency. Shorter cycle times correlate directly with higher quality and lower risk.'
+    },
+    {
+      id: 'lead-time', name: 'Lead Time', category: 'Flow & Customer Value', icon: '⏳',
+      formula: 'Lead Time = Customer Delivery Date - Feature Request Date', target: '< 14 days',
+      summary: 'Total customer waiting time from backlog entry to live feature.',
+      desc: 'Lead time measures customer responsiveness. Reducing queue time in backlog refinement yields the fastest reduction in lead time.'
+    },
+    {
+      id: 'flow-efficiency', name: 'Flow Efficiency %', category: 'Flow Waste Elimination', icon: '⚡',
+      formula: 'Flow Efficiency % = (Active Work Time / Total Lead Time) × 100', target: '> 35%',
+      summary: 'Ratio of active touch time versus waiting time in queues.',
+      desc: 'Most traditional software teams have flow efficiency under 15%. High performing agile teams achieve 35%+.'
+    },
+    {
+      id: 'defect-escape-rate', name: 'Defect Escape Rate %', category: 'Engineering Quality', icon: '🐞',
+      formula: 'Defect Escape Rate = (Bugs Found in Prod / Total Bugs Found) × 100', target: '< 5%',
+      summary: 'Percentage of bugs discovered by end-users in production versus QA.',
+      desc: 'High defect escape rates indicate gaps in automated regression suites or acceptance criteria testing.'
+    },
+    {
+      id: 'dora-deployment-frequency', name: 'Deployment Frequency (DORA Metric 1)', category: 'DevSecOps & DORA', icon: '🚀',
+      formula: 'Deploy Frequency = Production Releases / Week', target: 'Multiple deploys per day',
+      summary: 'How often your engineering organization releases code to production.',
+      desc: 'Core DORA metric indicating continuous delivery efficiency and automated deployment pipeline maturity.'
+    },
+    {
+      id: 'dora-lead-time-change', name: 'Lead Time for Changes (DORA Metric 2)', category: 'DevSecOps & DORA', icon: '⏳',
+      formula: 'Lead Time for Changes = Time Code Committed ➔ Production Live', target: '< 1 day',
+      summary: 'Time elapsed between a code commit arriving in git and running in production.',
+      desc: 'Measures pipeline automated testing speed, code review responsiveness, and release safety.'
+    },
+    {
+      id: 'dora-mttr', name: 'Mean Time to Recover (MTTR - DORA Metric 3)', category: 'DevSecOps & DORA', icon: '🚨',
+      formula: 'MTTR = Total Outage Minutes / Total Incidents', target: '< 1 hour',
+      summary: 'Average time taken to restore service after a production incident.',
+      desc: 'Measures incident response automated alerts, observability telemetry, and instant rollback capabilities.'
+    },
+    {
+      id: 'dora-change-failure-rate', name: 'Change Failure Rate (CFR - DORA Metric 4)', category: 'DevSecOps & DORA', icon: '💥',
+      formula: 'CFR = (Failed Production Deploys / Total Production Deploys) × 100', target: '< 5%',
+      summary: 'Percentage of production releases requiring hotfixes or rollbacks.',
+      desc: 'High CFR indicates weak pre-deployment automated regression suites or rushed pull request approvals.'
+    },
+    {
+      id: 'throughput', name: 'Throughput / Velocity', category: 'Delivery Predictability', icon: '📈',
+      formula: 'Throughput = Completed Work Items / Sprint Duration', target: 'Stable trend over 3+ sprints',
+      summary: 'Total volume of user stories or story points completed per iteration.',
+      desc: 'Throughput provides empirical evidence for sprint capacity planning without relying on subjective estimation guessing.'
+    },
+    {
+      id: 'wip-index', name: 'Work-In-Progress (WIP) Index', category: 'Flow Control', icon: '🚧',
+      formula: 'WIP Index = Active Work Items / Total Developers', target: '< 1.5 items per dev',
+      summary: 'Number of active items in progress per engineer simultaneously.',
+      desc: 'High WIP creates context switching waste. Enforcing strict WIP limits accelerates cycle time dramatically.'
+    },
+    {
+      id: 'code-coverage', name: 'Automated Code Coverage %', category: 'Engineering Excellence', icon: '🛡️',
+      formula: 'Code Coverage = (Executed Code Lines / Total Code Lines) × 100', target: '> 80%',
+      summary: 'Percentage of codebase tested by automated unit and integration tests.',
+      desc: 'High code coverage allows developers to refactor safely and deploy with continuous delivery confidence.'
+    },
+    {
+      id: 'sprint-goal-rate', name: 'Sprint Goal Completion Rate %', category: 'Product Alignment', icon: '🎯',
+      formula: 'Goal Rate = (Achieved Sprint Goals / Total Sprints) × 100', target: '> 90%',
+      summary: 'Frequency with which the team delivers its primary business outcome.',
+      desc: 'Measuring Sprint Goal achievement ensures teams focus on customer value over ticket-clearing output.'
+    },
+    {
+      id: 'predictability-ratio', name: 'Say-Do Ratio (Predictability)', category: 'Delivery Predictability', icon: '🤝',
+      formula: 'Say-Do Ratio = (Completed Points / Committed Points) × 100', target: '85% - 110%',
+      summary: 'Comparison of committed story points at sprint planning vs. delivered points.',
+      desc: 'Helps teams diagnose over-promising, under-estimating, or scope creep mid-sprint.'
+    },
+    {
+      id: 'team-happiness', name: 'Team Morale / Happiness Index', category: 'Psychological Safety', icon: '😊',
+      formula: 'Happiness Index = Average Rating on Weekly 1-to-5 Team Survey', target: '> 4.2 / 5',
+      summary: 'Qualitative measurement of team psychological safety, joy, and engagement.',
+      desc: 'Happy, empowered teams consistently outperform stressed, overworked teams over long horizons.'
+    },
+    {
+      id: 'tech-debt-ratio', name: 'Tech Debt Payback Ratio %', category: 'Code Sustainability', icon: '🛠️',
+      formula: 'Tech Debt Ratio = (Tech Debt Points / Total Capacity) × 100', target: '15% - 20%',
+      summary: 'Percentage of sprint capacity dedicated to refactoring and debt cleanup.',
+      desc: 'Ensures codebases remain maintainable and prevents architectural degradation.'
+    },
+    {
+      id: 'pr-latency', name: 'PR Review Turnaround Time', category: 'Engineering Flow', icon: '💬',
+      formula: 'PR Latency = Time PR Merged - Time PR Submitted', target: '< 4 hours',
+      summary: 'Elapsed time between submitting a pull request and completing peer review.',
+      desc: 'Long PR review queues cause context switching. Pair programming and prompt reviews clear PR bottlenecks.'
+    }
   ];
+
 
   const AGILE_COACH_ROLE_DATA = {
     title: 'Who is an Agile Coach & Day in the Life',
