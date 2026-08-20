@@ -1,4 +1,4 @@
-// AgileVibe OS - Master Application Bundle (Santoshanand Adkar Masterclass Edition)
+// AgileVibe OS - Master Application Bundle (Santoshanand Adkar Enterprise Edition)
 
 (function() {
   'use strict';
@@ -121,7 +121,7 @@
     }
   ];
 
-  const RETRO_TEMPLATES = {
+  let RETRO_TEMPLATES = {
     '4ls': {
       title: 'The 4 Ls (Liked, Learned, Lacked, Longed For)',
       columns: [
@@ -303,7 +303,6 @@
   ];
 
   const ESTIMATION_MASTERCLASS_DATA = {
-
     title: 'Masterclass: Modern Agile Estimation & Story Points',
     sections: [
       {
@@ -703,13 +702,15 @@ Formulate:
   // -------------------------------------------------------------
   // 3. MAIN APP CONTROLLER
   // -------------------------------------------------------------
-
   class AgileVibeApp {
     constructor() {
       this.currentTab = 'welcome';
       this.teams = JSON.parse(localStorage.getItem('agilevibe_teams') || JSON.stringify(DEFAULT_TEAMS));
       this.activeTeamId = localStorage.getItem('agilevibe_active_team') || 'squad-alpha';
       
+      this.customFrameworks = JSON.parse(localStorage.getItem('agilevibe_custom_frameworks') || '[]');
+      this.loadCustomFrameworksIntoRetro();
+
       this.currentRetroTemplate = '4ls';
       this.retroNotes = [];
       this.maturityScores = { culture: 4, technical: 3, product: 4, delivery: 3, improvement: 5 };
@@ -728,6 +729,18 @@ Formulate:
       this.cfdData = JSON.parse(JSON.stringify(CFD_PRESETS.healthy.data));
 
       this.loadActiveTeamState();
+    }
+
+    loadCustomFrameworksIntoRetro() {
+      this.customFrameworks.forEach(fw => {
+        RETRO_TEMPLATES[fw.id] = {
+          title: fw.title,
+          columns: fw.columns,
+          defaultNotes: [
+            { id: `cn1-${fw.id}`, columnId: fw.columns[0].id, text: 'Sample custom retro note', votes: 2 }
+          ]
+        };
+      });
     }
 
     loadActiveTeamState() {
@@ -753,7 +766,6 @@ Formulate:
       this.maturityScores = { culture: 4, technical: 3, product: 4, delivery: 3, improvement: 5 };
       this.psychAnswers = {};
     }
-
 
     saveActiveTeamState() {
       const state = {
@@ -809,7 +821,9 @@ Formulate:
       this.setupMethodsModule();
       this.setupScalingModule();
       this.setupAIStudioModule();
+      this.setupCustomLabModule();
       this.setupArticleReaderDrawer();
+      this.setupGlobalSearchModal();
 
       document.getElementById('exportExecutivePDFBtn')?.addEventListener('click', () => {
         sound.playChime();
@@ -818,39 +832,296 @@ Formulate:
       });
     }
 
-    setupArticleReaderDrawer() {
-      const drawer = document.getElementById('articleModalDrawer');
-      document.getElementById('closeArticleDrawerBtn')?.addEventListener('click', () => {
-        sound.playPop();
-        drawer?.classList.remove('active');
+    // -------------------------------------------------------------
+    // FEATURE 1: EXECUTIVE FLOW WASTE ROI CALCULATOR
+    // -------------------------------------------------------------
+    setupFlowRoiCalculator() {
+      const calcDevs = document.getElementById('calcDevs');
+      const calcRate = document.getElementById('calcRate');
+      const calcFlow = document.getElementById('calcFlow');
+      if (!calcDevs || !calcRate || !calcFlow) return;
+
+      const updateRoi = () => {
+        const devs = parseInt(calcDevs.value);
+        const rate = parseInt(calcRate.value);
+        const flow = parseInt(calcFlow.value);
+
+        document.getElementById('calcDevsVal').textContent = `${devs} Devs`;
+        document.getElementById('calcRateVal').textContent = `$${rate} / hr`;
+        document.getElementById('calcFlowVal').textContent = `${flow}% (${flow < 20 ? 'Siloed Queues' : 'High Flow'})`;
+
+        const totalHoursPerYear = 2000;
+        const wastePercentage = (100 - flow) / 100;
+        const wasteHoursPerDev = totalHoursPerYear * wastePercentage;
+        const totalWasteDollars = devs * wasteHoursPerDev * rate;
+
+        const targetFlow = 35;
+        const recoveredWasteDollars = devs * (totalHoursPerYear * ((targetFlow - flow) / 100)) * rate;
+
+        document.getElementById('wasteDollarOutput').textContent = `$${totalWasteDollars.toLocaleString()} / yr`;
+        document.getElementById('wasteHoursOutput').textContent = `🔹 ${100 - flow}% of engineer capacity spent waiting on PR reviews, QA handoffs, and context switching.`;
+      };
+
+      calcDevs.addEventListener('input', updateRoi);
+      calcRate.addEventListener('input', updateRoi);
+      calcFlow.addEventListener('input', updateRoi);
+      updateRoi();
+    }
+
+    // -------------------------------------------------------------
+    // FEATURE 2: CUSTOM FRAMEWORK LAB BUILDER
+    // -------------------------------------------------------------
+    setupCustomLabModule() {
+      const form = document.getElementById('customBoardForm');
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        sound.playChime();
+
+        const title = document.getElementById('customBoardTitle').value.trim();
+        const col1Name = document.getElementById('col1Name').value.trim();
+        const col1Icon = document.getElementById('col1Icon').value.trim();
+        const col1Color = document.getElementById('col1Color').value;
+
+        const col2Name = document.getElementById('col2Name').value.trim();
+        const col2Icon = document.getElementById('col2Icon').value.trim();
+        const col2Color = document.getElementById('col2Color').value;
+
+        const col3Name = document.getElementById('col3Name').value.trim();
+        const col3Icon = document.getElementById('col3Icon').value.trim();
+        const col3Color = document.getElementById('col3Color').value;
+
+        const newFw = {
+          id: `custom-${Date.now()}`,
+          title: title,
+          columns: [
+            { id: 'c1', name: col1Name, icon: col1Icon, color: col1Color, desc: 'Custom Column 1' },
+            { id: 'c2', name: col2Name, icon: col2Icon, color: col2Color, desc: 'Custom Column 2' },
+            { id: 'c3', name: col3Name, icon: col3Icon, color: col3Color, desc: 'Custom Column 3' }
+          ]
+        };
+
+        this.customFrameworks.push(newFw);
+        localStorage.setItem('agilevibe_custom_frameworks', JSON.stringify(this.customFrameworks));
+
+        this.loadCustomFrameworksIntoRetro();
+        this.renderRetroTemplateButtons();
+        this.renderSavedCustomFrameworksList();
+        form.reset();
+
+        alert(`🎉 Custom Retrospective Framework "${title}" Created & Saved! Switch to Retro & Event Studio to use it.`);
+      });
+
+      this.renderSavedCustomFrameworksList();
+    }
+
+    renderSavedCustomFrameworksList() {
+      const list = document.getElementById('savedCustomFrameworksList');
+      if (!list) return;
+      if (this.customFrameworks.length === 0) {
+        list.innerHTML = `<div style="font-size: 13px; color: var(--text-muted);">No custom templates saved yet. Fill out the builder on the left to create your first custom retro board!</div>`;
+        return;
+      }
+
+      list.innerHTML = this.customFrameworks.map(fw => `
+        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid var(--accent-cyan); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="color: #fff; font-size: 13px;">${this.escapeHTML(fw.title)}</strong>
+            <div style="font-size: 11px; color: var(--text-muted);">${fw.columns.map(c => `${c.icon} ${c.name}`).join(' • ')}</div>
+          </div>
+          <button class="btn btn-secondary launch-custom-fw-btn" data-id="${fw.id}" style="font-size: 11px; padding: 4px 8px;">🚀 Launch</button>
+        </div>
+      `).join('');
+
+      list.querySelectorAll('.launch-custom-fw-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const fwId = btn.dataset.id;
+          this.currentRetroTemplate = fwId;
+          this.retroNotes = JSON.parse(JSON.stringify(RETRO_TEMPLATES[fwId].defaultNotes));
+          this.saveActiveTeamState();
+          
+          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+          document.querySelector('.nav-item[data-tab="retro"]')?.classList.add('active');
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+          document.getElementById('panel-retro')?.classList.add('active');
+
+          this.renderRetroTemplateButtons();
+          this.renderRetroGrid();
+        });
       });
     }
 
-    openArticle(title, content, links = []) {
-      sound.playPop();
-      const drawer = document.getElementById('articleModalDrawer');
-      const titleEl = document.getElementById('articleDrawerTitle');
-      const bodyEl = document.getElementById('articleDrawerBody');
-      if (titleEl) titleEl.textContent = title;
-      if (bodyEl) {
-        let linksHTML = '';
-        if (links && links.length > 0) {
-          linksHTML = `
-            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-glass);">
-              <h5 style="color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px;">🔗 Official Documentation & Video Resources:</h5>
-              <ul style="list-style: none; padding: 0;">
-                ${links.map(l => `<li style="margin-bottom: 6px;"><a href="${l.url}" target="_blank" style="color: var(--accent-emerald); text-decoration: underline; font-size: 13px;">${l.label}</a></li>`).join('')}
-              </ul>
+    renderRetroTemplateButtons() {
+      const container = document.getElementById('retroTemplateButtons');
+      if (!container) return;
+      
+      let html = `
+        <button class="tpl-btn ${this.currentRetroTemplate === '4ls' ? 'active' : ''}" data-tpl="4ls">The 4 Ls</button>
+        <button class="tpl-btn ${this.currentRetroTemplate === 'sailboat' ? 'active' : ''}" data-tpl="sailboat">Sailboat Retro</button>
+        <button class="tpl-btn ${this.currentRetroTemplate === 'starfish' ? 'active' : ''}" data-tpl="starfish">Starfish Retro</button>
+      `;
+
+      this.customFrameworks.forEach(fw => {
+        html += `<button class="tpl-btn ${this.currentRetroTemplate === fw.id ? 'active' : ''}" data-tpl="${fw.id}">✨ ${this.escapeHTML(fw.title)}</button>`;
+      });
+
+      container.innerHTML = html;
+      this.attachRetroButtonListeners();
+    }
+
+    attachRetroButtonListeners() {
+      const tplBtns = document.querySelectorAll('.retro-controls .tpl-btn');
+      tplBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tplBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const tplKey = btn.dataset.tpl;
+          if (RETRO_TEMPLATES[tplKey]) {
+            this.currentRetroTemplate = tplKey;
+            this.retroNotes = JSON.parse(JSON.stringify(RETRO_TEMPLATES[tplKey].defaultNotes));
+            this.saveActiveTeamState();
+            this.renderRetroGrid();
+          }
+        });
+      });
+    }
+
+    // -------------------------------------------------------------
+    // FEATURE 3: GLOBAL CTRL+K SEARCH PALETTE
+    // -------------------------------------------------------------
+    setupGlobalSearchModal() {
+      const modal = document.getElementById('globalSearchModal');
+      const input = document.getElementById('globalSearchInput');
+      const resultsLog = document.getElementById('globalSearchResultsLog');
+
+      const openModal = () => {
+        sound.playPop();
+        modal?.classList.add('active');
+        input?.focus();
+      };
+
+      const closeModal = () => {
+        sound.playPop();
+        modal?.classList.remove('active');
+      };
+
+      document.getElementById('openGlobalSearchBtn')?.addEventListener('click', openModal);
+      document.getElementById('closeSearchModalBtn')?.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          openModal();
+        }
+        if (e.key === 'Escape' && modal?.classList.contains('active')) {
+          closeModal();
+        }
+      });
+
+      const searchIndex = [
+        { title: 'Cumulative Flow Diagram (CFD)', tab: 'cfd', desc: 'Flow stacked area chart & WIP Little’s Law diagnostics' },
+        { title: 'Cycle Time & Lead Time', tab: 'metrics', desc: 'Flow efficiency formulas and delivery speed metrics' },
+        { title: 'Jira Cloud & Data Center Setup', tab: 'tools', desc: 'JQL quick filters, WIP limits, and ScriptRunner automations' },
+        { title: 'The GROW Coaching Model', tab: 'models', desc: 'Sir John Whitmore non-directive coaching questions' },
+        { title: 'Cynefin Sense-Making Framework', tab: 'models', desc: 'Dave Snowden 5 problem domain matrix' },
+        { title: '1-2-4-All Facilitation Script', tab: 'methods', desc: 'Liberating Structures 15-minute groupthink elimination' },
+        { title: 'SAFe vs LeSS vs Spotify Scaling', tab: 'scaling', desc: 'Enterprise scaling compass & diagnostic wizard' },
+        { title: 'INVEST Story & Gherkin AI Prompt', tab: 'ai', desc: 'AI Coach Superpower prompt engineering template' },
+        { title: 'Psychological Safety Audit', tab: 'psych', desc: 'Dr. Amy Edmondson 7 team trust questions' },
+        { title: 'Executive DORA Metrics Dashboard', tab: 'dashboards', desc: 'Deployment frequency, MTTR, CFR blueprints' }
+      ];
+
+      input?.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (!query) {
+          resultsLog.innerHTML = `<div style="font-size: 13px; color: var(--text-muted);">Type to search across Cycle Time, Jira setup, GROW model, DORA metrics...</div>`;
+          return;
+        }
+
+        const matches = searchIndex.filter(item => item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query));
+        if (matches.length === 0) {
+          resultsLog.innerHTML = `<div style="font-size: 13px; color: var(--accent-rose);">No matching items found for "${this.escapeHTML(query)}".</div>`;
+          return;
+        }
+
+        resultsLog.innerHTML = matches.map(m => `
+          <div class="search-result-item" data-tab="${m.tab}" style="background: rgba(255,255,255,0.04); padding: 10px 14px; border-radius: 6px; cursor: pointer; border: 1px solid var(--border-glass);">
+            <strong style="color: var(--accent-cyan); font-size: 14px;">${this.escapeHTML(m.title)}</strong>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">${this.escapeHTML(m.desc)}</div>
+          </div>
+        `).join('');
+
+        resultsLog.querySelectorAll('.search-result-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const targetTab = item.dataset.tab;
+            closeModal();
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav-item[data-tab="${targetTab}"]`)?.classList.add('active');
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(`panel-${targetTab}`)?.classList.add('active');
+            sound.playChime();
+          });
+        });
+      });
+    }
+
+    // -------------------------------------------------------------
+    // FEATURE 5: SCALING DIAGNOSTIC QUIZ
+    // -------------------------------------------------------------
+    setupScalingModule() {
+      const container = document.getElementById('scalingContainer');
+      if (container) {
+        container.innerHTML = `
+          <div class="deep-card-grid">
+            ${SCALING_FRAMEWORKS.map(f => `
+              <div class="deep-card" style="padding: 20px;">
+                <div style="font-size: 32px; margin-bottom: 8px;">${f.icon}</div>
+                <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${f.name}</h4>
+                <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 600; margin-bottom: 4px;">Best For: ${f.bestFor}</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Target Team Size: ${f.teamSize}</div>
+                <strong style="font-size: 11px; color: var(--accent-emerald); display: block; margin-bottom: 4px;">CORE PRACTICES:</strong>
+                <ul style="list-style: none; font-size: 12px; color: #cbd5e1;">
+                  ${f.practices.map(p => `<li>🔹 ${p}</li>`).join('')}
+                </ul>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      document.getElementById('runScalingQuizBtn')?.addEventListener('click', () => {
+        sound.playChime();
+        const size = document.getElementById('quizSize').value;
+        const compliance = document.getElementById('quizCompliance').value;
+        const autonomy = document.getElementById('quizAutonomy').value;
+
+        let rec = 'LeSS (Large-Scale Scrum)';
+        let rationale = 'Ideal for medium engineering organizations seeking minimalist Scrum without management overhead.';
+
+        if (size === 'enterprise' || compliance === 'high' || autonomy === 'governed') {
+          rec = 'SAFe (Scaled Agile Framework)';
+          rationale = 'Recommended for large enterprise environments with high regulatory compliance and multi-level portfolio funding needs.';
+        } else if (size === 'small' && autonomy === 'high') {
+          rec = 'Nexus Framework (Scrum.org) or Spotify Model';
+          rationale = 'Perfect for 3-8 Scrum squads needing lightweight cross-team dependency integration.';
+        }
+
+        const resBox = document.getElementById('scalingQuizResultBox');
+        if (resBox) {
+          resBox.style.display = 'block';
+          resBox.innerHTML = `
+            <div style="background: rgba(16,185,129,0.15); border: 1px solid var(--accent-emerald); padding: 16px; border-radius: 8px; color: #fff;">
+              🎉 <strong>Diagnostic Result: We Recommend ${rec}</strong><br>
+              <span style="font-size: 13px; color: #cbd5e1;">${rationale}</span>
             </div>
           `;
         }
-        bodyEl.innerHTML = `<div style="font-size: 14px; color: #e2e8f0; line-height: 1.7; white-space: pre-wrap;">${this.escapeHTML(content)}</div>${linksHTML}`;
-      }
-      drawer?.classList.add('active');
+      });
     }
 
     setupWelcomeModule() {
       this.renderProductsServices();
+      this.setupFlowRoiCalculator();
 
       const form = document.getElementById('coachingRequestForm');
       form?.addEventListener('submit', (e) => {
@@ -908,6 +1179,37 @@ Formulate:
 
       sendBtn?.addEventListener('click', handleSendChat);
       chatInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSendChat(); });
+    }
+
+    setupArticleReaderDrawer() {
+      const drawer = document.getElementById('articleModalDrawer');
+      document.getElementById('closeArticleDrawerBtn')?.addEventListener('click', () => {
+        sound.playPop();
+        drawer?.classList.remove('active');
+      });
+    }
+
+    openArticle(title, content, links = []) {
+      sound.playPop();
+      const drawer = document.getElementById('articleModalDrawer');
+      const titleEl = document.getElementById('articleDrawerTitle');
+      const bodyEl = document.getElementById('articleDrawerBody');
+      if (titleEl) titleEl.textContent = title;
+      if (bodyEl) {
+        let linksHTML = '';
+        if (links && links.length > 0) {
+          linksHTML = `
+            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-glass);">
+              <h5 style="color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px;">🔗 Official Documentation & Video Resources:</h5>
+              <ul style="list-style: none; padding: 0;">
+                ${links.map(l => `<li style="margin-bottom: 6px;"><a href="${l.url}" target="_blank" style="color: var(--accent-emerald); text-decoration: underline; font-size: 13px;">${l.label}</a></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+        bodyEl.innerHTML = `<div style="font-size: 14px; color: #e2e8f0; line-height: 1.7; white-space: pre-wrap;">${this.escapeHTML(content)}</div>${linksHTML}`;
+      }
+      drawer?.classList.add('active');
     }
 
     renderProductsServices() {
@@ -1255,20 +1557,7 @@ Formulate:
     }
 
     setupRetroModule() {
-      const tplBtns = document.querySelectorAll('.retro-controls .tpl-btn');
-      tplBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          tplBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const tplKey = btn.dataset.tpl;
-          if (RETRO_TEMPLATES[tplKey]) {
-            this.currentRetroTemplate = tplKey;
-            this.retroNotes = JSON.parse(JSON.stringify(RETRO_TEMPLATES[tplKey].defaultNotes));
-            this.saveActiveTeamState();
-            this.renderRetroGrid();
-          }
-        });
-      });
+      this.renderRetroTemplateButtons();
 
       document.getElementById('exportRetroMDBtn')?.addEventListener('click', () => {
         sound.playChime();
@@ -1290,7 +1579,6 @@ Formulate:
       if (!grid) return;
       const tpl = RETRO_TEMPLATES[this.currentRetroTemplate];
       if (!tpl) return;
-
 
       grid.innerHTML = tpl.columns.map(col => {
         const colNotes = this.retroNotes.filter(n => n.columnId === col.id);
@@ -1624,27 +1912,6 @@ Formulate:
           if (item) this.openArticle(item.title, item.content, item.links);
         });
       });
-    }
-
-    setupScalingModule() {
-      const container = document.getElementById('scalingContainer');
-      if (!container) return;
-      container.innerHTML = `
-        <div class="deep-card-grid">
-          ${SCALING_FRAMEWORKS.map(f => `
-            <div class="deep-card" style="padding: 20px;">
-              <div style="font-size: 32px; margin-bottom: 8px;">${f.icon}</div>
-              <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${f.name}</h4>
-              <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 600; margin-bottom: 4px;">Best For: ${f.bestFor}</div>
-              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Target Team Size: ${f.teamSize}</div>
-              <strong style="font-size: 11px; color: var(--accent-emerald); display: block; margin-bottom: 4px;">CORE PRACTICES:</strong>
-              <ul style="list-style: none; font-size: 12px; color: #cbd5e1;">
-                ${f.practices.map(p => `<li>🔹 ${p}</li>`).join('')}
-              </ul>
-            </div>
-          `).join('')}
-        </div>
-      `;
     }
 
     setupAIStudioModule() {

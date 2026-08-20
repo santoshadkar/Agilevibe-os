@@ -114,10 +114,14 @@
 
   <!-- MAIN WRAPPER -->
   <main class="main-wrapper">
-    <!-- TOP BAR WITH MULTI-TEAM WORKSPACE SWITCHER & PDF EXPORTER -->
+    <!-- TOP BAR WITH SEARCH BAR, MULTI-TEAM SWITCHER & EXPORTERS -->
     <header class="top-bar">
-      <div class="page-title">
+      <div class="page-title" style="display: flex; align-items: center; gap: 16px;">
         <h2>Central Coaching Portal</h2>
+        <!-- CTRL+K QUICK SEARCH BAR -->
+        <button id="openGlobalSearchBtn" class="btn btn-secondary" style="font-size: 12px; padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-muted);">
+          🔍 Search OS... <kbd style="background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); margin-left: 6px;">Ctrl + K</kbd>
+        </button>
       </div>
       <div class="top-stats">
         <button class="btn btn-download" id="exportExecutivePDFBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">
@@ -167,8 +171,69 @@
           </div>
         </div>
 
+        <!-- FEATURE 1: INTERACTIVE FLOW WASTE & ROI CALCULATOR -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 32px;">
+          <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-amber); margin-bottom: 8px;">💰 Executive Flow Efficiency & Waste ROI Calculator</h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Calculate how much financial capacity your organization is currently losing to idle waiting queues and context switching context:</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; color: #fff; display: flex; justify-content: space-between;">
+                  <span>Number of Software Engineers:</span>
+                  <strong id="calcDevsVal" style="color: var(--accent-cyan);">50 Devs</strong>
+                </label>
+                <input type="range" id="calcDevs" min="10" max="500" step="10" value="50" style="width: 100%; margin-top: 6px;">
+              </div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; color: #fff; display: flex; justify-content: space-between;">
+                  <span>Average Engineer Fully-Loaded Hourly Rate ($):</span>
+                  <strong id="calcRateVal" style="color: var(--accent-cyan);">$80 / hr</strong>
+                </label>
+                <input type="range" id="calcRate" min="40" max="200" step="5" value="80" style="width: 100%; margin-top: 6px;">
+              </div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; color: #fff; display: flex; justify-content: space-between;">
+                  <span>Current Estimated Flow Efficiency %:</span>
+                  <strong id="calcFlowVal" style="color: var(--accent-rose);">15% (Typical Siloed Org)</strong>
+                </label>
+                <input type="range" id="calcFlow" min="5" max="60" step="5" value="15" style="width: 100%; margin-top: 6px;">
+              </div>
+            </div>
+
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 20px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: center;" id="roiCalculatorResults">
+              <div style="font-size: 12px; color: var(--accent-rose); font-weight: 700; margin-bottom: 4px;">ESTIMATED ANNUAL FLOW WASTE COST:</div>
+              <div style="font-size: 36px; font-weight: 800; color: #ef4444; font-family: var(--font-heading);" id="wasteDollarOutput">$6,800,000 / yr</div>
+              <div style="font-size: 12px; color: #cbd5e1; margin-top: 8px;" id="wasteHoursOutput">🔹 85% of developer time spent waiting on PR reviews, QA queues, & handoffs.</div>
+              <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: var(--accent-emerald);">
+                💡 <strong>Coaching Recovery Potential:</strong> Raising Flow Efficiency to 35% recovers <strong>$1.6M+</strong> in engineering velocity!
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h3 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 16px;">💼 Products & Coaching Services</h3>
-        <div class="deep-card-grid" id="servicesCatalogGrid" style="margin-bottom: 40px;"></div>
+        <div class="deep-card-grid" id="servicesCatalogGrid" style="margin-bottom: 32px;"></div>
+
+        <!-- FEATURE 4: TRANSFORMATION CASE STUDIES -->
+        <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-cyan); margin-bottom: 16px;">🏆 Client Transformation Case Studies</h3>
+        <div class="deep-card-grid" style="margin-bottom: 32px;">
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 11px; color: var(--accent-cyan); font-weight: 700;">FINTECH ENTERPRISE (12 SQUADS)</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 6px 0;">Lead Time Reduction: 28 Days ➔ 4.5 Days</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Implemented automated CI/CD flow policies, pair programming, and strict WIP limits. Resulted in an 84% reduction in feature lead time and 0 critical security escapes in 6 months.</p>
+          </div>
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 11px; color: var(--accent-emerald); font-weight: 700;">HEALTHTECH SCALE-UP</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 6px 0;">Scaled from 3 to 12 Squads using LeSS</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Transitioned from siloed component teams to feature-based customer squads with joint sprint planning. Eliminating management bloat saved $450k in operational overhead.</p>
+          </div>
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 11px; color: var(--accent-amber); font-weight: 700;">SAAS UNICORN PLATFORM</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 6px 0;">Psychological Safety Score: 58% ➔ 94%</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Conducted Amy Edmondson trust audits and blameless post-mortem systems. Reduced developer turnover to 0% and boosted Sprint Goal achievement rate from 52% to 91%.</p>
+          </div>
+        </div>
 
         <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 40px;">
           <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-cyan); margin-bottom: 12px;">👤 About Me | Santoshanand Adkar</h3>
@@ -365,7 +430,7 @@
           <p>Facilitate engaging, action-oriented sprint retrospectives.</p>
         </div>
         <div class="retro-controls">
-          <div class="template-selector">
+          <div class="template-selector" id="retroTemplateButtons">
             <button class="tpl-btn active" data-tpl="4ls">The 4 Ls</button>
             <button class="tpl-btn" data-tpl="sailboat">Sailboat Retro</button>
             <button class="tpl-btn" data-tpl="starfish">Starfish Retro</button>
@@ -481,9 +546,43 @@
       <!-- PANEL 16: SCALING COMPASS -->
       <section id="panel-scaling" class="tab-panel">
         <div class="panel-header">
-          <h3>🌐 Enterprise Scaling Compass</h3>
-          <p>Searchable matrix comparing SAFe, LeSS, Spotify Model, and Nexus.</p>
+          <h3>🌐 Enterprise Scaling Compass & Diagnostic Quiz</h3>
+          <p>Compare scaling frameworks and run the diagnostic wizard to pick the right scaling model for your organization.</p>
         </div>
+
+        <!-- FEATURE 5: SCALING DIAGNOSTIC WIZARD -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 24px; border-radius: var(--radius-lg); margin-bottom: 32px;">
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: var(--accent-cyan); margin-bottom: 8px;">🧭 Interactive Scaling Model Diagnostic Quiz</h4>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Answer 3 questions to get a tailored framework recommendation for your engineering org:</p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label style="font-size: 12px; color: #fff; display: block; margin-bottom: 4px;">Total Engineering People:</label>
+              <select id="quizSize" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 8px; border-radius: 6px;">
+                <option value="small">20 - 80 People (3-8 Teams)</option>
+                <option value="medium">80 - 200 People (8-20 Teams)</option>
+                <option value="enterprise">200+ People (Enterprise Orgs)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; color: #fff; display: block; margin-bottom: 4px;">Regulatory & Compliance Level:</label>
+              <select id="quizCompliance" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 8px; border-radius: 6px;">
+                <option value="low">Low (Standard Web/SaaS)</option>
+                <option value="high">High (Banking, Healthcare, Defense)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; color: #fff; display: block; margin-bottom: 4px;">Team Autonomy Goal:</label>
+              <select id="quizAutonomy" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 8px; border-radius: 6px;">
+                <option value="high">High Squad Autonomy (Spotify / LeSS)</option>
+                <option value="governed">Strict Centralized Governance (SAFe)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="runScalingQuizBtn" style="font-size: 12px;">🧭 Calculate Recommended Scaling Framework</button>
+          <div id="scalingQuizResultBox" style="margin-top: 14px; display: none;"></div>
+        </div>
+
         <div id="scalingContainer"></div>
       </section>
 
@@ -496,21 +595,75 @@
         <div class="deep-card-grid" id="aiPromptsGrid"></div>
       </section>
 
-      <!-- PANEL 18: CUSTOM FRAMEWORK LAB -->
+      <!-- PANEL 18: CUSTOM FRAMEWORK LAB (FEATURE 2: LIVE INTERACTIVE BUILDER) -->
       <section id="panel-custom" class="tab-panel">
         <div class="panel-header">
-          <h3>🛠️ Custom Framework Lab</h3>
-          <p>Create and save custom coaching frameworks and retro templates for your squads.</p>
+          <h3>🛠️ Custom Framework Lab & Retrospective Builder</h3>
+          <p>Design, save, and launch custom sprint retrospective boards tailored to your squads' specific culture.</p>
         </div>
-        <div class="deep-card" style="padding: 24px;">
-          <h4 style="color: #fff; margin-bottom: 12px;">Build Custom Squad Framework</h4>
-          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Design a tailored retrospective template or maturity dimension set for your specific team needs.</p>
-          <button class="btn btn-primary" onclick="alert('Custom Framework Builder initialized!')">✨ Create New Template</button>
+        <div class="cfd-layout">
+          <div class="cfd-chart-card">
+            <h4 style="color: #fff; margin-bottom: 12px;">✨ Create Custom Retrospective Board</h4>
+            <form id="customBoardForm">
+              <div class="form-group">
+                <label>Retrospective Template Title</label>
+                <input type="text" id="customBoardTitle" required placeholder="e.g. Squad Delta Technical Debt & Kudos Retro">
+              </div>
+              <div class="form-group">
+                <label>Column 1 (Name, Icon, Color)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="col1Name" required value="What Standard to Break?" style="flex: 2;">
+                  <input type="text" id="col1Icon" value="⚡" style="flex: 1; text-align: center;">
+                  <input type="color" id="col1Color" value="#ec4899" style="width: 44px; height: 38px; border: none; background: none; cursor: pointer;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Column 2 (Name, Icon, Color)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="col2Name" required value="Unsung Hero Kudos" style="flex: 2;">
+                  <input type="text" id="col2Icon" value="🏆" style="flex: 1; text-align: center;">
+                  <input type="color" id="col2Color" value="#10b981" style="width: 44px; height: 38px; border: none; background: none; cursor: pointer;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Column 3 (Name, Icon, Color)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="col3Name" required value="Blockers to Vanish" style="flex: 2;">
+                  <input type="text" id="col3Icon" value="🛑" style="flex: 1; text-align: center;">
+                  <input type="color" id="col3Color" value="#ef4444" style="width: 44px; height: 38px; border: none; background: none; cursor: pointer;">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-weight: 700;">💾 Save & Launch Custom Retro Board</button>
+            </form>
+          </div>
+
+          <div class="cfd-table-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">📁 Your Saved Custom Frameworks</h4>
+            <div id="savedCustomFrameworksList">
+              <div style="font-size: 13px; color: var(--text-muted);">No custom templates saved yet. Fill out the builder on the left to create your first custom retro board!</div>
+            </div>
+          </div>
         </div>
       </section>
 
     </div>
   </main>
+
+  <!-- FEATURE 3: GLOBAL CTRL+K SEARCH MODAL -->
+  <div class="drawer-overlay" id="globalSearchModal">
+    <div class="drawer-container" style="max-width: 600px; max-height: 80vh;">
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+          <span style="font-size: 20px;">🔍</span>
+          <input type="text" id="globalSearchInput" placeholder="Search across all 18 tabs, metrics, tools, models..." style="width: 100%; background: transparent; border: none; color: #fff; font-size: 16px; outline: none;">
+        </div>
+        <button class="btn btn-secondary" id="closeSearchModalBtn">✕</button>
+      </div>
+      <div class="drawer-body" id="globalSearchResultsLog" style="overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 13px; color: var(--text-muted);">Type to search across Cycle Time, Jira setup, GROW model, DORA metrics, retro templates...</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ARTICLE / MASTERCLASS READER DRAWER -->
   <div class="drawer-overlay" id="articleModalDrawer">
