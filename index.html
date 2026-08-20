@@ -71,34 +71,6 @@
         <span class="icon">📊</span>
         <span>Metrics Encyclopedia</span>
       </li>
-      <li class="nav-item" data-tab="tools">
-        <span class="icon">⚙️</span>
-        <span>Agile Tools Setup</span>
-      </li>
-      <li class="nav-item" data-tab="dashboards">
-        <span class="icon">📈</span>
-        <span>Executive Dashboards</span>
-      </li>
-      <li class="nav-item" data-tab="models">
-        <span class="icon">🧠</span>
-        <span>Coaching Models Vault</span>
-      </li>
-      <li class="nav-item" data-tab="methods">
-        <span class="icon">🎪</span>
-        <span>Facilitation Playbooks</span>
-      </li>
-      <li class="nav-item" data-tab="scaling">
-        <span class="icon">🌐</span>
-        <span>Scaling Compass</span>
-      </li>
-      <li class="nav-item" data-tab="ai">
-        <span class="icon">🤖</span>
-        <span>AI Coach Superpowers</span>
-      </li>
-      <li class="nav-item" data-tab="custom">
-        <span class="icon">🛠️</span>
-        <span>Custom Framework Lab</span>
-      </li>
     </ul>
 
     <div class="sidebar-footer">
@@ -139,7 +111,7 @@
     <!-- CONTENT BODY -->
     <div class="content-body">
 
-      <!-- MODULE 0: WELCOME & COACHING SERVICES LANDING PAGE (DEFAULT ACTIVE) -->
+      <!-- PANEL 1: WELCOME & COACHING SERVICES LANDING PAGE (DEFAULT ACTIVE) -->
       <section id="panel-welcome" class="tab-panel active">
         <!-- HERO BANNER -->
         <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(56, 189, 248, 0.15)); border: 1px solid var(--border-glow); padding: 32px; border-radius: var(--radius-lg); margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
@@ -270,7 +242,7 @@
         </div>
       </section>
 
-      <!-- MODULE 1: AGILE COACH ROLE & DAY IN THE LIFE -->
+      <!-- PANEL 2: AGILE COACH ROLE & DAY IN THE LIFE -->
       <section id="panel-coach-role" class="tab-panel">
         <div class="panel-header">
           <h3>📖 Who is an Agile Coach & Day in the Life</h3>
@@ -289,6 +261,170 @@
 
         <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 16px;">⏰ A Day in the Life of an Agile Coach (Hourly Timeline):</h4>
         <div id="dayInLifeTimeline"></div>
+      </section>
+
+      <!-- PANEL 3: SCRUM EVENTS & DO'S AND DON'TS -->
+      <section id="panel-scrum-events" class="tab-panel">
+        <div class="panel-header">
+          <h3>🗓️ Scrum Events Master Playbook & Do's & Don'ts</h3>
+          <p>Master guides for Sprint Planning, Daily Standup, Sprint Review/Demo, Sprint Retrospective, and Backlog Refinement.</p>
+        </div>
+        <div id="scrumEventsGrid"></div>
+      </section>
+
+      <!-- PANEL 4: KANBAN & SCRUMBAN MASTER HUB -->
+      <section id="panel-kanban-scrumban" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎛️ Kanban & Scrumban Master Hub</h3>
+          <p>Deep-dive definitions, the 6 Core Principles of Kanban, Scrumban hybrid models, and decision matrix.</p>
+        </div>
+        <div class="deep-card-grid" id="kanbanCardsGrid" style="margin-bottom: 32px;"></div>
+      </section>
+
+      <!-- PANEL 5: CUMULATIVE FLOW DIAGRAM (CFD) GENERATOR -->
+      <section id="panel-cfd" class="tab-panel">
+        <div class="panel-header">
+          <h3>📈 Cumulative Flow Diagram (CFD) Generator & Flow Diagnostic</h3>
+          <p>Visualize stacked area work items over time, measure Lead Time & WIP, and run automated bottleneck diagnostics across standard workflow states.</p>
+        </div>
+
+        <div class="cfd-layout">
+          <div class="cfd-chart-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+              <h4 style="font-family: var(--font-heading); font-size: 18px;">Flow Stacked Area Chart</h4>
+              <div class="cfd-preset-selector">
+                <button class="tpl-btn cfd-preset-btn active" data-preset="healthy">🟢 Healthy Parallel</button>
+                <button class="tpl-btn cfd-preset-btn" data-preset="bottleneck">🔴 QA Bottleneck</button>
+                <button class="tpl-btn cfd-preset-btn" data-preset="scopeCreep">🟠 Scope Creep</button>
+              </div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;" id="cfdPresetDesc"></p>
+            <div class="cfd-canvas-wrapper"><canvas id="cfdCanvas"></canvas></div>
+            <div id="cfdDiagnosticsBox" style="margin-top: 20px;"></div>
+          </div>
+
+          <div class="cfd-table-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">Daily Work Item Counts</h4>
+            <div class="table-responsive">
+              <table class="matrix-table" style="font-size: 12px;">
+                <thead>
+                  <tr><th>Day</th><th>Backlog</th><th>Dev</th><th>Review</th><th>QA</th><th>Done</th></tr>
+                </thead>
+                <tbody id="cfdTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 6: GAMIFIED AGILE ARENA -->
+      <section id="panel-gamification" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎮 Gamified Agile Arena & Ceremony Boosters</h3>
+          <p>Boost team engagement during ceremonies with the Standup Speaker Wheel, Retro Icebreakers, and Squad Achievement Badges.</p>
+        </div>
+
+        <div class="cfd-layout">
+          <!-- WHEEL OF FORTUNE CARD -->
+          <div class="cfd-chart-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">🎰 Daily Standup Speaker Wheel of Fortune</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Spin the wheel to pick the next team member for their standup update!</p>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+              <canvas id="wheelCanvas"></canvas>
+              <button class="btn btn-primary" id="spinWheelBtn" style="padding: 10px 28px; font-weight: 700;">🎰 Spin Wheel!</button>
+              <div id="wheelResultText" style="font-size: 15px; color: var(--accent-cyan); min-height: 24px; text-align: center;">Click Spin Wheel to start turn selection!</div>
+            </div>
+          </div>
+
+          <!-- SQUAD ACHIEVEMENT BADGES & ICEBREAKERS -->
+          <div class="cfd-table-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">🏆 Squad Achievement Badges</h4>
+            <div id="squadBadgesGrid" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;"></div>
+
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">🧊 Retro Icebreaker Cards</h4>
+            <div id="icebreakerDeckGrid" style="display: flex; flex-direction: column; gap: 12px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 7: RETROSPECTIVE BOARD -->
+      <section id="panel-retro" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎯 Retrospective & Event Canvases</h3>
+          <p>Facilitate engaging, action-oriented sprint retrospectives.</p>
+        </div>
+        <div class="retro-controls">
+          <div class="template-selector">
+            <button class="tpl-btn active" data-tpl="4ls">The 4 Ls</button>
+            <button class="tpl-btn" data-tpl="sailboat">Sailboat Retro</button>
+            <button class="tpl-btn" data-tpl="starfish">Starfish Retro</button>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-download" id="exportRetroMDBtn">📥 Download Markdown (.md)</button>
+            <button class="btn btn-secondary" id="exportRetroJSONBtn">💾 Download JSON</button>
+          </div>
+        </div>
+        <div class="retro-grid" id="retroGrid"></div>
+      </section>
+
+      <!-- PANEL 8: ESTIMATION PLAYGROUND -->
+      <section id="panel-poker" class="tab-panel">
+        <div class="panel-header">
+          <h3>🃏 Interactive Planning Poker Playground</h3>
+          <p>Pick your Fibonacci card, invite team votes, and calculate team consensus instantly.</p>
+        </div>
+        <div class="poker-layout">
+          <div class="card-deck-section">
+            <h4>Select Your Card:</h4>
+            <div class="cards-grid" id="pokerCardsGrid"></div>
+          </div>
+          <div class="poker-table-card">
+            <div class="table-header">
+              <span>Team Voting Table</span>
+              <button class="btn btn-primary" id="revealCardsBtn">👁️ Reveal Cards</button>
+            </div>
+            <div class="voters-list" id="votersList"></div>
+            <div class="poker-stats" id="pokerStats"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 9: AGILE MATURITY RADAR -->
+      <section id="panel-maturity" class="tab-panel">
+        <div class="panel-header">
+          <h3>🕸️ Multi-Dimensional Agile Maturity Radar</h3>
+          <p>Evaluate your team across 5 core dimensions of agility.</p>
+        </div>
+        <div class="radar-layout">
+          <div class="radar-controls" id="maturityControls"></div>
+          <div class="radar-canvas-container">
+            <canvas id="maturityRadar"></canvas>
+            <div id="maturityScoreBadge" style="margin-top: 20px; text-align: center;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 10: PSYCHOLOGICAL SAFETY DIAGNOSTIC -->
+      <section id="panel-psych" class="tab-panel">
+        <div class="panel-header">
+          <h3>🛡️ Psychological Safety Diagnostic</h3>
+          <p>Based on Dr. Amy Edmondson's research.</p>
+        </div>
+        <div class="psych-questions-list" id="psychQuestionsList"></div>
+        <div style="text-align: center; margin-top: 20px;">
+          <button class="btn btn-primary" id="calcPsychBtn">📊 Compute Psychological Safety Score</button>
+        </div>
+        <div id="psychResultBox"></div>
+      </section>
+
+      <!-- PANEL 11: METRICS ENCYCLOPEDIA -->
+      <section id="panel-metrics" class="tab-panel">
+        <div class="panel-header">
+          <h3>📊 Comprehensive Agile & Flow Metrics Encyclopedia</h3>
+          <p>Deep-dive guides into key delivery, engineering, and quality metrics.</p>
+        </div>
+        <div class="deep-card-grid" id="metricsGrid"></div>
       </section>
 
     </div>
