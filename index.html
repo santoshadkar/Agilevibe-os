@@ -171,7 +171,7 @@
           </div>
         </div>
 
-        <!-- FEATURE 1: INTERACTIVE FLOW WASTE & ROI CALCULATOR -->
+        <!-- EXECUTIVE FLOW WASTE ROI CALCULATOR -->
         <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 32px;">
           <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-amber); margin-bottom: 8px;">💰 Executive Flow Efficiency & Waste ROI Calculator</h3>
           <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Calculate how much financial capacity your organization is currently losing to idle waiting queues and context switching context:</p>
@@ -215,7 +215,7 @@
         <h3 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 16px;">💼 Products & Coaching Services</h3>
         <div class="deep-card-grid" id="servicesCatalogGrid" style="margin-bottom: 32px;"></div>
 
-        <!-- FEATURE 4: TRANSFORMATION CASE STUDIES -->
+        <!-- TRANSFORMATION CASE STUDIES -->
         <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-cyan); margin-bottom: 16px;">🏆 Client Transformation Case Studies</h3>
         <div class="deep-card-grid" style="margin-bottom: 32px;">
           <div class="deep-card" style="padding: 20px;">
@@ -550,7 +550,6 @@
           <p>Compare scaling frameworks and run the diagnostic wizard to pick the right scaling model for your organization.</p>
         </div>
 
-        <!-- FEATURE 5: SCALING DIAGNOSTIC WIZARD -->
         <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 24px; border-radius: var(--radius-lg); margin-bottom: 32px;">
           <h4 style="font-family: var(--font-heading); font-size: 18px; color: var(--accent-cyan); margin-bottom: 8px;">🧭 Interactive Scaling Model Diagnostic Quiz</h4>
           <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Answer 3 questions to get a tailored framework recommendation for your engineering org:</p>
@@ -586,16 +585,55 @@
         <div id="scalingContainer"></div>
       </section>
 
-      <!-- PANEL 17: AI COACH SUPERPOWERS -->
+      <!-- PANEL 17: AI COACH SUPERPOWERS STUDIO (MASTERCLASS FLAGSHIP ATTRACTION) -->
       <section id="panel-ai" class="tab-panel">
         <div class="panel-header">
-          <h3>🤖 AI Coach Superpowers Studio</h3>
-          <p>Pre-engineered prompts for story splitting, retro action extraction, and coaching scripts.</p>
+          <h3>🤖 AI Coach Superpowers Studio & Prompt Engineering Sandbox</h3>
+          <p>The flagship AI accelerator for Agile Coaches, Product Owners, and Scrum Masters. Run live prompt simulations or copy 8 pre-engineered production prompts.</p>
         </div>
+
+        <!-- LIVE INTERACTIVE AI PROMPT SANDBOX -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 32px;">
+          <h4 style="font-family: var(--font-heading); font-size: 20px; color: var(--accent-cyan); margin-bottom: 8px;">⚡ Live AI Prompt Simulator Sandbox</h4>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Test your prompt engineering inputs directly inside the portal to generate structured User Stories, Retro Actions, or Executive Emails:</p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+              <div class="form-group">
+                <label>Select AI Prompt Template</label>
+                <select id="sandboxPromptSelect" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px;">
+                  <option value="invest">INVEST User Story & Gherkin Generator</option>
+                  <option value="retro">Retrospective Sticky Theme Synthesizer</option>
+                  <option value="sprintGoal">Outcome-Oriented Sprint Goal Formulator</option>
+                  <option value="execEmail">C-Level Executive Weekly Email Generator</option>
+                  <option value="nvc">Non-Violent Communication Conflict Script</option>
+                  <option value="techdebt">Tech Debt Payback ROI Calculator Prompt</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Your Raw Input Text (Requirements, Retro stickies, or notes)</label>
+                <textarea id="sandboxInputText" rows="5" style="width: 100%; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid var(--border-glass); padding: 12px; border-radius: 6px; font-family: monospace; font-size: 12px;" placeholder="e.g. Users complain that checkout payment page freezes when clicking submit..."></textarea>
+              </div>
+              <button class="btn btn-primary" id="runAiSandboxBtn" style="width: 100%; justify-content: center; padding: 12px; font-weight: 700;">⚡ Generate AI Prompt Output</button>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-glass); padding: 20px; border-radius: 8px; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <strong style="color: var(--accent-emerald); font-size: 13px;">🤖 SIMULATED AI OUTPUT RESULT:</strong>
+                <button class="btn btn-secondary" id="copyAiSandboxOutputBtn" style="font-size: 11px; padding: 4px 10px;">📋 Copy Output</button>
+              </div>
+              <div id="aiSandboxOutputLog" style="flex: 1; font-family: monospace; font-size: 12px; color: #e2e8f0; line-height: 1.6; white-space: pre-wrap; overflow-y: auto; max-height: 260px;">
+<em>Select a template, enter raw notes on the left, and click "Generate AI Prompt Output" to preview the AI transformation result!</em>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 16px;">📚 8 Pre-Engineered Masterclass Production AI Prompt Templates:</h4>
         <div class="deep-card-grid" id="aiPromptsGrid"></div>
       </section>
 
-      <!-- PANEL 18: CUSTOM FRAMEWORK LAB (FEATURE 2: LIVE INTERACTIVE BUILDER) -->
+      <!-- PANEL 18: CUSTOM FRAMEWORK LAB -->
       <section id="panel-custom" class="tab-panel">
         <div class="panel-header">
           <h3>🛠️ Custom Framework Lab & Retrospective Builder</h3>
@@ -649,7 +687,7 @@
     </div>
   </main>
 
-  <!-- FEATURE 3: GLOBAL CTRL+K SEARCH MODAL -->
+  <!-- GLOBAL CTRL+K SEARCH MODAL -->
   <div class="drawer-overlay" id="globalSearchModal">
     <div class="drawer-container" style="max-width: 600px; max-height: 80vh;">
       <div class="drawer-header">
@@ -660,7 +698,7 @@
         <button class="btn btn-secondary" id="closeSearchModalBtn">✕</button>
       </div>
       <div class="drawer-body" id="globalSearchResultsLog" style="overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-        <div style="font-size: 13px; color: var(--text-muted);">Type to search across Cycle Time, Jira setup, GROW model, DORA metrics, retro templates...</div>
+        <div style="font-size: 13px; color: var(--text-muted);">Type to search across Cycle Time, Jira setup, GROW model, DORA metrics...</div>
       </div>
     </div>
   </div>

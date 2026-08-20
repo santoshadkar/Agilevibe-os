@@ -894,7 +894,7 @@ Organizational transformation fails when individual team members resist change. 
   const AI_COACH_PROMPTS = [
     {
       id: 'invest-story',
-      title: 'INVEST Story & Gherkin Refiner',
+      title: 'INVEST Story & Gherkin Generator',
       icon: '📝',
       desc: 'Converts raw requirement notes into standard INVEST user stories with Gherkin acceptance criteria.',
       promptText: `You are an expert Agile Coach and Senior Product Owner. Transform the following raw requirement notes into a production-grade User Story following the INVEST framework:
@@ -934,8 +934,82 @@ Formulate:
 1. Primary Sprint Goal (1 crisp sentence focused on customer value).
 2. "Why This Matters" statement for stakeholders.
 3. Key Risk Factors to monitor during the sprint.`
+    },
+    {
+      id: 'nvc-conflict',
+      title: 'NVC Team Conflict Resolver Script',
+      icon: '🕊️',
+      desc: 'Translates heated team arguments into Non-Violent Communication (NVC) constructive scripts.',
+      promptText: `You are an Agile Coach trained in Non-Violent Communication (NVC). Translate the following team conflict statement into constructive NVC dialogue:
+
+Conflict Statement: [PASTE CONFLICT OR FRUSTRATION HERE]
+
+Output:
+1. Observation (Neutral facts without evaluation).
+2. Feeling (Emotional state identified).
+3. Need (Underlying value or technical requirement).
+4. Request (Actionable, positive, concrete proposal).`
+    },
+    {
+      id: 'tech-debt-calculator',
+      title: 'Tech Debt Payback ROI Calculator Prompt',
+      icon: '🛠️',
+      desc: 'Generates a business case justification for CTO/VP approval of refactoring sprints.',
+      promptText: `You are an Engineering Director and Agile Coach. Create a financial and velocity justification business case for paying down technical debt:
+
+Tech Debt Item: [INSERT CODEBASE / ARCHITECTURE DEBT ISSUE HERE]
+
+Please provide:
+1. Current Velocity Drag (% reduction in team cycle time caused by debt).
+2. Defect Escape Risk Assessment.
+3. Payback Period & Estimated Developer Hours Saved per Quarter.
+4. Executive Pitch Summary for CTO approval.`
+    },
+    {
+      id: 'exec-email-generator',
+      title: 'C-Level Weekly Sprint Briefing Generator',
+      icon: '👑',
+      desc: 'Transforms technical velocity and burndown stats into a concise 1-page C-suite update.',
+      promptText: `You are a VP of Engineering / Lead Agile Coach. Draft a weekly executive briefing email for the C-suite based on this week's squad metrics:
+
+Sprint Metrics: [INSERT VELOCITY, BURNDOWN, AND IMPEDIMENT STATS HERE]
+
+Please structure:
+1. Executive Summary (2 sentences max).
+2. Value Stream Highlights Delivered.
+3. Key Risks & Blocker Escalations (with recommended mitigation).
+4. Next Week Key Milestones.`
+    },
+    {
+      id: '5-whys-root-cause',
+      title: '5 Whys Bug Root Cause Analyzer',
+      icon: '🐞',
+      desc: 'Conducts a blameless post-mortem analysis of production defects to prevent recurrence.',
+      promptText: `You are an Agile Coach facilitating a Blameless Post-Mortem. Conduct a 5 Whys root cause analysis on this production bug:
+
+Bug Report: [INSERT PRODUCTION INCIDENT DETAILS HERE]
+
+Output:
+1. Incident Summary & Customer Impact.
+2. 5 Whys Analysis Drilldown (Why 1 ➔ Why 5).
+3. Systemic Engineering Preventive Action (Automated test gap, CI/CD policy, monitoring alert).`
+    },
+    {
+      id: 'pi-planning-splitter',
+      title: 'PI Planning Feature Splitting & Dependency Analyzer',
+      icon: '🚀',
+      desc: 'Splits enterprise epics into independent 2-week user stories and identifies cross-team dependencies.',
+      promptText: `You are a Release Train Engineer (RTE) facilitating PI Planning. Split the following enterprise feature into 2-week sprint stories:
+
+Feature Objective: [INSERT FEATURE EPIC DESCRIPTION HERE]
+
+Output:
+1. 4 to 6 Independent User Stories with INVEST criteria.
+2. Identified Cross-Team Dependencies (e.g. Squad Alpha API dependency on Squad Beta).
+3. Recommended Slicing Strategy (Vertical Slicing by User Value).`
     }
   ];
+
 
   // -------------------------------------------------------------
   // 3. MAIN APP CONTROLLER
@@ -2154,27 +2228,102 @@ Formulate:
 
     setupAIStudioModule() {
       const grid = document.getElementById('aiPromptsGrid');
-      if (!grid) return;
-      grid.innerHTML = AI_COACH_PROMPTS.map(p => `
-        <div class="deep-card" style="padding: 20px;">
-          <div style="font-size: 32px; margin-bottom: 8px;">${p.icon}</div>
-          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${p.title}</h4>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${p.desc}</p>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary run-prompt-btn" data-id="${p.id}" style="flex: 1; justify-content: center; font-size: 12px;">⚡ Open AI Prompt Template</button>
+      if (grid) {
+        grid.innerHTML = AI_COACH_PROMPTS.map(p => `
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 32px; margin-bottom: 8px;">${p.icon}</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${p.title}</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${p.desc}</p>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-primary run-prompt-btn" data-id="${p.id}" style="flex: 1; justify-content: center; font-size: 12px;">⚡ Open Prompt</button>
+              <button class="btn btn-secondary copy-prompt-btn" data-id="${p.id}" style="font-size: 12px; padding: 6px 12px;">📋 Copy</button>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
 
-      grid.querySelectorAll('.run-prompt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const item = AI_COACH_PROMPTS.find(p => p.id === btn.dataset.id);
-          if (item) {
-            this.openArticle(item.title, `### 🤖 AI Prompt Template:\n\n${item.promptText}`);
-          }
+        grid.querySelectorAll('.run-prompt-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = AI_COACH_PROMPTS.find(p => p.id === btn.dataset.id);
+            if (item) {
+              this.openArticle(item.title, `### 🤖 Production AI Prompt Template:\n\n${item.promptText}`);
+            }
+          });
         });
+
+        grid.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = AI_COACH_PROMPTS.find(p => p.id === btn.dataset.id);
+            if (item && navigator.clipboard) {
+              navigator.clipboard.writeText(item.promptText);
+              sound.playChime();
+              alert(`🎉 AI Prompt "${item.title}" copied to clipboard!`);
+            }
+          });
+        });
+      }
+
+      // AI Sandbox Live Simulator
+      const runSandboxBtn = document.getElementById('runAiSandboxBtn');
+      const sandboxOutputLog = document.getElementById('aiSandboxOutputLog');
+      const copySandboxBtn = document.getElementById('copyAiSandboxOutputBtn');
+
+      runSandboxBtn?.addEventListener('click', () => {
+        sound.playChime();
+        const tplKey = document.getElementById('sandboxPromptSelect').value;
+        const inputText = document.getElementById('sandboxInputText').value.trim() || 'Payment checkout page freezes when clicking submit button...';
+
+        let simulatedResult = '';
+        if (tplKey === 'invest') {
+          simulatedResult = `### 📝 INVEST User Story Result:
+**Title**: As a Paying Customer, I want the checkout submit button to process payments asynchronously without UI freezing, So that I can complete my purchase reliably.
+
+**INVEST Criteria Check**:
+✅ **Independent**: Decoupled from cart inventory service.
+✅ **Negotiable**: UI spinner fallback can be refined with UX team.
+✅ **Valuable**: Directly reduces checkout drop-off rate by 24%.
+✅ **Estimable**: ~3 Story Points.
+✅ **Small**: Deliverable in 2 developer days.
+✅ **Testable**: Gherkin scenario included below.
+
+**Acceptance Criteria (Gherkin)**:
+Given a user is on the checkout payment page with valid credit card details,
+When the user clicks the "Submit Payment" button,
+Then a loading spinner appears immediately,
+And an asynchronous API request is sent to payment gateway within 500ms,
+And the submit button is disabled to prevent duplicate charges.`;
+        } else if (tplKey === 'retro') {
+          simulatedResult = `### 🔮 Retrospective Feedback Synthesis:
+
+**Top 3 Systemic Themes**:
+1. 🛑 **Deployment Bottlenecks**: Manual regression testing takes 3 days per release train.
+2. 💬 **Context Switching**: Developers assigned to 3 competing projects simultaneously.
+3. ⚡ **PR Review Delays**: Pull requests sitting in queue for > 48 hours.
+
+**Team Sentiment**: 65% Positive collaboration, 35% Friction around release automation.
+
+**Top 3 SMART Action Commitments**:
+1. 🔹 *Action 1*: Implement automated Cypress integration tests for checkout pipeline by Friday (Owner: Alex).
+2. 🔹 *Action 2*: Set WIP limit of Max 2 active PRs per reviewer (Owner: Dev Team).`;
+        } else {
+          simulatedResult = `### 🎯 Outcome-Oriented Sprint Goal Result:
+**Primary Goal**: "Enable seamless single-click payment processing for mobile users to reduce checkout drop-off."
+
+**Why This Matters**: Direct impact on Q3 conversion rate metric.
+**Key Risk Factors**: Payment gateway timeout latency under high concurrency.`;
+        }
+
+        if (sandboxOutputLog) sandboxOutputLog.innerHTML = simulatedResult;
+      });
+
+      copySandboxBtn?.addEventListener('click', () => {
+        if (sandboxOutputLog && navigator.clipboard) {
+          navigator.clipboard.writeText(sandboxOutputLog.innerText);
+          sound.playChime();
+          alert('📋 Simulated AI Output copied to clipboard!');
+        }
       });
     }
+
 
     setupTeamSelector() {
       const selector = document.getElementById('teamSelector');
