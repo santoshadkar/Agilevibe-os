@@ -2508,6 +2508,31 @@ And the submit button is disabled to prevent duplicate charges.`;
 
     setupNavigation() {
       const navItems = document.querySelectorAll('.nav-item');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+      const closeMobileSidebar = () => {
+        sidebar?.classList.remove('mobile-open');
+        sidebarOverlay?.classList.remove('active');
+      };
+
+      const openMobileSidebar = () => {
+        sidebar?.classList.add('mobile-open');
+        sidebarOverlay?.classList.add('active');
+        sound.playPop();
+      };
+
+      mobileMenuBtn?.addEventListener('click', () => {
+        if (sidebar?.classList.contains('mobile-open')) {
+          closeMobileSidebar();
+        } else {
+          openMobileSidebar();
+        }
+      });
+
+      sidebarOverlay?.addEventListener('click', closeMobileSidebar);
+
       navItems.forEach(item => {
         item.addEventListener('click', () => {
           const tabId = item.dataset.tab;
@@ -2524,10 +2549,15 @@ And the submit button is disabled to prevent duplicate charges.`;
             if (tabId === 'cfd') this.renderCFDAll();
             if (tabId === 'gamification') this.renderWheelCanvas();
             if (tabId === 'maturity') this.renderMaturityRadar();
+            if (tabId === 'knowledge') this.setupKnowledgeModule();
           }
+
+          // Auto-close sidebar menu on mobile tap
+          closeMobileSidebar();
         });
       });
     }
+
 
     escapeHTML(str) {
       return (str || '').replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));

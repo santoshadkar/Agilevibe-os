@@ -121,17 +121,25 @@
     </div>
   </aside>
 
+  <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <!-- MAIN WRAPPER -->
   <main class="main-wrapper">
     <!-- TOP BAR WITH SEARCH BAR, MULTI-TEAM SWITCHER & EXPORTERS -->
     <header class="top-bar">
-      <div class="page-title" style="display: flex; align-items: center; gap: 16px;">
+      <div class="page-title" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <!-- MOBILE MENU HAMBURGER BUTTON -->
+        <button id="mobileMenuBtn" class="btn btn-primary mobile-toggle-btn" style="padding: 6px 12px; font-size: 13px;">
+          <span>☰ Nav Menu</span>
+        </button>
         <h2>Central Coaching Portal</h2>
         <!-- CTRL+K QUICK SEARCH BAR -->
         <button id="openGlobalSearchBtn" class="btn btn-secondary" style="font-size: 12px; padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-muted);">
           🔍 Search OS... <kbd style="background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); margin-left: 6px;">Ctrl + K</kbd>
         </button>
       </div>
+
       <div class="top-stats">
         <button class="btn btn-download" id="exportExecutivePDFBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">
           📄 Export Executive PDF
