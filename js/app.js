@@ -1,4 +1,4 @@
-// AgileVibe OS - Master Application Bundle (Santoshanand Adkar Coaching Portal Edition)
+// AgileVibe OS - Master Application Bundle (Santoshanand Adkar Masterclass Edition)
 
 (function() {
   'use strict';
@@ -82,7 +82,7 @@
   const sound = new SoundFX();
 
   // -------------------------------------------------------------
-  // 2. MASTER DATA REPOSITORY
+  // 2. MASTER DEEP DATA REPOSITORY
   // -------------------------------------------------------------
   const DEFAULT_TEAMS = [
     { id: 'squad-alpha', name: 'Squad Alpha (Mobile & Web)', icon: '🚀' },
@@ -167,51 +167,11 @@
   };
 
   const MATURITY_DIMENSIONS = [
-    {
-      id: 'culture', name: 'Agile Mindset & Culture', icon: '🌱', color: '#10b981',
-      description: 'Psychological safety, growth mindset, alignment on values, and team autonomy.',
-      questions: [
-        'Team members freely admit mistakes without fear of blame.',
-        'Cross-functional collaboration is prioritized over siloed handoffs.',
-        'Failure is viewed as a learning opportunity across the organization.'
-      ]
-    },
-    {
-      id: 'technical', name: 'Technical Excellence', icon: '⚡', color: '#3b82f6',
-      description: 'CI/CD, automated testing, refactoring, mob programming, and code quality standards.',
-      questions: [
-        'Automated unit & integration tests run automatically on every push.',
-        'Deployment to staging/production can be done seamlessly with high confidence.',
-        'Refactoring and tech debt payback are built into every sprint backlog.'
-      ]
-    },
-    {
-      id: 'product', name: 'Product & Customer Alignment', icon: '🎯', color: '#8b5cf6',
-      description: 'Outcome-focused roadmaps, direct user feedback loops, rapid prototyping, and clear backlog refinement.',
-      questions: [
-        'User stories are defined by outcome/value rather than technical tasks.',
-        'The team gets direct feedback from actual end-users at least monthly.',
-        'Product Backlog items are refined with clear Acceptance Criteria prior to sprint planning.'
-      ]
-    },
-    {
-      id: 'delivery', name: 'Delivery Speed & Flow', icon: '🚀', color: '#06b6d4',
-      description: 'Consistent velocity/throughput, small batch sizes, WIP limit discipline, and low lead times.',
-      questions: [
-        'Stories are broken down to be completed within 1 to 3 days.',
-        'Work-In-Progress (WIP) limits are respected to prevent multitasking bottlenecks.',
-        'Cycle time from code commit to production is under 48 hours.'
-      ]
-    },
-    {
-      id: 'improvement', name: 'Continuous Learning & Adaptation', icon: '🔄', color: '#f59e0b',
-      description: 'Actionable retrospectives, team experiments, coaching engagement, and metrics tracking.',
-      questions: [
-        'Retrospective action items are tracked and completed in subsequent sprints.',
-        'The team regularly conducts small-scale process experiments.',
-        'Team metrics (flow, cycle time, happiness) are reviewed for self-correction.'
-      ]
-    }
+    { id: 'culture', name: 'Agile Mindset & Culture', icon: '🌱', color: '#10b981' },
+    { id: 'technical', name: 'Technical Excellence', icon: '⚡', color: '#3b82f6' },
+    { id: 'product', name: 'Product & Customer Alignment', icon: '🎯', color: '#8b5cf6' },
+    { id: 'delivery', name: 'Delivery Speed & Flow', icon: '🚀', color: '#06b6d4' },
+    { id: 'improvement', name: 'Continuous Learning & Adaptation', icon: '🔄', color: '#f59e0b' }
   ];
 
   const PSYCH_SAFETY_QUESTIONS = [
@@ -263,141 +223,10 @@
   ];
 
   const METRICS_ENCYCLOPEDIA = [
-    {
-      id: 'cycle-time', name: 'Cycle Time', category: 'Flow & Delivery', icon: '⏱️',
-      formula: 'Cycle Time = Time Work Completed - Time Work Started', target: '< 3 days per story',
-      summary: 'Elapsed time from when dev starts until deployment to production.',
-      desc: 'Cycle Time is the single most critical metric for Agile flow efficiency. Shorter cycle times correlate directly with higher quality and lower risk.'
-    },
-    {
-      id: 'lead-time', name: 'Lead Time', category: 'Flow & Customer Value', icon: '⏳',
-      formula: 'Lead Time = Customer Delivery Date - Feature Request Date', target: '< 14 days',
-      summary: 'Total customer waiting time from backlog entry to live feature.',
-      desc: 'Lead time measures customer responsiveness. Reducing queue time in backlog refinement yields the fastest reduction in lead time.'
-    },
-    {
-      id: 'flow-efficiency', name: 'Flow Efficiency %', category: 'Flow Waste Elimination', icon: '⚡',
-      formula: 'Flow Efficiency % = (Active Work Time / Total Lead Time) × 100', target: '> 35%',
-      summary: 'Ratio of active touch time versus waiting time in queues.',
-      desc: 'Most traditional software teams have flow efficiency under 15%. High performing agile teams achieve 35%+.'
-    },
-    {
-      id: 'defect-escape-rate', name: 'Defect Escape Rate %', category: 'Engineering Quality', icon: '🐞',
-      formula: 'Defect Escape Rate = (Bugs Found in Prod / Total Bugs Found) × 100', target: '< 5%',
-      summary: 'Percentage of bugs discovered by end-users in production versus QA.',
-      desc: 'High defect escape rates indicate gaps in automated regression suites or acceptance criteria testing.'
-    },
-    {
-      id: 'throughput', name: 'Throughput / Velocity', category: 'Delivery Predictability', icon: '📈',
-      formula: 'Throughput = Completed Work Items / Sprint Duration', target: 'Stable trend over 3+ sprints',
-      summary: 'Total volume of user stories or story points completed per iteration.',
-      desc: 'Throughput provides empirical evidence for sprint capacity planning without relying on subjective estimation guessing.'
-    },
-    {
-      id: 'wip-index', name: 'Work-In-Progress (WIP) Index', category: 'Flow Control', icon: '🚧',
-      formula: 'WIP Index = Active Work Items / Total Developers', target: '< 1.5 items per dev',
-      summary: 'Number of active items in progress per engineer simultaneously.',
-      desc: 'High WIP creates context switching waste. Enforcing strict WIP limits accelerates cycle time dramatically.'
-    },
-    {
-      id: 'code-coverage', name: 'Automated Code Coverage %', category: 'Engineering Excellence', icon: '🛡️',
-      formula: 'Code Coverage = (Executed Code Lines / Total Code Lines) × 100', target: '> 80%',
-      summary: 'Percentage of codebase tested by automated unit and integration tests.',
-      desc: 'High code coverage allows developers to refactor safely and deploy with continuous delivery confidence.'
-    },
-    {
-      id: 'deployment-frequency', name: 'Deployment Frequency (DORA)', category: 'DevSecOps', icon: '🚀',
-      formula: 'Deploy Frequency = Number of Production Deploys / Week', target: 'Multiple deploys per day',
-      summary: 'How often your organization successfully releases code to production.',
-      desc: 'A core DORA metric indicating high engineering maturity and automated CI/CD pipeline efficiency.'
-    },
-    {
-      id: 'mttr', name: 'Mean Time to Recover (MTTR - DORA)', category: 'DevSecOps', icon: '🚨',
-      formula: 'MTTR = Total Outage Duration / Total Incidents', target: '< 1 hour',
-      summary: 'Average time taken to restore service after a production incident or outage.',
-      desc: 'Measures incident management response, telemetry alerting, and automated rollback capability.'
-    },
-    {
-      id: 'change-failure-rate', name: 'Change Failure Rate (CFR - DORA)', category: 'DevSecOps', icon: '💥',
-      formula: 'CFR = (Failed Production Deploys / Total Production Deploys) × 100', target: '< 5%',
-      summary: 'Percentage of deployments that lead to production failures or hotfixes.',
-      desc: 'High CFR signals poor pre-deployment testing or rushed pull request approvals.'
-    },
-    {
-      id: 'sprint-goal-rate', name: 'Sprint Goal Completion Rate %', category: 'Product Alignment', icon: '🎯',
-      formula: 'Goal Rate = (Achieved Sprint Goals / Total Sprints) × 100', target: '> 90%',
-      summary: 'Frequency with which the team delivers its primary business outcome.',
-      desc: 'Measuring Sprint Goal achievement ensures teams focus on customer value over ticket-clearing output.'
-    },
-    {
-      id: 'predictability-ratio', name: 'Say-Do Ratio (Predictability)', category: 'Delivery Predictability', icon: '🤝',
-      formula: 'Say-Do Ratio = (Completed Points / Committed Points) × 100', target: '85% - 110%',
-      summary: 'Comparison of committed story points at sprint planning vs. delivered points.',
-      desc: 'Helps teams diagnose over-promising, under-estimating, or scope creep mid-sprint.'
-    },
-    {
-      id: 'team-happiness', name: 'Team Morale / Happiness Index', category: 'Psychological Safety', icon: '😊',
-      formula: 'Happiness Index = Average Rating on Weekly 1-to-5 Team Survey', target: '> 4.2 / 5',
-      summary: 'Qualitative measurement of team psychological safety, joy, and engagement.',
-      desc: 'Happy, empowered teams consistently outperform stressed, overworked teams over long horizons.'
-    },
-    {
-      id: 'tech-debt-ratio', name: 'Tech Debt Payback Ratio %', category: 'Code Sustainability', icon: '🛠️',
-      formula: 'Tech Debt Ratio = (Tech Debt Points / Total Sprint Capacity) × 100', target: '15% - 20%',
-      summary: 'Percentage of sprint capacity dedicated to refactoring and debt cleanup.',
-      desc: 'Ensures codebases remain maintainable and prevents architectural degradation.'
-    },
-    {
-      id: 'pr-latency', name: 'PR Review Turnaround Time', category: 'Engineering Flow', icon: '💬',
-      formula: 'PR Latency = Time PR Merged - Time PR Submitted', target: '< 4 hours',
-      summary: 'Elapsed time between submitting a pull request and completing peer review.',
-      desc: 'Long PR review queues cause context switching. Pair programming and prompt reviews clear PR bottlenecks.'
-    },
-    {
-      id: 'security-vulnerabilities', name: 'Escaped Vulnerabilities (DevSecOps)', category: 'DevSecOps Quality', icon: '🔒',
-      formula: 'Security Flaws = Total CVE High/Critical Alerts in Production', target: '0 Criticals',
-      summary: 'Count of security flaws or dependency vulnerabilities reaching production.',
-      desc: 'Integration of SAST/DAST security scanning into CI/CD pipelines eliminates security escapes.'
-    }
-  ];
-
-  const AGILE_TOOLS_GUIDES = [
-    { title: 'Jira Cloud Setup Guide', icon: '⚙️', desc: 'Create Kanban & Scrum boards, set WIP limits, configure quick filters and swimlanes.' },
-    { title: 'Jira Data Center Procedures', icon: '🏢', desc: 'Enterprise custom field setup, script runner automation, and multi-project board mapping.' },
-    { title: 'Azure DevOps (ADO) Setup', icon: '⚡', desc: 'Configure Area Paths, Iterations, Board Columns, and Rollup Column Delivery Plans.' },
-    { title: 'Confluence Agile Workspace', icon: '📄', desc: 'Build Product Requirements Documents (PRDs), Retro Action Tracking, and Decision Logs.' }
-  ];
-
-  const EXECUTIVE_DASHBOARDS = [
-    { title: 'Team Operational Dashboard', icon: '📈', desc: 'Sprint Burndown, Daily Velocity, WIP Limits, and Impediment Log.' },
-    { title: 'RTE & ART Scaling Dashboard', icon: '🏢', desc: 'Program Increment (PI) Predictability, Feature Cycle Time, and Cross-Team Dependencies.' },
-    { title: 'C-Level Executive View', icon: '👑', desc: 'Strategic Portfolio Alignment, Flow Distribution, Value Stream ROI, and Time-to-Market.' },
-    { title: 'Engineering Health Dashboard', icon: '🛡️', desc: 'DORA Metrics (Deployment Frequency, Lead Time for Changes, CFR, MTTR) and Code Coverage.' }
-  ];
-
-  const COACHING_MODELS = [
-    { title: 'The GROW Model', icon: '🌱', desc: 'Goal, Reality, Options, Will — Structured 4-stage non-directive coaching model.' },
-    { title: 'The OSKAR Model', icon: '🎯', desc: 'Outcome, Scale, Know-how, Action, Review — Solution-focused coaching framework.' },
-    { title: 'The Cynefin Framework', icon: '🌀', desc: 'Sense-making framework categorizing problem domains into Clear, Complicated, Complex, and Chaotic.' }
-  ];
-
-  const FACILITATION_METHODS = [
-    { title: '1-2-4-All (Liberating Structure)', icon: '👥', desc: 'Engages 100% of participants simultaneously to eliminate groupthink in 15 minutes.' },
-    { title: 'Lean Coffee Meeting Format', icon: '☕', desc: 'Agenda-less democratic meeting framework with timed 5-minute topic slots.' },
-    { title: 'Delegation Poker (Management 3.0)', icon: '🎴', desc: 'Clarifies decision-making boundaries across 7 levels of delegation.' }
-  ];
-
-  const SCALING_FRAMEWORKS = [
-    { name: 'SAFe (Scaled Agile Framework)', icon: '🏢', bestFor: 'Enterprise (100+ people)', teamSize: '100-5000+ people' },
-    { name: 'LeSS (Large-Scale Scrum)', icon: '⛵', bestFor: 'Medium-to-Large Orgs (20-200 people)', teamSize: '20-200 people' },
-    { name: 'Spotify Model', icon: '🎵', bestFor: 'Tech Startups & Scale-ups', teamSize: '30-500 people' },
-    { name: 'Nexus Framework', icon: '🔗', bestFor: '3-9 Scrum teams on 1 Product', teamSize: '20-80 people' }
-  ];
-
-  const AI_COACH_PROMPTS = [
-    { title: 'INVEST Story & Gherkin Refiner', icon: '📝', desc: 'Converts raw requirement notes into standard INVEST user stories with Gherkin acceptance criteria.' },
-    { title: 'Retro Sticky Theme Synthesizer', icon: '🔮', desc: 'Clusters raw retro sticky notes into systemic themes and SMART action items.' },
-    { title: 'Outcome-Oriented Sprint Goal Formulator', icon: '🎯', desc: 'Transforms backlog items into a single compelling customer-focused Sprint Goal.' }
+    { id: 'cycle-time', name: 'Cycle Time', category: 'Flow & Delivery', icon: '⏱️', formula: 'Cycle Time = Time Work Completed - Time Work Started', target: '< 3 days per story', summary: 'Elapsed time from when dev starts until deployment to production.', desc: 'Cycle Time is the single most critical metric for Agile flow efficiency.' },
+    { id: 'lead-time', name: 'Lead Time', category: 'Flow & Customer Value', icon: '⏳', formula: 'Lead Time = Customer Delivery Date - Feature Request Date', target: '< 14 days', summary: 'Total customer waiting time from backlog entry to live feature.', desc: 'Lead time measures customer responsiveness.' },
+    { id: 'flow-efficiency', name: 'Flow Efficiency %', category: 'Flow Waste Elimination', icon: '⚡', formula: 'Flow Efficiency % = (Active Work Time / Total Lead Time) × 100', target: '> 35%', summary: 'Ratio of active touch time versus waiting time in queues.', desc: 'Most traditional software teams have flow efficiency under 15%.' },
+    { id: 'defect-escape-rate', name: 'Defect Escape Rate %', category: 'Engineering Quality', icon: '🐞', formula: 'Defect Escape Rate = (Bugs Found in Prod / Total Bugs Found) × 100', target: '< 5%', summary: 'Percentage of bugs discovered by end-users in production versus QA.', desc: 'High defect escape rates indicate gaps in automated regression suites.' }
   ];
 
   const AGILE_COACH_ROLE_DATA = {
@@ -473,126 +302,408 @@
     { name: 'Zero Debt Crusader', icon: '⚡', desc: 'Reduced Escaped Bug Rate to < 2%', unlocked: false }
   ];
 
-  // -------------------------------------------------------------
-  // TEMPLATE EXPORTER
-  // -------------------------------------------------------------
-  class TemplateExporter {
-    static downloadFile(content, fileName, contentType) {
-      const a = document.createElement('a');
-      const file = new Blob([content], { type: contentType });
-      a.href = URL.createObjectURL(file);
-      a.download = fileName;
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
+  const ESTIMATION_MASTERCLASS_DATA = {
 
-    static exportRetroMarkdown(templateName, columns, notes, teamName) {
-      let md = `# 🎯 Sprint Retrospective Report - ${teamName}\n`;
-      md += `**Coach**: Santoshanand Adkar\n`;
-      md += `**Framework**: ${templateName}\n`;
-      md += `**Date**: ${new Date().toLocaleDateString()}\n\n---\n\n`;
-      columns.forEach(col => {
-        const colNotes = notes.filter(n => n.columnId === col.id);
-        md += `## ${col.icon} ${col.name}\n`;
-        if (colNotes.length === 0) {
-          md += `*No notes recorded*\n\n`;
-        } else {
-          colNotes.forEach(n => { md += `- ${n.text} (❤️ ${n.votes} votes)\n`; });
-          md += `\n`;
-        }
-      });
-      md += `---\n*Generated by AgileVibe OS | Santoshanand Adkar*\n`;
-      this.downloadFile(md, `Retro_${teamName.replace(/\s+/g, '_')}_${Date.now()}.md`, 'text/markdown');
-    }
-
-    static exportRetroJSON(templateName, columns, notes, teamName) {
-      const data = { coach: 'Santoshanand Adkar', team: teamName, template: templateName, exportedAt: new Date().toISOString(), columns, notes };
-      this.downloadFile(JSON.stringify(data, null, 2), `Retro_${teamName.replace(/\s+/g, '_')}_${Date.now()}.json`, 'application/json');
-    }
-
-    static exportExecutivePDF(teamName, maturityScores, psychAnswers, retroNotes) {
-      const activeTeamObj = teamName || 'Active Squad';
-      const avgScore = (Object.values(maturityScores).reduce((a, b) => a + b, 0) / 5).toFixed(1);
-      
-      let printWindow = window.open('', '_blank');
-      if (!printWindow) {
-        alert('Please allow popups to generate the Executive PDF report.');
-        return;
+    title: 'Masterclass: Modern Agile Estimation & Story Points',
+    sections: [
+      {
+        heading: '1. Why Story Points Over Hours?',
+        content: `Story points represent **relative effort, complexity, and risk** rather than strict hours. 
+        Estimating in hours creates false precision because different engineers work at different speeds. Points focus on relative size (e.g., a 5-point story is roughly double the effort of a 2-point story).`
+      },
+      {
+        heading: '2. The Modified Fibonacci Scale Rationale',
+        content: `We use **1, 2, 3, 5, 8, 13, 20, 40, 100** because as stories get larger, uncertainty grows exponentially.
+        If a story is larger than 8 points, it contains too many unknowns and MUST be split into smaller, independent user stories.`
+      },
+      {
+        heading: '3. Anti-Anchoring Protocol in Planning Poker',
+        content: `When team members speak their estimates out loud, junior engineers often anchor to the lead architect's opinion. Planning Poker solves this by having everyone select cards secretly and reveal them simultaneously.`
+      },
+      {
+        heading: '4. The No-Estimates Movement & Throughput Alternative',
+        content: `Advanced Agile teams often move away from story points altogether. By breaking all work into small, roughly equal-sized tickets (completed in 1-2 days), teams can count **Throughput** (tickets delivered per week) to forecast delivery using Monte Carlo simulations with higher accuracy.`
       }
+    ],
+    referenceLinks: [
+      { label: '📺 Video: Planning Poker in 3 Minutes (Mountain Goat Software)', url: 'https://www.youtube.com/results?search_query=planning+poker+mike+cohn' },
+      { label: '📖 Article: Why Story Points Are Relative Effort (Agile Alliance)', url: 'https://www.agilealliance.org/glossary/story-point/' },
+      { label: '📖 Deep Dive: The NoEstimates Movement by Vasco Duarte', url: 'https://www.youtube.com/results?search_query=vasco+duarte+noestimates' }
+    ]
+  };
 
-      let html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Executive Coaching Report - ${activeTeamObj} | Santoshanand Adkar</title>
-          <style>
-            body { font-family: 'Inter', sans-serif; padding: 40px; color: #1e293b; background: #fff; line-height: 1.6; }
-            .header { border-bottom: 3px solid #6366f1; padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
-            .header h1 { font-family: 'Outfit', sans-serif; color: #0f172a; margin: 0; font-size: 24px; }
-            .badge { background: #6366f1; color: #fff; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 14px; }
-            .section { margin-bottom: 24px; }
-            .section h2 { color: #4338ca; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; font-size: 18px; margin-bottom: 12px; }
-            table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-            th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
-            th { background: #f8fafc; font-weight: 600; color: #475569; }
-            .action-item { background: #f1f5f9; padding: 10px 14px; border-left: 4px solid #10b981; margin-bottom: 8px; font-size: 13px; border-radius: 4px; }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <div>
-              <h1>📊 AgileVibe Executive Summary</h1>
-              <div style="font-size: 14px; color: #64748b;">Agile Coach: <strong>Santoshanand Adkar</strong> (santoshadkar@gmail.com)</div>
-              <div style="font-size: 13px; color: #64748b; margin-top: 2px;">Squad: <strong>${activeTeamObj}</strong> | Date: ${new Date().toLocaleDateString()}</div>
-            </div>
-            <div class="badge">Maturity: ${avgScore} / 5.0</div>
-          </div>
+  const AGILE_TOOLS_GUIDES = [
+    {
+      id: 'jira-cloud',
+      title: 'Jira Cloud Setup & Board Procedures',
+      icon: '⚙️',
+      summary: 'Complete guide for Scrum & Kanban board creation, WIP limit configuration, JQL filters, and swimlanes.',
+      content: `### ⚙️ Jira Cloud Setup Master Guide
 
-          <div class="section">
-            <h2>🕸️ 1. Agile Maturity Scorecard</h2>
-            <table>
-              <thead>
-                <tr><th>Dimension</th><th>Target</th><th>Current Score</th><th>Assessment Status</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>🌱 Mindset & Culture</td><td>4.0 / 5</td><td>${maturityScores.culture || 4}/5</td><td>${(maturityScores.culture || 4) >= 4 ? '✅ High Performing' : '⚠️ Growth Opportunity'}</td></tr>
-                <tr><td>⚡ Technical Excellence</td><td>4.0 / 5</td><td>${maturityScores.technical || 3}/5</td><td>${(maturityScores.technical || 3) >= 4 ? '✅ High Performing' : '⚠️ Growth Opportunity'}</td></tr>
-                <tr><td>🎯 Product Alignment</td><td>4.0 / 5</td><td>${maturityScores.product || 4}/5</td><td>${(maturityScores.product || 4) >= 4 ? '✅ High Performing' : '⚠️ Growth Opportunity'}</td></tr>
-                <tr><td>🚀 Delivery Speed & Flow</td><td>4.0 / 5</td><td>${maturityScores.delivery || 3}/5</td><td>${(maturityScores.delivery || 3) >= 4 ? '✅ High Performing' : '⚠️ Growth Opportunity'}</td></tr>
-                <tr><td>🔄 Continuous Learning</td><td>4.0 / 5</td><td>${maturityScores.improvement || 5}/5</td><td>${(maturityScores.improvement || 5) >= 4 ? '✅ High Performing' : '⚠️ Growth Opportunity'}</td></tr>
-              </tbody>
-            </table>
-          </div>
+#### 1. Creating a High-Flow Scrum/Kanban Board
+1. Navigate to **Projects -> Create Project** -> Select **Software Development** -> Choose **Scrum** or **Kanban**.
+2. Go to **Board Settings -> Columns**:
+   - Set **WIP Limits** on In Development (Max 5) and In Code Review (Max 3).
+   - Ensure columns map directly to team workflow states: *Backlog -> Selected -> In Dev -> Code Review -> QA -> Done*.
 
-          <div class="section">
-            <h2>🛡️ 2. Team Psychological Safety & Trust Index</h2>
-            <div class="action-item" style="border-left-color: #6366f1;">
-              <strong>Team Psychological Safety Index:</strong> High Trust Environment. Team members feel safe taking calculated risks and bringing up tough engineering challenges.
-            </div>
-          </div>
+#### 2. Essential JQL Quick Filters
+- **My Open Work**: \`assignee = currentUser() AND statusCategory != Done\`
+- **Stale Blocked Tickets**: \`flagged IS NOT EMPTY AND updated <= -2d\`
+- **Expedite Swimlane**: \`priority in (Blocker, Critical)\`
 
-          <div class="section">
-            <h2>🎯 3. Agreed Retrospective Action Items</h2>
-            ${retroNotes && retroNotes.length > 0 ? retroNotes.slice(0, 5).map(n => `<div class="action-item">🔹 ${n.text} (❤️ ${n.votes} votes)</div>`).join('') : '<div class="action-item">No active retro action items recorded.</div>'}
-          </div>
+#### 3. Automation Rules
+- Automatically assign reviewer when ticket moves to *Code Review*.
+- Close parent Epic when all child stories reach *Done*.`,
+      links: [
+        { label: '📖 Official Jira Board Configuration Guide', url: 'https://support.atlassian.com/jira-software-cloud/docs/configure-a-board/' },
+        { label: '📺 Video: Advanced JQL for Agile Coaches', url: 'https://www.youtube.com/results?search_query=jira+jql+advanced+agile' }
+      ]
+    },
+    {
+      id: 'jira-datacenter',
+      title: 'Jira Data Center Enterprise Procedures',
+      icon: '🏢',
+      summary: 'Custom field mapping, ScriptRunner automated transitions, and cross-project multi-board governance.',
+      content: `### 🏢 Jira Data Center Enterprise Configuration
 
-          <div style="margin-top: 40px; font-size: 11px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 16px;">
-            Confidential Executive Report | Santoshanand Adkar • santoshadkar@gmail.com
-          </div>
-        </body>
-        </html>
-      `;
-      printWindow.document.write(html);
-      printWindow.document.close();
-      setTimeout(() => {
-        printWindow.print();
-      }, 400);
+#### 1. Enterprise Custom Fields Setup
+- **Story Points**: Numerical field configured across all issue types.
+- **Business Value**: 1-100 scale for WSJF prioritization.
+- **Escaped Defect Tag**: Custom select field tracking post-production bugs.
+
+#### 2. ScriptRunner Automations
+- Restrict status transitions to *Done* unless PR link is attached.
+- Auto-calculate Weighted Shortest Job First (WSJF) score: $$\\text{WSJF} = \\frac{\\text{User Value} + \\text{Time Criticality} + \\text{Risk Reduction}}{\\text{Job Size}}$$`,
+      links: [
+        { label: '📖 Atlassian Data Center Architecture Guide', url: 'https://www.atlassian.com/enterprise/data-center' }
+      ]
+    },
+    {
+      id: 'ado-setup',
+      title: 'Azure DevOps (ADO) Setup Procedures',
+      icon: '⚡',
+      summary: 'Area Paths, Iteration schedules, Board Columns, and Rollup Column Delivery Plans.',
+      content: `### ⚡ Azure DevOps (ADO) Board Configuration Guide
+
+#### 1. Area Paths & Iteration Alignment
+1. Go to **Project Settings -> Project Configuration -> Iterations**.
+2. Configure 2-week Sprint cycles under the parent Release Train node.
+3. Assign Area Paths per squad (\`Engineering\\SquadAlpha\`).
+
+#### 2. Azure Boards & Delivery Plans
+- Enable **Rollup Columns** on Epics to track percentage of completed user stories.
+- Add **Delivery Plans** extension to visualize multi-team dependencies across sprints.`,
+      links: [
+        { label: '📖 Official Azure Boards Documentation', url: 'https://learn.microsoft.com/en-us/azure/devops/boards/' }
+      ]
+    },
+    {
+      id: 'confluence-workspace',
+      title: 'Confluence Agile Workspace & Templates',
+      icon: '📄',
+      summary: 'Product Requirements Documents (PRDs), Retro Action Tracking, and Decision Logs (ADRs).',
+      content: `### 📄 Confluence Workspace & Agile Blueprint Setup
+
+#### 1. Standard Agile Page Blueprints
+- **PRD Template**: User Problem, Out of Scope, User Story Table, Acceptance Criteria, Figma Mockups.
+- **Architecture Decision Record (ADR)**: Title, Status, Context, Decision, Consequences.
+- **Retrospective Action Log**: Jira issue Macro tracking open action items across sprints.`,
+      links: [
+        { label: '📖 Atlassian Confluence Agile Templates', url: 'https://www.atlassian.com/software/confluence/templates/category/agile' }
+      ]
     }
-  }
+  ];
+
+  const EXECUTIVE_DASHBOARDS = [
+    {
+      id: 'team-ops',
+      title: 'Team Operational Dashboard',
+      icon: '📈',
+      summary: 'Sprint Burndown, Daily Velocity, WIP Limits, and Impediment Log for Scrum Masters & Squads.',
+      content: `### 📈 Team Operational Dashboard Blueprint
+
+#### Target Audience: Scrum Masters, Product Owners, Engineering Squads
+
+#### Core Widgets & Metrics
+1. **Sprint Burndown Chart**: Real-time ideal vs actual story point progress line.
+2. **Column WIP Limit Monitor**: Visual alert when In Dev or Review exceeds capacity threshold.
+3. **Impediment & Flagged Log**: Table of tickets flagged as blocked with age counter.
+4. **Daily Flow Distribution**: Stacked bar chart of tickets in Dev, Review, QA, Done.
+
+#### Green / Amber / Red Thresholds
+- 🟢 **Green**: Velocity variance < 10%, WIP within limits.
+- 🟡 **Amber**: 1-2 tickets blocked > 48 hours.
+- 🔴 **Red**: WIP exceeded by 50%, Sprint Burndown flatlining after Day 5.`,
+      links: [
+        { label: '📖 Operational Metrics Guide by Scrum.org', url: 'https://www.scrum.org/resources/blog' }
+      ]
+    },
+    {
+      id: 'rte-scaling',
+      title: 'RTE & ART Scaling Dashboard',
+      icon: '🏢',
+      summary: 'Program Increment (PI) Predictability, Feature Cycle Time, and Cross-Team Dependencies.',
+      content: `### 🏢 Release Train Engineer (RTE) Scaling Dashboard
+
+#### Target Audience: RTEs, Agile Program Managers, Solution Architects
+
+#### Core Widgets
+1. **PI Predictability Measure**: Planned vs achieved PI Objectives score across 5-10 teams.
+2. **Feature Lead Time Histogram**: Distribution of feature delivery speed across value streams.
+3. **Cross-Team Dependency Matrix**: Red/Yellow/Green dependency blockers between squads.`,
+      links: [
+        { label: '📖 Scaled Agile Framework PI Metrics Guide', url: 'https://scaledagileframework.com/metrics/' }
+      ]
+    },
+    {
+      id: 'c-level',
+      title: 'C-Level Executive Strategy Dashboard',
+      icon: '👑',
+      summary: 'Strategic Portfolio Alignment, Flow Distribution, Value Stream ROI, and Time-to-Market.',
+      content: `### 👑 C-Level Executive Strategy Dashboard
+
+#### Target Audience: CTO, VP of Engineering, Chief Product Officer
+
+#### Core Widgets
+1. **Value Stream Capital Allocation**: % investment split across New Features (60%), Tech Debt (20%), Maintenance (15%), Security (5%).
+2. **Time-to-Market Trend**: Strategic initiative delivery speed quarter-over-quarter.
+3. **Escaped Business Defect Cost**: Post-release defect financial impact analysis.`,
+      links: [
+        { label: '📖 Gartner IT Executive Dashboard Blueprints', url: 'https://www.gartner.com/' }
+      ]
+    },
+    {
+      id: 'eng-health',
+      title: 'Engineering Health & DORA Dashboard',
+      icon: '🛡️',
+      summary: 'DORA 4 Metrics (Deployment Frequency, Lead Time for Changes, CFR, MTTR) and Code Coverage.',
+      content: `### 🛡️ Engineering Health & DORA Dashboard
+
+#### Target Audience: VP of Engineering, DevOps Leads, Tech Leads
+
+#### Core Widgets (DORA 4)
+1. **Deployment Frequency**: On-demand production releases per day.
+2. **Lead Time for Changes**: Time from code commit to production release.
+3. **Mean Time to Recover (MTTR)**: Time to restore outage service.
+4. **Change Failure Rate (CFR)**: % of releases causing production hotfixes.`,
+      links: [
+        { label: '📖 Google DevOps Research & Assessment (DORA) Guide', url: 'https://dora.dev/' }
+      ]
+    }
+  ];
+
+  const COACHING_MODELS = [
+    {
+      id: 'grow',
+      title: 'The GROW Coaching Model',
+      icon: '🌱',
+      author: 'Sir John Whitmore',
+      summary: 'The world-standard structured 4-stage non-directive coaching framework: Goal, Reality, Options, Will.',
+      content: `### 🧠 Deep Dive: The GROW Coaching Model
+
+#### Overview
+The GROW model provides a structured, non-directive coaching conversation framework. Instead of giving advice, the coach asks powerful open questions to guide the coachee to uncover their own solutions.
+
+#### 1. Goal (G)
+- *What would you like to achieve in our session today?*
+- *What does success look like for your squad in 3 months?*
+
+#### 2. Reality (R)
+- *What is currently happening right now?*
+- *What steps have you already taken, and what were the outcomes?*
+
+#### 3. Options (O)
+- *If there were no constraints or budget limits, what would you do?*
+- *What are the pros and cons of Option A vs. Option B?*
+
+#### 4. Will / Way Forward (W)
+- *Which specific option will you commit to executing first?*
+- *On a scale of 1-10, how committed are you to completing this action?*`,
+      links: [
+        { label: '📖 Sir John Whitmore GROW Coaching Guide', url: 'https://www.performanceconsultants.com/grow-model' }
+      ]
+    },
+    {
+      id: 'oskar',
+      title: 'The OSKAR Solution-Focused Model',
+      icon: '🎯',
+      author: 'Mark McKergow & Paul Z. Jackson',
+      summary: 'Solution-focused brief coaching model emphasizing strengths and past successes over problem analysis.',
+      content: `### 🧠 Deep Dive: The OSKAR Coaching Model
+
+#### Framework Steps
+1. **O - Outcome**: Define the desired future state.
+2. **S - Scale**: Rate current state on a 1-to-10 scale.
+3. **K - Know-how**: Identify existing team skills and past wins.
+4. **A - Action**: Determine small positive micro-steps.
+5. **R - Review**: Review progress in the next coaching check-in.`,
+      links: [
+        { label: '📖 Solution-Focused Brief Coaching Guide', url: 'https://sfwork.com/' }
+      ]
+    },
+    {
+      id: 'cynefin',
+      title: 'The Cynefin Sense-Making Framework',
+      icon: '🌀',
+      author: 'Dave Snowden',
+      summary: 'Decision-making framework categorizing problems into Clear, Complicated, Complex, and Chaotic domains.',
+      content: `### 🧠 Deep Dive: The Cynefin Framework for Leaders
+
+#### The 5 Domains
+- **Clear**: Sense -> Categorize -> Respond. Apply Best Practice.
+- **Complicated**: Sense -> Analyze -> Respond. Apply Good Practice.
+- **Complex (Home of Agile)**: **Probe -> Sense -> Respond**. Conduct safe-to-fail experiments.
+- **Chaotic**: Act -> Sense -> Respond. Immediate action to stop crisis.`,
+      links: [
+        { label: '📖 Dave Snowden Cynefin Framework Guide', url: 'https://cynefin.io/' }
+      ]
+    }
+  ];
+
+  const FACILITATION_METHODS = [
+    {
+      id: '1-2-4-all',
+      title: '1-2-4-All (Liberating Structure)',
+      icon: '👥',
+      time: '15 Minutes',
+      summary: 'Engages 100% of participants simultaneously to generate ideas and eliminate groupthink.',
+      content: `### 🎪 Facilitation Playbook: 1-2-4-All
+
+#### Step-by-Step Script & Timing
+1. **1 Min (Silent Individual)**: Write down personal thoughts on paper.
+2. **2 Mins (Pairs)**: Share and combine ideas with a partner.
+3. **4 Mins (Groups of 4)**: Merge two pairs. Pick the top 1 insight.
+4. **5 Mins (All Plenary)**: Collect top insights on main board.`,
+      links: [
+        { label: '📖 Official Liberating Structures 1-2-4-All Guide', url: 'https://www.liberatingstructures.com/1-1-2-4-all/' }
+      ]
+    },
+    {
+      id: 'lean-coffee',
+      title: 'Lean Coffee Facilitation',
+      icon: '☕',
+      time: '30-60 Minutes',
+      summary: 'Democratic meeting framework with timed 5-minute topic slots.',
+      content: `### 🎪 Facilitation Playbook: Lean Coffee
+
+#### Process
+1. **Pitch Topics (3 Mins)**: Write topic notes in *To Discuss*.
+2. **Dot Vote (2 Mins)**: Cast 3 votes on preferred topics.
+3. **5-Min Discussion**: Move top topic to *Discussing*. Start 5-min timer.
+4. **Roman Vote**: Thumbs Up = +2 Mins, Thumbs Down = Move to next topic.`,
+      links: [
+        { label: '📖 Official Lean Coffee Meeting Guide', url: 'https://leancoffee.org/' }
+      ]
+    },
+    {
+      id: 'delegation-poker',
+      title: 'Delegation Poker (Management 3.0)',
+      icon: '🎴',
+      time: '45 Minutes',
+      summary: 'Clarifies decision-making boundaries across 7 levels of delegation.',
+      content: `### 🎪 Facilitation Playbook: Delegation Poker
+
+#### 7 Delegation Levels
+1. Tell 2. Sell 3. Consult 4. Agree 5. Advise 6. Inquire 7. Delegate`,
+      links: [
+        { label: '📖 Management 3.0 Delegation Poker Guide', url: 'https://management30.com/practice/delegation-poker/' }
+      ]
+    }
+  ];
+
+  const SCALING_FRAMEWORKS = [
+    {
+      id: 'safe',
+      name: 'SAFe (Scaled Agile Framework)',
+      icon: '🏢',
+      bestFor: 'Enterprise (100+ people, rigid compliance & multi-level portfolio governance)',
+      teamSize: '100 - 5000+ people',
+      pros: ['Structured portfolio & program layers', 'Strong enterprise governance', 'Clear role alignment'],
+      cons: ['Heavy process overhead', 'Can feel bureaucratic if misapplied'],
+      practices: ['PI Planning (Program Increment)', 'Agile Release Trains (ARTs)', 'Value Stream Mapping']
+    },
+    {
+      id: 'less',
+      name: 'LeSS (Large-Scale Scrum)',
+      icon: '⛵',
+      bestFor: 'Medium-to-Large Engineering Orgs seeking minimalist Scrum (20-200 people)',
+      teamSize: '20 - 200 people',
+      pros: ['Stays true to core Scrum', 'Low overhead and low management bloat'],
+      cons: ['Requires high engineering maturity', 'Flattens traditional management'],
+      practices: ['Joint Sprint Planning Part 1', 'Overall Retrospective', 'Area Product Owners']
+    },
+    {
+      id: 'spotify',
+      name: 'Spotify Model',
+      icon: '🎵',
+      bestFor: 'Product-led tech scale-ups with high engineering autonomy',
+      teamSize: '30 - 500 people',
+      pros: ['High team autonomy & alignment', 'Vibrant Guild communities'],
+      cons: ['Not a formal copy-paste framework'],
+      practices: ['Autonomous Squads', 'Chapter Leads for mastery', 'Guilds for interest']
+    },
+    {
+      id: 'nexus',
+      name: 'Nexus Framework (Scrum.org)',
+      icon: '🔗',
+      bestFor: '3 to 9 Scrum teams working on a single Product Backlog',
+      teamSize: '20 - 80 people',
+      pros: ['Lightweight overlay on standard Scrum', 'Targets cross-team dependencies'],
+      cons: ['Does not address enterprise portfolio funding'],
+      practices: ['Nexus Integration Team', 'Nexus Daily Scrum', 'Nexus Sprint Review']
+    }
+  ];
+
+  const AI_COACH_PROMPTS = [
+    {
+      id: 'invest-story',
+      title: 'INVEST Story & Gherkin Refiner',
+      icon: '📝',
+      desc: 'Converts raw requirement notes into standard INVEST user stories with Gherkin acceptance criteria.',
+      promptText: `You are an expert Agile Coach and Senior Product Owner. Transform the following raw requirement notes into a production-grade User Story following the INVEST framework:
+
+Requirement: [INSERT YOUR FEATURE NOTES HERE]
+
+Please provide:
+1. User Story Title & Format: "As a [role], I want to [action], So that [benefit]."
+2. INVEST Criteria Check (Independent, Negotiable, Valuable, Estimable, Small, Testable).
+3. Detailed Acceptance Criteria in Gherkin format (Given - When - Then).
+4. Edge cases & Security considerations.`
+    },
+    {
+      id: 'retro-synth',
+      title: 'Retro Sticky Theme Synthesizer',
+      icon: '🔮',
+      desc: 'Clusters raw retro sticky notes into systemic themes and SMART action items.',
+      promptText: `You are an Agile Coach facilitating a Sprint Retrospective. Analyze the following raw feedback notes from the team's retrospective board:
+
+Retro Notes: [PASTE YOUR RAW RETRO STICKIES HERE]
+
+Please synthesize this into:
+1. Top 3 Recurring Systemic Themes.
+2. Team Sentiment Overview (Positive, Blockers, Cultural signals).
+3. Top 3 SMART Action Items (Specific, Measurable, Achievable, Relevant, Time-bound).`
+    },
+    {
+      id: 'sprint-goal-formulator',
+      title: 'Outcome-Oriented Sprint Goal Formulator',
+      icon: '🎯',
+      desc: 'Transforms backlog items into a single compelling customer-focused Sprint Goal.',
+      promptText: `You are an Agile Coach. Based on the selected backlog items for the upcoming sprint:
+
+Backlog Items: [PASTE YOUR SPRINT BACKLOG TICKETS HERE]
+
+Formulate:
+1. Primary Sprint Goal (1 crisp sentence focused on customer value).
+2. "Why This Matters" statement for stakeholders.
+3. Key Risk Factors to monitor during the sprint.`
+    }
+  ];
 
   // -------------------------------------------------------------
   // 3. MAIN APP CONTROLLER
   // -------------------------------------------------------------
+
   class AgileVibeApp {
     constructor() {
       this.currentTab = 'welcome';
@@ -642,6 +753,7 @@
       this.maturityScores = { culture: 4, technical: 3, product: 4, delivery: 3, improvement: 5 };
       this.psychAnswers = {};
     }
+
 
     saveActiveTeamState() {
       const state = {
@@ -697,12 +809,44 @@
       this.setupMethodsModule();
       this.setupScalingModule();
       this.setupAIStudioModule();
+      this.setupArticleReaderDrawer();
 
       document.getElementById('exportExecutivePDFBtn')?.addEventListener('click', () => {
         sound.playChime();
         const activeTeamObj = this.teams.find(t => t.id === this.activeTeamId) || { name: 'Active Squad' };
         TemplateExporter.exportExecutivePDF(activeTeamObj.name, this.maturityScores, this.psychAnswers, this.retroNotes);
       });
+    }
+
+    setupArticleReaderDrawer() {
+      const drawer = document.getElementById('articleModalDrawer');
+      document.getElementById('closeArticleDrawerBtn')?.addEventListener('click', () => {
+        sound.playPop();
+        drawer?.classList.remove('active');
+      });
+    }
+
+    openArticle(title, content, links = []) {
+      sound.playPop();
+      const drawer = document.getElementById('articleModalDrawer');
+      const titleEl = document.getElementById('articleDrawerTitle');
+      const bodyEl = document.getElementById('articleDrawerBody');
+      if (titleEl) titleEl.textContent = title;
+      if (bodyEl) {
+        let linksHTML = '';
+        if (links && links.length > 0) {
+          linksHTML = `
+            <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-glass);">
+              <h5 style="color: var(--accent-cyan); font-size: 14px; margin-bottom: 8px;">🔗 Official Documentation & Video Resources:</h5>
+              <ul style="list-style: none; padding: 0;">
+                ${links.map(l => `<li style="margin-bottom: 6px;"><a href="${l.url}" target="_blank" style="color: var(--accent-emerald); text-decoration: underline; font-size: 13px;">${l.label}</a></li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+        bodyEl.innerHTML = `<div style="font-size: 14px; color: #e2e8f0; line-height: 1.7; white-space: pre-wrap;">${this.escapeHTML(content)}</div>${linksHTML}`;
+      }
+      drawer?.classList.add('active');
     }
 
     setupWelcomeModule() {
@@ -914,7 +1058,6 @@
       const maxVal = Math.max(1, ...totalsPerDay.map(t => t.backlog));
       const stepX = w / (data.length - 1 || 1);
 
-      // Draw grid lines
       ctx.strokeStyle = 'rgba(255,255,255,0.1)';
       ctx.lineWidth = 1;
       for (let i = 0; i <= 4; i++) {
@@ -922,7 +1065,6 @@
         ctx.beginPath(); ctx.moveTo(margin.left, y); ctx.lineTo(margin.left + w, y); ctx.stroke();
       }
 
-      // Draw stacked areas from Backlog down to Done
       const order = ['backlog', 'dev', 'review', 'testing', 'done'];
       const prevKeyMap = { backlog: 'dev', dev: 'review', review: 'testing', testing: 'done', done: null };
 
@@ -951,7 +1093,6 @@
         ctx.stroke();
       });
 
-      // Day X Axis labels
       data.forEach((d, i) => {
         const x = margin.left + i * stepX;
         ctx.fillStyle = '#94a3b8';
@@ -1150,6 +1291,7 @@
       const tpl = RETRO_TEMPLATES[this.currentRetroTemplate];
       if (!tpl) return;
 
+
       grid.innerHTML = tpl.columns.map(col => {
         const colNotes = this.retroNotes.filter(n => n.columnId === col.id);
         return `
@@ -1172,7 +1314,6 @@
           </div>
         `;
       }).join('');
-
 
       grid.querySelectorAll('.add-note-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1208,7 +1349,6 @@
           this.renderRetroGrid();
         });
       });
-
     }
 
     setupPokerModule() {
@@ -1230,6 +1370,14 @@
         sound.playChime();
         this.cardsRevealed = !this.cardsRevealed;
         this.renderPokerTable();
+      });
+
+      document.getElementById('openEstimationGuideBtn')?.addEventListener('click', () => {
+        let fullGuide = `### ${ESTIMATION_MASTERCLASS_DATA.title}\n\n`;
+        ESTIMATION_MASTERCLASS_DATA.sections.forEach(s => {
+          fullGuide += `#### ${s.heading}\n${s.content}\n\n`;
+        });
+        this.openArticle(ESTIMATION_MASTERCLASS_DATA.title, fullGuide, ESTIMATION_MASTERCLASS_DATA.referenceLinks);
       });
 
       this.renderPokerTable();
@@ -1403,9 +1551,17 @@
         <div class="deep-card" style="padding: 20px;">
           <div style="font-size: 32px; margin-bottom: 8px;">${t.icon}</div>
           <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${t.title}</h4>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${t.desc}</p>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${t.summary}</p>
+          <button class="btn btn-secondary open-tool-guide-btn" data-id="${t.id}" style="width: 100%; justify-content: center; font-size: 12px;">📖 Read Full Step-by-Step Procedure</button>
         </div>
       `).join('');
+
+      grid.querySelectorAll('.open-tool-guide-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = AGILE_TOOLS_GUIDES.find(t => t.id === btn.dataset.id);
+          if (item) this.openArticle(item.title, item.content, item.links);
+        });
+      });
     }
 
     setupDashboardsModule() {
@@ -1415,9 +1571,17 @@
         <div class="deep-card" style="padding: 20px;">
           <div style="font-size: 32px; margin-bottom: 8px;">${d.icon}</div>
           <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${d.title}</h4>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${d.desc}</p>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${d.summary}</p>
+          <button class="btn btn-secondary open-dash-blueprint-btn" data-id="${d.id}" style="width: 100%; justify-content: center; font-size: 12px;">📈 View Dashboard Blueprint & Queries</button>
         </div>
       `).join('');
+
+      grid.querySelectorAll('.open-dash-blueprint-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = EXECUTIVE_DASHBOARDS.find(d => d.id === btn.dataset.id);
+          if (item) this.openArticle(item.title, item.content, item.links);
+        });
+      });
     }
 
     setupModelsModule() {
@@ -1426,10 +1590,19 @@
       grid.innerHTML = COACHING_MODELS.map(m => `
         <div class="deep-card" style="padding: 20px;">
           <div style="font-size: 32px; margin-bottom: 8px;">${m.icon}</div>
-          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${m.title}</h4>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${m.desc}</p>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 2px;">${m.title}</h4>
+          <span style="font-size: 11px; color: var(--accent-cyan); display: block; margin-bottom: 8px;">By ${m.author}</span>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${m.summary}</p>
+          <button class="btn btn-secondary open-model-guide-btn" data-id="${m.id}" style="width: 100%; justify-content: center; font-size: 12px;">🧠 Open Masterclass & Questioning Bank</button>
         </div>
       `).join('');
+
+      grid.querySelectorAll('.open-model-guide-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = COACHING_MODELS.find(m => m.id === btn.dataset.id);
+          if (item) this.openArticle(item.title, item.content, item.links);
+        });
+      });
     }
 
     setupMethodsModule() {
@@ -1438,10 +1611,19 @@
       grid.innerHTML = FACILITATION_METHODS.map(m => `
         <div class="deep-card" style="padding: 20px;">
           <div style="font-size: 32px; margin-bottom: 8px;">${m.icon}</div>
-          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${m.title}</h4>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${m.desc}</p>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 4px;">${m.title}</h4>
+          <span style="font-size: 11px; color: var(--accent-amber); font-weight: 600; display: block; margin-bottom: 8px;">⏱️ ${m.time}</span>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${m.summary}</p>
+          <button class="btn btn-secondary open-method-guide-btn" data-id="${m.id}" style="width: 100%; justify-content: center; font-size: 12px;">🎪 Open Facilitation Script & Timing</button>
         </div>
       `).join('');
+
+      grid.querySelectorAll('.open-method-guide-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = FACILITATION_METHODS.find(m => m.id === btn.dataset.id);
+          if (item) this.openArticle(item.title, item.content, item.links);
+        });
+      });
     }
 
     setupScalingModule() {
@@ -1454,7 +1636,11 @@
               <div style="font-size: 32px; margin-bottom: 8px;">${f.icon}</div>
               <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${f.name}</h4>
               <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 600; margin-bottom: 4px;">Best For: ${f.bestFor}</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Team Size: ${f.teamSize}</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Target Team Size: ${f.teamSize}</div>
+              <strong style="font-size: 11px; color: var(--accent-emerald); display: block; margin-bottom: 4px;">CORE PRACTICES:</strong>
+              <ul style="list-style: none; font-size: 12px; color: #cbd5e1;">
+                ${f.practices.map(p => `<li>🔹 ${p}</li>`).join('')}
+              </ul>
             </div>
           `).join('')}
         </div>
@@ -1468,10 +1654,21 @@
         <div class="deep-card" style="padding: 20px;">
           <div style="font-size: 32px; margin-bottom: 8px;">${p.icon}</div>
           <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${p.title}</h4>
-          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">${p.desc}</p>
-          <button class="btn btn-primary" onclick="alert('AI Prompt Copied to Clipboard!')" style="font-size: 12px; padding: 6px 12px;">📋 Copy Prompt</button>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${p.desc}</p>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary run-prompt-btn" data-id="${p.id}" style="flex: 1; justify-content: center; font-size: 12px;">⚡ Open AI Prompt Template</button>
+          </div>
         </div>
       `).join('');
+
+      grid.querySelectorAll('.run-prompt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = AI_COACH_PROMPTS.find(p => p.id === btn.dataset.id);
+          if (item) {
+            this.openArticle(item.title, `### 🤖 AI Prompt Template:\n\n${item.promptText}`);
+          }
+        });
+      });
     }
 
     setupTeamSelector() {
