@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgileVibe OS - Central Portal, Metrics & AI Toolkit for Agile Coaches | Santoshanand Adkar</title>
+  <meta name="description" content="AgileVibe OS is an interactive central portal for Agile Coaches by Santoshanand Adkar featuring retrospective tools, estimation poker, metrics encyclopedia, coaching models vault, facilitation playbooks, and AI coaching superpowers.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">⚡</div>
+      <div class="brand-text">
+        <h1>AgileVibe OS</h1>
+        <span>Coach Superpowers</span>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item active" data-tab="welcome">
+        <span class="icon">🌟</span>
+        <span>Welcome & Services</span>
+      </li>
+      <li class="nav-item" data-tab="coach-role">
+        <span class="icon">📖</span>
+        <span>Coach Role & Daily Life</span>
+      </li>
+      <li class="nav-item" data-tab="scrum-events">
+        <span class="icon">🗓️</span>
+        <span>Scrum Events & Do's/Don'ts</span>
+      </li>
+      <li class="nav-item" data-tab="kanban-scrumban">
+        <span class="icon">🎛️</span>
+        <span>Kanban & Scrumban Hub</span>
+      </li>
+      <li class="nav-item" data-tab="cfd">
+        <span class="icon">📈</span>
+        <span>CFD Flow Generator</span>
+      </li>
+      <li class="nav-item" data-tab="gamification">
+        <span class="icon">🎮</span>
+        <span>Gamified Agile Arena</span>
+      </li>
+      <li class="nav-item" data-tab="retro">
+        <span class="icon">🎯</span>
+        <span>Retro & Event Studio</span>
+      </li>
+      <li class="nav-item" data-tab="poker">
+        <span class="icon">🃏</span>
+        <span>Estimation Playground</span>
+      </li>
+      <li class="nav-item" data-tab="maturity">
+        <span class="icon">🕸️</span>
+        <span>Agile Maturity Radar</span>
+      </li>
+      <li class="nav-item" data-tab="psych">
+        <span class="icon">🛡️</span>
+        <span>Psychological Safety</span>
+      </li>
+      <li class="nav-item" data-tab="metrics">
+        <span class="icon">📊</span>
+        <span>Metrics Encyclopedia</span>
+      </li>
+      <li class="nav-item" data-tab="tools">
+        <span class="icon">⚙️</span>
+        <span>Agile Tools Setup</span>
+      </li>
+      <li class="nav-item" data-tab="dashboards">
+        <span class="icon">📈</span>
+        <span>Executive Dashboards</span>
+      </li>
+      <li class="nav-item" data-tab="models">
+        <span class="icon">🧠</span>
+        <span>Coaching Models Vault</span>
+      </li>
+      <li class="nav-item" data-tab="methods">
+        <span class="icon">🎪</span>
+        <span>Facilitation Playbooks</span>
+      </li>
+      <li class="nav-item" data-tab="scaling">
+        <span class="icon">🌐</span>
+        <span>Scaling Compass</span>
+      </li>
+      <li class="nav-item" data-tab="ai">
+        <span class="icon">🤖</span>
+        <span>AI Coach Superpowers</span>
+      </li>
+      <li class="nav-item" data-tab="custom">
+        <span class="icon">🛠️</span>
+        <span>Custom Framework Lab</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <img src="Santosh.jpg" alt="Santoshanand Adkar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-cyan);">
+        <div class="user-info">
+          <div class="name">Santoshanand Adkar</div>
+          <div class="role">Agile Coach & Consultant</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-wrapper">
+    <!-- TOP BAR WITH MULTI-TEAM WORKSPACE SWITCHER & PDF EXPORTER -->
+    <header class="top-bar">
+      <div class="page-title">
+        <h2>Central Coaching Portal</h2>
+      </div>
+      <div class="top-stats">
+        <button class="btn btn-download" id="exportExecutivePDFBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">
+          📄 Export Executive PDF
+        </button>
+        <div class="stat-pill" style="background: rgba(99, 102, 241, 0.15); border-color: var(--border-glow);">
+          <span>Active Squad:</span>
+          <select id="teamSelector" class="team-select-dropdown"></select>
+        </div>
+        <div class="stat-pill">
+          <span>Active Sprint:</span> <strong>Sprint 42</strong>
+        </div>
+        <div class="stat-pill">
+          <span>Team Vibe:</span> <strong>🔥 94% High Flow</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <div class="content-body">
+
+      <!-- MODULE 0: WELCOME & COACHING SERVICES LANDING PAGE (DEFAULT ACTIVE) -->
+      <section id="panel-welcome" class="tab-panel active">
+        <!-- HERO BANNER -->
+        <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(56, 189, 248, 0.15)); border: 1px solid var(--border-glow); padding: 32px; border-radius: var(--radius-lg); margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+          <div style="max-width: 600px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <span style="font-size: 36px;">⚡</span>
+              <h2 style="font-family: var(--font-heading); font-size: 32px; font-weight: 800; color: #fff;">AgileVibe OS & Coaching Practice</h2>
+            </div>
+            <p style="font-size: 15px; color: #e2e8f0; line-height: 1.6; margin-bottom: 16px;">
+              Empowering technology organizations, senior leadership, and cross-functional engineering squads to achieve continuous value delivery, psychological safety, and high-flow agility.
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button class="btn btn-primary" id="openLiveChatBtn">💬 Open Live Chat</button>
+              <a href="#contactSection" class="btn btn-secondary" style="text-decoration: none;">📝 Submit Coaching Request</a>
+            </div>
+          </div>
+
+          <!-- COACH PROFILE BADGE WITH REAL PHOTO -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 24px 20px; border-radius: var(--radius-md); text-align: center; min-width: 260px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+            <div style="position: relative; width: 88px; height: 88px; margin: 0 auto 14px auto;">
+              <img src="Santosh.jpg" alt="Santoshanand Adkar" style="width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-cyan); box-shadow: 0 0 24px rgba(56,189,248,0.5); display: block;">
+              <div style="position: absolute; bottom: 0; right: 0; background: var(--accent-emerald); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; border: 2px solid var(--bg-card);">ACTIVE</div>
+            </div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff;">Santoshanand Adkar</h4>
+            <div style="font-size: 12px; color: var(--accent-cyan); margin-bottom: 8px; font-weight: 600;">Agile Coach & Transformation Specialist</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Enterprise Scaling • Flow Metrics • Team Health</div>
+          </div>
+        </div>
+
+        <!-- PRODUCTS & SERVICES CATALOG -->
+        <h3 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 16px;">💼 Products & Coaching Services</h3>
+        <div class="deep-card-grid" id="servicesCatalogGrid" style="margin-bottom: 40px;"></div>
+
+        <!-- ABOUT ME & PHILOSOPHY -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 40px;">
+          <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-cyan); margin-bottom: 12px;">👤 About Me | Santoshanand Adkar</h3>
+          <p style="font-size: 14px; color: #e2e8f0; line-height: 1.7; margin-bottom: 16px;">
+            As an experienced Agile Coach, I specialize in guiding engineering organizations through agile transformations, optimizing value stream flow, and establishing high-trust team cultures. My approach combines non-directive GROW coaching with empirical flow analytics (Cycle Time, Lead Time, CFD) to help teams deliver high-quality software with predictability and joy.
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-emerald);">50+</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Squads Coached</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-cyan);">35%</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Avg Flow Efficiency Gain</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-amber);">100%</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Psych Safety Focus</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE CONTACT & REQUEST HUB -->
+        <div id="contactSection" class="cfd-layout" style="margin-bottom: 40px;">
+          <!-- SUBMIT COACHING REQUEST FORM -->
+          <div class="cfd-chart-card">
+            <h3 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 8px;">📝 Submit a Coaching or Audit Request</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Fill out the form below to request an initial discovery session or team health audit with Santoshanand:</p>
+
+            <form id="coachingRequestForm">
+              <div class="form-group">
+                <label>Your Name & Title</label>
+                <input type="text" id="reqName" required placeholder="e.g. Alex Morgan, VP of Engineering">
+              </div>
+              <div class="form-group">
+                <label>Work Email Address</label>
+                <input type="email" id="reqEmail" required placeholder="e.g. alex@yourcompany.com">
+              </div>
+              <div class="form-group">
+                <label>Select Product / Service Required</label>
+                <select id="reqService" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px;">
+                  <option value="Enterprise Scaling & Transformation">Enterprise Scaling & Transformation</option>
+                  <option value="Scrum Master & PO Mentorship">Scrum Master & PO Mentorship</option>
+                  <option value="Psychological Safety & Trust Audit">Psychological Safety & Trust Audit</option>
+                  <option value="AI-Powered Agile Bootcamp">AI-Powered Agile Bootcamp</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Squad Size & Primary Challenges</label>
+                <textarea id="reqNotes" rows="3" placeholder="Describe your team size, current bottlenecks, or coaching objectives..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">🚀 Submit Request to Santoshanand</button>
+            </form>
+
+            <div id="requestSuccessBox" style="display: none; margin-top: 16px; padding: 14px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-emerald); border-radius: 8px; color: #fff; font-size: 13px;"></div>
+          </div>
+
+          <!-- DIRECT CONTACT CARD -->
+          <div class="cfd-table-card">
+            <h3 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 12px;">📞 Direct Contact Details</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Connect directly with Santoshanand Adkar for consultations or workshops:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <a href="mailto:santoshadkar@gmail.com" style="text-decoration: none;" target="_blank">
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass);">
+                  <span style="font-size: 24px;">📧</span>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Direct Email</div>
+                    <strong style="font-size: 13px; color: var(--accent-cyan);">santoshadkar@gmail.com</strong>
+                  </div>
+                </div>
+              </a>
+
+              <a href="https://www.linkedin.com/in/santoshanandadkar/" style="text-decoration: none;" target="_blank">
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass);">
+                  <span style="font-size: 24px;">💼</span>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted);">LinkedIn Profile</div>
+                    <strong style="font-size: 13px; color: var(--accent-emerald);">linkedin.com/in/santoshanandadkar</strong>
+                  </div>
+                </div>
+              </a>
+
+              <a href="mailto:santoshadkar@gmail.com?subject=Agile%20Coaching%20Discovery%20Session" style="text-decoration: none;" target="_blank">
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass);">
+                  <span style="font-size: 24px;">📅</span>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Schedule Discovery Session</div>
+                    <strong style="font-size: 13px; color: var(--accent-amber);">Click to Book 1-on-1 Session</strong>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 1: AGILE COACH ROLE & DAY IN THE LIFE -->
+      <section id="panel-coach-role" class="tab-panel">
+        <div class="panel-header">
+          <h3>📖 Who is an Agile Coach & Day in the Life</h3>
+          <p>Explore the core definition, 6 primary coaching stances, and an hourly timeline of how an Agile Coach drives continuous value and cultural transformation.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 24px; border-radius: var(--radius-lg); margin-bottom: 24px;">
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: var(--accent-cyan); margin-bottom: 8px;">Definition & Impact</h4>
+          <p style="font-size: 14px; color: #e2e8f0; line-height: 1.6;">
+            An <strong>Agile Coach</strong> is a catalyst for organizational transformation, team performance, and cultural evolution. Rather than managing work, an Agile Coach helps teams, leaders, and organizations adopt an agile mindset, optimize flow, and achieve sustainable high performance.
+          </p>
+        </div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 16px;">The 6 Coaching Stances:</h4>
+        <div class="deep-card-grid" id="coachStancesGrid" style="margin-bottom: 32px;"></div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 16px;">⏰ A Day in the Life of an Agile Coach (Hourly Timeline):</h4>
+        <div id="dayInLifeTimeline"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FLOATING LIVE CHAT ASSISTANT DRAWER -->
+  <div class="drawer-overlay" id="liveChatDrawer">
+    <div class="drawer-container" style="max-width: 400px;">
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="Santosh.jpg" alt="Santoshanand Adkar" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid var(--accent-cyan);">
+          <h3 style="font-family: var(--font-heading); font-size: 18px;">Santoshanand's Assistant</h3>
+        </div>
+        <button class="btn btn-secondary" id="closeLiveChatBtn">✕</button>
+      </div>
+
+      <div class="drawer-body" style="display: flex; flex-direction: column; height: 100%;">
+        <div id="chatMessagesLog" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; padding-right: 4px;">
+          <div class="chat-msg coach"><strong>Santoshanand's AI Assistant:</strong> Hello! Welcome to AgileVibe OS. How can Santoshanand Adkar assist your team's transformation today?</div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="chatMsgInput" placeholder="Type a message..." style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px; color: #fff;">
+          <button class="btn btn-primary" id="sendChatMsgBtn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standalone App Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
