@@ -891,7 +891,121 @@ Organizational transformation fails when individual team members resist change. 
     }
   ];
 
+  const KNOWLEDGE_BOOKS = [
+    {
+      title: 'Coaching Agile Teams',
+      author: 'Lyssa Adkins',
+      icon: '📘',
+      category: 'Agile Coaching Bible',
+      desc: 'The definitive guide for Scrum Masters, Agile Coaches, and Project Managers stepping into non-directive coaching, team facilitation, and conflict management.',
+      link: 'https://www.amazon.com/Coaching-Agile-Teams-ScrumMasters-Addison-Wesley/dp/0321637704'
+    },
+    {
+      title: 'Actionable Agile Metrics for Predictability',
+      author: 'Daniel S. Vacanti',
+      icon: '📊',
+      category: 'Flow Analytics & Math',
+      desc: 'Essential reading on Little’s Law, Cumulative Flow Diagrams, Cycle Time histograms, and Monte Carlo delivery forecasting.',
+      link: 'https://www.actionableagile.com/books'
+    },
+    {
+      title: 'Essential Scrum: A Practical Guide',
+      author: 'Kenneth S. Rubin',
+      icon: '📙',
+      category: 'Scrum Core Mechanics',
+      desc: 'A comprehensive single-source guide to Scrum principles, roles, artifacts, and ceremonies with visual diagrams.',
+      link: 'https://www.innolution.com/essential-scrum-book'
+    },
+    {
+      title: 'Team Topologies',
+      author: 'Matthew Skelton & Manuel Pais',
+      icon: '📗',
+      category: 'Org Design & Team Slicing',
+      desc: 'Modern organizational design patterns organizing software teams for fast flow (Stream-aligned, Enabling, Complicated-subsystem, Platform).',
+      link: 'https://teamtopologies.com/book'
+    },
+    {
+      title: 'Making Work Visible',
+      author: 'Dominica DeGrandis',
+      icon: '🎛️',
+      desc: 'Exposing time thieves (Too Much WIP, Unknown Dependencies, Unplanned Work, Neglected Work) to prevent burnout and speed up delivery.',
+      link: 'https://itrevolution.com/product/making-work-visible/'
+    },
+    {
+      title: 'Accelerate: Building High Performing Tech Orgs',
+      author: 'Nicole Forsgren, Jez Humble, & Gene Kim',
+      icon: '🚀',
+      category: 'DORA Metrics Research',
+      desc: 'The empirical scientific research behind the 4 DORA metrics, continuous delivery practices, and lean management.',
+      link: 'https://itrevolution.com/product/accelerate/'
+    }
+  ];
+
+  const CERTIFICATIONS_DATA = [
+    {
+      name: 'PSM I & PSM II (Professional Scrum Master)',
+      org: 'Scrum.org',
+      icon: '📜',
+      format: '80 Questions • 60 Mins • 85% Passing Score',
+      cost: '$150 (PSM I) / $250 (PSM II)',
+      desc: 'Industry-standard rigorous certification assessing Scrum framework knowledge, servant leadership, and real-world team coaching scenarios.',
+      link: 'https://www.scrum.org/assessments/professional-scrum-master-i-assessment'
+    },
+    {
+      name: 'CSM & CSPO (Certified ScrumMaster / PO)',
+      org: 'Scrum Alliance',
+      icon: '🏅',
+      format: '2-Day Workshop + 50 Question Exam',
+      cost: '$495 - $995',
+      desc: 'Interactive workshop-based certification establishing core Scrum foundation and backlog ownership skills.',
+      link: 'https://www.scrumalliance.org/get-certified'
+    },
+    {
+      name: 'KMP I & KMP II (Kanban Management Professional)',
+      org: 'Kanban University',
+      icon: '🎛️',
+      format: '2 x 2-Day Interactive Courses',
+      cost: '$1,000 - $1,800',
+      desc: 'Mastery over Kanban System Design (KSD) and Kanban Systems Improvement (KSI) based on STATIK framework.',
+      link: 'https://kanban.university/kanban-credentials/'
+    },
+    {
+      name: 'SAFe Agilist (SA 6.0) / SPC',
+      org: 'Scaled Agile Inc.',
+      icon: '🏢',
+      format: '45 Questions • 90 Mins • 80% Passing Score',
+      cost: '$500 - $995',
+      desc: 'Enterprise scaling credential covering Program Increments (PI), Agile Release Trains (ARTs), and Value Stream Management.',
+      link: 'https://scaledagile.com/certifications/'
+    }
+  ];
+
+  const RECOMMENDED_ARTICLES = [
+    {
+      title: 'The Official 2020 Scrum Guide',
+      author: 'Ken Schwaber & Jeff Sutherland',
+      icon: '📄',
+      desc: 'The official 13-page definitive guide to Scrum: The Rules of the Game.',
+      link: 'https://scrumguides.org/scrum-guide.html'
+    },
+    {
+      title: 'The Kanban Guide for Scrum Teams',
+      author: 'Scrum.org & Daniel Vacanti',
+      icon: '📑',
+      desc: 'Official guidance on applying Kanban flow strategies directly inside Scrum sprints.',
+      link: 'https://www.scrum.org/resources/kanban-guide-scrum-teams'
+    },
+    {
+      title: 'DORA State of DevOps 2023-2024 Report',
+      author: 'Google Cloud DORA Research Team',
+      icon: '📈',
+      desc: 'Annual empirical report analyzing engineering culture, continuous delivery, and team performance.',
+      link: 'https://dora.dev/research/'
+    }
+  ];
+
   const AI_COACH_PROMPTS = [
+
     {
       id: 'invest-story',
       title: 'INVEST Story & Gherkin Generator',
@@ -1134,6 +1248,7 @@ Output:
       this.setupScalingModule();
       this.setupAIStudioModule();
       this.setupCustomLabModule();
+      this.setupKnowledgeModule();
       this.setupArticleReaderDrawer();
       this.setupGlobalSearchModal();
 
@@ -2323,6 +2438,51 @@ And the submit button is disabled to prevent duplicate charges.`;
         }
       });
     }
+
+    setupKnowledgeModule() {
+      const booksGrid = document.getElementById('booksGrid');
+      if (booksGrid) {
+        booksGrid.innerHTML = KNOWLEDGE_BOOKS.map(b => `
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 32px; margin-bottom: 8px;">${b.icon}</div>
+            <div style="font-size: 11px; color: var(--accent-cyan); font-weight: 700;">${b.category || 'Agile Literature'}</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 4px 0 2px 0;">${b.title}</h4>
+            <div style="font-size: 12px; color: var(--accent-amber); margin-bottom: 8px;">By ${b.author}</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${b.desc}</p>
+            <a href="${b.link}" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; text-decoration: none; font-size: 12px;">📖 Read Book Reference</a>
+          </div>
+        `).join('');
+      }
+
+      const certsGrid = document.getElementById('certsGrid');
+      if (certsGrid) {
+        certsGrid.innerHTML = CERTIFICATIONS_DATA.map(c => `
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 32px; margin-bottom: 8px;">${c.icon}</div>
+            <div style="font-size: 11px; color: var(--accent-emerald); font-weight: 700;">${c.org}</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 4px 0 6px 0;">${c.name}</h4>
+            <div style="font-size: 12px; color: var(--accent-cyan); margin-bottom: 4px;"><strong>Exam Format:</strong> ${c.format}</div>
+            <div style="font-size: 12px; color: var(--accent-rose); margin-bottom: 10px;"><strong>Cost:</strong> ${c.cost}</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${c.desc}</p>
+            <a href="${c.link}" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; text-decoration: none; font-size: 12px;">🎓 Certification Study Guide</a>
+          </div>
+        `).join('');
+      }
+
+      const reportsGrid = document.getElementById('reportsGrid');
+      if (reportsGrid) {
+        reportsGrid.innerHTML = RECOMMENDED_ARTICLES.map(r => `
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 32px; margin-bottom: 8px;">${r.icon}</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 4px 0;">${r.title}</h4>
+            <div style="font-size: 12px; color: var(--accent-cyan); margin-bottom: 8px;">By ${r.author}</div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${r.desc}</p>
+            <a href="${r.link}" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; text-decoration: none; font-size: 12px;">📰 Read Official Report</a>
+          </div>
+        `).join('');
+      }
+    }
+
 
 
     setupTeamSelector() {
