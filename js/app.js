@@ -289,6 +289,45 @@
     }
   ];
 
+  const AGILE_TOOLS_GUIDES = [
+    { title: 'Jira Cloud Setup Guide', icon: '⚙️', desc: 'Create Kanban & Scrum boards, set WIP limits, configure quick filters and swimlanes.' },
+    { title: 'Jira Data Center Procedures', icon: '🏢', desc: 'Enterprise custom field setup, script runner automation, and multi-project board mapping.' },
+    { title: 'Azure DevOps (ADO) Setup', icon: '⚡', desc: 'Configure Area Paths, Iterations, Board Columns, and Rollup Column Delivery Plans.' },
+    { title: 'Confluence Agile Workspace', icon: '📄', desc: 'Build Product Requirements Documents (PRDs), Retro Action Tracking, and Decision Logs.' }
+  ];
+
+  const EXECUTIVE_DASHBOARDS = [
+    { title: 'Team Operational Dashboard', icon: '📈', desc: 'Sprint Burndown, Daily Velocity, WIP Limits, and Impediment Log.' },
+    { title: 'RTE & ART Scaling Dashboard', icon: '🏢', desc: 'Program Increment (PI) Predictability, Feature Cycle Time, and Cross-Team Dependencies.' },
+    { title: 'C-Level Executive View', icon: '👑', desc: 'Strategic Portfolio Alignment, Flow Distribution, Value Stream ROI, and Time-to-Market.' },
+    { title: 'Engineering Health Dashboard', icon: '🛡️', desc: 'DORA Metrics (Deployment Frequency, Lead Time for Changes, CFR, MTTR) and Code Coverage.' }
+  ];
+
+  const COACHING_MODELS = [
+    { title: 'The GROW Model', icon: '🌱', desc: 'Goal, Reality, Options, Will — Structured 4-stage non-directive coaching model.' },
+    { title: 'The OSKAR Model', icon: '🎯', desc: 'Outcome, Scale, Know-how, Action, Review — Solution-focused coaching framework.' },
+    { title: 'The Cynefin Framework', icon: '🌀', desc: 'Sense-making framework categorizing problem domains into Clear, Complicated, Complex, and Chaotic.' }
+  ];
+
+  const FACILITATION_METHODS = [
+    { title: '1-2-4-All (Liberating Structure)', icon: '👥', desc: 'Engages 100% of participants simultaneously to eliminate groupthink in 15 minutes.' },
+    { title: 'Lean Coffee Meeting Format', icon: '☕', desc: 'Agenda-less democratic meeting framework with timed 5-minute topic slots.' },
+    { title: 'Delegation Poker (Management 3.0)', icon: '🎴', desc: 'Clarifies decision-making boundaries across 7 levels of delegation.' }
+  ];
+
+  const SCALING_FRAMEWORKS = [
+    { name: 'SAFe (Scaled Agile Framework)', icon: '🏢', bestFor: 'Enterprise (100+ people)', teamSize: '100-5000+ people' },
+    { name: 'LeSS (Large-Scale Scrum)', icon: '⛵', bestFor: 'Medium-to-Large Orgs (20-200 people)', teamSize: '20-200 people' },
+    { name: 'Spotify Model', icon: '🎵', bestFor: 'Tech Startups & Scale-ups', teamSize: '30-500 people' },
+    { name: 'Nexus Framework', icon: '🔗', bestFor: '3-9 Scrum teams on 1 Product', teamSize: '20-80 people' }
+  ];
+
+  const AI_COACH_PROMPTS = [
+    { title: 'INVEST Story & Gherkin Refiner', icon: '📝', desc: 'Converts raw requirement notes into standard INVEST user stories with Gherkin acceptance criteria.' },
+    { title: 'Retro Sticky Theme Synthesizer', icon: '🔮', desc: 'Clusters raw retro sticky notes into systemic themes and SMART action items.' },
+    { title: 'Outcome-Oriented Sprint Goal Formulator', icon: '🎯', desc: 'Transforms backlog items into a single compelling customer-focused Sprint Goal.' }
+  ];
+
   const AGILE_COACH_ROLE_DATA = {
     title: 'Who is an Agile Coach & Day in the Life',
     definition: 'An Agile Coach is a catalyst for organizational transformation, team performance, and cultural evolution.',
@@ -580,6 +619,12 @@
       this.setupMaturityModule();
       this.setupPsychModule();
       this.setupMetricsModule();
+      this.setupToolsModule();
+      this.setupDashboardsModule();
+      this.setupModelsModule();
+      this.setupMethodsModule();
+      this.setupScalingModule();
+      this.setupAIStudioModule();
 
       document.getElementById('exportExecutivePDFBtn')?.addEventListener('click', () => {
         sound.playChime();
@@ -769,7 +814,6 @@
       canvas.width = (canvas.parentElement ? canvas.parentElement.clientWidth : 500) || 500;
       canvas.height = 300;
 
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const data = this.cfdData;
       if (!data || data.length === 0) return;
@@ -778,9 +822,27 @@
       const w = canvas.width - margin.left - margin.right;
       const h = canvas.height - margin.top - margin.bottom;
 
-      const maxVal = Math.max(...data.map(d => d.backlog + d.dev + d.review + d.testing + d.done));
+      const stackColors = {
+        backlog: 'rgba(139, 92, 246, 0.7)',
+        dev: 'rgba(59, 130, 246, 0.7)',
+        review: 'rgba(245, 158, 11, 0.7)',
+        testing: 'rgba(6, 182, 212, 0.7)',
+        done: 'rgba(16, 185, 129, 0.7)'
+      };
+
+      const totalsPerDay = data.map(d => {
+        const cDone = d.done;
+        const cQA = cDone + d.testing;
+        const cRev = cQA + d.review;
+        const cDev = cRev + d.dev;
+        const cBacklog = cDev + d.backlog;
+        return { done: cDone, testing: cQA, review: cRev, dev: cDev, backlog: cBacklog };
+      });
+
+      const maxVal = Math.max(1, ...totalsPerDay.map(t => t.backlog));
       const stepX = w / (data.length - 1 || 1);
 
+      // Draw grid lines
       ctx.strokeStyle = 'rgba(255,255,255,0.1)';
       ctx.lineWidth = 1;
       for (let i = 0; i <= 4; i++) {
@@ -788,19 +850,41 @@
         ctx.beginPath(); ctx.moveTo(margin.left, y); ctx.lineTo(margin.left + w, y); ctx.stroke();
       }
 
-      const layers = [
-        { key: 'done', color: '#10b981' },
-        { key: 'testing', color: '#06b6d4' },
-        { key: 'review', color: '#f59e0b' },
-        { key: 'dev', color: '#3b82f6' },
-        { key: 'backlog', color: '#8b5cf6' }
-      ];
+      // Draw stacked areas from Backlog down to Done
+      const order = ['backlog', 'dev', 'review', 'testing', 'done'];
+      const prevKeyMap = { backlog: 'dev', dev: 'review', review: 'testing', testing: 'done', done: null };
 
+      order.forEach(key => {
+        const prevKey = prevKeyMap[key];
+        ctx.beginPath();
+        data.forEach((d, i) => {
+          const x = margin.left + i * stepX;
+          const val = totalsPerDay[i][key];
+          const y = margin.top + h - (val / maxVal) * h;
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+
+        for (let i = data.length - 1; i >= 0; i--) {
+          const x = margin.left + i * stepX;
+          const val = prevKey ? totalsPerDay[i][prevKey] : 0;
+          const y = margin.top + h - (val / maxVal) * h;
+          ctx.lineTo(x, y);
+        }
+
+        ctx.closePath();
+        ctx.fillStyle = stackColors[key];
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      // Day X Axis labels
       data.forEach((d, i) => {
         const x = margin.left + i * stepX;
         ctx.fillStyle = '#94a3b8';
         ctx.font = '10px Inter';
-        ctx.fillText(d.day, x - 10, canvas.height - 10);
+        ctx.fillText(d.day, x - 10, canvas.height - 8);
       });
     }
 
@@ -1234,6 +1318,84 @@
           <span style="font-size: 11px; color: var(--accent-cyan); font-weight: 600; display: block; margin-bottom: 8px;">${m.category} • Target: ${m.target}</span>
           <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">${m.summary}</p>
           <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px; font-family: monospace; font-size: 11px; color: var(--accent-emerald);">${m.formula}</div>
+        </div>
+      `).join('');
+    }
+
+    setupToolsModule() {
+      const grid = document.getElementById('toolsGrid');
+      if (!grid) return;
+      grid.innerHTML = AGILE_TOOLS_GUIDES.map(t => `
+        <div class="deep-card" style="padding: 20px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">${t.icon}</div>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${t.title}</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${t.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    setupDashboardsModule() {
+      const grid = document.getElementById('dashboardsGrid');
+      if (!grid) return;
+      grid.innerHTML = EXECUTIVE_DASHBOARDS.map(d => `
+        <div class="deep-card" style="padding: 20px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">${d.icon}</div>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${d.title}</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${d.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    setupModelsModule() {
+      const grid = document.getElementById('modelsGrid');
+      if (!grid) return;
+      grid.innerHTML = COACHING_MODELS.map(m => `
+        <div class="deep-card" style="padding: 20px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">${m.icon}</div>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${m.title}</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${m.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    setupMethodsModule() {
+      const grid = document.getElementById('methodsGrid');
+      if (!grid) return;
+      grid.innerHTML = FACILITATION_METHODS.map(m => `
+        <div class="deep-card" style="padding: 20px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">${m.icon}</div>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${m.title}</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">${m.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    setupScalingModule() {
+      const container = document.getElementById('scalingContainer');
+      if (!container) return;
+      container.innerHTML = `
+        <div class="deep-card-grid">
+          ${SCALING_FRAMEWORKS.map(f => `
+            <div class="deep-card" style="padding: 20px;">
+              <div style="font-size: 32px; margin-bottom: 8px;">${f.icon}</div>
+              <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${f.name}</h4>
+              <div style="font-size: 12px; color: var(--accent-cyan); font-weight: 600; margin-bottom: 4px;">Best For: ${f.bestFor}</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Team Size: ${f.teamSize}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    setupAIStudioModule() {
+      const grid = document.getElementById('aiPromptsGrid');
+      if (!grid) return;
+      grid.innerHTML = AI_COACH_PROMPTS.map(p => `
+        <div class="deep-card" style="padding: 20px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">${p.icon}</div>
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin-bottom: 6px;">${p.title}</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">${p.desc}</p>
+          <button class="btn btn-primary" onclick="alert('AI Prompt Copied to Clipboard!')" style="font-size: 12px; padding: 6px 12px;">📋 Copy Prompt</button>
         </div>
       `).join('');
     }
