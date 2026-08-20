@@ -1153,18 +1153,18 @@
       grid.innerHTML = tpl.columns.map(col => {
         const colNotes = this.retroNotes.filter(n => n.columnId === col.id);
         return `
-          <div class="retro-column">
-            <div class="column-header" style="border-top: 3px solid ${col.color}">
-              <h4>${col.icon} ${col.name}</h4>
-              <button class="add-note-btn" data-col="${col.id}">+ Add Note</button>
+          <div class="retro-col">
+            <div class="col-header" style="border-bottom: 2px solid ${col.color}">
+              <div class="col-title">${col.icon} ${col.name}</div>
+              <button class="add-note-btn" data-col="${col.id}">+</button>
             </div>
             <div class="notes-container" id="col-${col.id}">
               ${colNotes.map(n => `
-                <div class="retro-card">
-                  <div class="card-text">${this.escapeHTML(n.text)}</div>
-                  <div class="card-footer">
+                <div class="sticky-note" style="border-left-color: ${col.color}">
+                  <div class="sticky-text">${this.escapeHTML(n.text)}</div>
+                  <div class="sticky-actions">
                     <button class="vote-btn" data-id="${n.id}">❤️ ${n.votes}</button>
-                    <button class="delete-btn" data-id="${n.id}">🗑️</button>
+                    <button class="delete-note" data-id="${n.id}">🗑️</button>
                   </div>
                 </div>
               `).join('')}
@@ -1172,6 +1172,7 @@
           </div>
         `;
       }).join('');
+
 
       grid.querySelectorAll('.add-note-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1199,7 +1200,7 @@
         });
       });
 
-      grid.querySelectorAll('.delete-btn').forEach(btn => {
+      grid.querySelectorAll('.delete-note').forEach(btn => {
         btn.addEventListener('click', () => {
           const id = btn.dataset.id;
           this.retroNotes = this.retroNotes.filter(n => n.id !== id);
@@ -1207,6 +1208,7 @@
           this.renderRetroGrid();
         });
       });
+
     }
 
     setupPokerModule() {
