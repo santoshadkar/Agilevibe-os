@@ -3,309 +3,255 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICF Coaching Credentials Hub — Executive Portal | Santoshanand Adkar Ecosystem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #090d16;
-      color: #f8fafc;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .header-banner {
-      background: linear-gradient(90deg, #0f172a, #1e1b4b);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-    .header-banner .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .header-banner .brand-title {
-      color: #38bdf8;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-    }
-    .header-banner .return-btn {
-      padding: 8px 18px;
-      background: linear-gradient(135deg, #6366f1, #38bdf8);
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-      transition: all 0.2s ease;
-    }
-    .header-banner .return-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
-    }
-    .app-layout {
-      max-width: 1200px;
-      width: 92%;
-      margin: 30px auto;
-      flex: 1;
-    }
-    .hero-section {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-    .hero-top {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 12px;
-    }
-    .hero-icon {
-      font-size: 40px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-title h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-    }
-    .hero-sub {
-      color: #94a3b8;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 12px;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      font-size: 12px;
-      font-weight: 700;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      margin-bottom: 6px;
-    }
-    .nav-tabs {
-      display: flex;
-      gap: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 25px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-    }
-    .nav-tab {
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      color: #94a3b8;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .nav-tab.active, .nav-tab:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: #38bdf8;
-      color: #38bdf8;
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
-    .app-card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-    .app-card h3 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 18px;
-      color: #fff;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-status {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .card-status.active {
-      background: rgba(34, 197, 94, 0.2);
-      color: #22c55e;
-      border: 1px solid rgba(34, 197, 94, 0.4);
-    }
-    .metric-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #94a3b8;
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.08);
-    }
-    .action-btn {
-      margin-top: 16px;
-      padding: 10px 18px;
-      background: linear-gradient(135deg, #6366f1, #38bdf8);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .action-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-  </style>
+  <title>ICF Credentials Hub | ACC, PCC & MCC Certification Portal</title>
+  <meta name="description" content="Comprehensive certification portal for ICF ACC, PCC, and MCC credentials. Features level-specific exam simulators, study library, coaching focus areas, and readiness calculator.">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="header-banner">
-    <div class="brand">
-      <span>&#9889; Santoshanand Adkar Master Ecosystem</span>
-      <span style="opacity:0.4;">|</span>
-      <span class="brand-title">ICF Coaching Credentials Hub Command Center</span>
-    </div>
-    <a href="../index.html" class="return-btn">
-      <span>&#127968;</span> Return to Main Portfolio
-    </a>
-  </header>
+<div style="background: linear-gradient(90deg, #0f172a, #1e1b4b); border-bottom: 1px solid #38bdf8; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 9999; font-family: sans-serif;"><div style="display: flex; align-items: center; gap: 10px; color: #fff; font-size: 13px; font-weight: 600;"><span>? Santoshanand Adkar Master Ecosystem</span></div><a href="../index.html" style="padding: 6px 14px; background: linear-gradient(135deg, #6366f1, #38bdf8); color: #fff; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);"><span>??</span> Return to Main Portfolio</a></div>
 
-  <main class="app-layout">
-    <section class="hero-section">
-      <div class="hero-top">
-        <div class="hero-icon">&#127941;</div>
-        <div class="hero-title">
-          <span class="badge">Coaching Certs</span>
-          <h1>ICF Coaching Credentials Hub Command Center</h1>
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-icon">ICF</div>
+        <div class="brand-text">
+          <h1>ICF Credentials Hub</h1>
+          <p>International Coaching Federation • ACC • PCC • MCC</p>
         </div>
       </div>
-      <p class="hero-sub">Interactive enterprise application for ICF Coaching Credentials Hub. Designed & engineered by Santoshanand Adkar.</p>
-    </section>
+      <div class="nav-badges">
+        <span class="nav-badge acc">ACC • 60+ Hrs</span>
+        <span class="nav-badge pcc">PCC • 125+ Hrs</span>
+        <span class="nav-badge mcc">MCC • 200+ Hrs</span>
+      </div>
+    </header>
 
-    <nav class="nav-tabs">
-      <button class="nav-tab" id="tab-btn-overview" onclick="switchTab('overview')">&#9889; Interactive Dashboard</button>
-<button class="nav-tab" id="tab-btn-analytics" onclick="switchTab('analytics')">&#128200; Live Metrics & Analytics</button>
-<button class="nav-tab" id="tab-btn-tools" onclick="switchTab('tools')">&#9881; Tooling & Action Center</button>
-
+    <!-- Navigation Header Bar (Reordered Navigation Tabs) -->
+    <nav class="tabs-header" aria-label="Main Navigation">
+      <button class="tab-btn active" data-tab="overview">
+        📊 Credentials & Readiness
+      </button>
+      <button class="tab-btn" data-tab="exam">
+        📝 Mock Exams & Practice
+      </button>
+      <button class="tab-btn" data-tab="resources">
+        📖 Books & Mentor Coaching
+      </button>
+      <button class="tab-btn" data-tab="competencies">
+        🎯 Competencies & Case Studies
+      </button>
     </nav>
 
-    <section id="app-content">
-      <!-- Dynamic interactive tab content rendered by JS -->
+    <!-- Hub 1: Credentials & Readiness (1st Tab) -->
+    <section id="tab-overview" class="tab-content active">
+      <div class="glass-card" style="background: var(--gradient-hero); border-color: rgba(99,102,241,0.3);">
+        <h2 class="section-title">Mastering the ICF Credentialing Pathway</h2>
+        <p style="font-size: 15px; color: var(--text-muted); max-width: 900px;">
+          The International Coaching Federation (ICF) offers three globally recognized credential levels: 
+          <strong style="color: var(--acc-blue)">Associate Certified Coach (ACC)</strong>, 
+          <strong style="color: var(--pcc-purple)">Professional Certified Coach (PCC)</strong>, and 
+          <strong style="color: var(--mcc-pink)">Master Certified Coach (MCC)</strong>. 
+          Use this single-source hub to evaluate your readiness, take practice exams, explore study books, and review competency performance markers.
+        </p>
+      </div>
+
+      <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 16px;">Certification Tier Specs</h3>
+      <div id="cred-cards-grid" class="cred-cards-grid">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <div class="glass-card" style="margin-top: 32px;">
+        <h2 class="section-title">🧮 Interactive Readiness & Gap Analysis Calculator</h2>
+        <p class="section-subtitle">Enter your completed coach education, client experience hours, and mentor coaching hours to calculate your exact readiness for ACC, PCC, or MCC.</p>
+
+        <div class="calc-grid">
+          <form id="calc-form">
+            <div class="form-group">
+              <label class="form-label" for="calc-target">Target Credential Level</label>
+              <select id="calc-target" class="form-select">
+                <option value="acc">ACC - Associate Certified Coach (60 hrs training / 100 hrs client)</option>
+                <option value="pcc" selected>PCC - Professional Certified Coach (125 hrs training / 500 hrs client)</option>
+                <option value="mcc">MCC - Master Certified Coach (200 hrs training / 2,500 hrs client)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="calc-training">Coach Education / Training Hours Completed</label>
+              <input type="number" id="calc-training" class="form-input" placeholder="e.g. 125" value="125" min="0">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="calc-total-hours">Total Client Coaching Experience Hours</label>
+              <input type="number" id="calc-total-hours" class="form-input" placeholder="e.g. 400" value="420" min="0">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="calc-paid-hours">Paid Client Coaching Hours (out of Total)</label>
+              <input type="number" id="calc-paid-hours" class="form-input" placeholder="e.g. 380" value="380" min="0">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="calc-mentor">Mentor Coaching Hours Completed (over 3+ months)</label>
+              <input type="number" id="calc-mentor" class="form-input" placeholder="e.g. 10" value="10" min="0">
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="calc-has-pcc" style="width: 18px; height: 18px; accent-color: #6366f1;">
+              <label for="calc-has-pcc" class="form-label" style="margin-bottom: 0; cursor: pointer;">
+                I currently hold or have held an active PCC Credential (Required for MCC)
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary">Calculate Readiness & Gap Analysis</button>
+          </form>
+
+          <div id="calc-output" class="calc-result-box">
+            <div style="text-align: center; padding-top: 40px; color: var(--text-muted);">
+              👈 Fill in your completed hours on the left and click <strong>Calculate Readiness</strong> to view your progress bars and custom action plan.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="margin-top: 32px;">
+        <h3 class="section-title">Side-by-Side Credential Comparison Matrix</h3>
+        <p class="section-subtitle">Detailed requirements comparison across training hours, coaching experience, mentor hours, and evaluation standards.</p>
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Requirement Metric</th>
+                <th>ACC (Associate)</th>
+                <th>PCC (Professional)</th>
+                <th>MCC (Master)</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-table-body">
+              <!-- Rendered dynamically by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
-  </main>
 
-  <script>
-    
-        function renderTab(tabId) {
-          const content = document.getElementById('app-content');
-          if (tabId === 'overview') {
-            content.innerHTML = `
-              <div class="card-grid">
-                <div class="app-card">
-                  <div class="card-status active">ONLINE</div>
-                  <h3><span>&#127941;</span> ICF Coaching Credentials Hub Core Module</h3>
-                  <p style="color:#94a3b8; font-size:14px;">Enterprise-grade capabilities with real-time data processing and modular workflow integration.</p>
-                  <div class="metric-row"><span>System Status:</span> <strong style="color:#22c55e;">Operational</strong></div>
-                  <div class="metric-row"><span>Uptime SLA:</span> <strong>99.99%</strong></div>
-                  <button class="action-btn" onclick="alert('Running operational health check...')">Run Health Check</button>
-                </div>
-                <div class="app-card">
-                  <div class="card-status active">ACTIVE</div>
-                  <h3><span>&#128640;</span> AI & Automation Engine</h3>
-                  <p style="color:#94a3b8; font-size:14px;">Automated reasoning pipelines, prompt engineering models, and analytics telemetry.</p>
-                  <div class="metric-row"><span>Execution Speed:</span> <strong>&lt; 120ms</strong></div>
-                  <button class="action-btn" onclick="alert('Triggering AI workflow execution...')">Execute Workflow</button>
-                </div>
-              </div>
-            `;
-          } else if (tabId === 'analytics') {
-            content.innerHTML = `
-              <div class="app-card">
-                <h3><span>&#128200;</span> Real-Time Analytics & Performance Metrics</h3>
-                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:20px; text-align:center;">
-                  <div style="background:#020617; border:1px solid #1e293b; padding:20px; border-radius:12px;">
-                    <div style="font-size:28px; color:#38bdf8; font-weight:800;">26+ Yrs</div>
-                    <div style="color:#94a3b8; font-size:12px; margin-top:4px;">Domain Excellence</div>
-                  </div>
-                  <div style="background:#020617; border:1px solid #1e293b; padding:20px; border-radius:12px;">
-                    <div style="font-size:28px; color:#22c55e; font-weight:800;">36+ AI Systems</div>
-                    <div style="color:#94a3b8; font-size:12px; margin-top:4px;">Master Ecosystem</div>
-                  </div>
-                  <div style="background:#020617; border:1px solid #1e293b; padding:20px; border-radius:12px;">
-                    <div style="font-size:28px; color:#a855f7; font-weight:800;">SAFe 6.0 RTE</div>
-                    <div style="color:#94a3b8; font-size:12px; margin-top:4px;">Barclays VP Standard</div>
-                  </div>
-                </div>
-              </div>
-            `;
-          } else if (tabId === 'tools') {
-            content.innerHTML = `
-              <div class="app-card">
-                <h3><span>&#9881;</span> Action & Configuration Center</h3>
-                <p style="color:#cbd5e1; font-size:14px; margin-bottom:15px;">Configure parameters, trigger batch processing, and export diagnostic logs.</p>
-                <div style="display:flex; gap:12px;">
-                  <button class="action-btn" onclick="alert('Exporting system telemetry logs...')">Export Logs</button>
-                  <button class="action-btn" style="background:rgba(255,255,255,0.05); border:1px solid #334155;" onclick="alert('System settings synced!')">Sync Settings</button>
-                </div>
-              </div>
-            `;
-          }
-        }
+    <!-- Hub 2: Mock Exams & Practice (2nd Tab) -->
+    <section id="tab-exam" class="tab-content">
+      <div class="glass-card">
+        <h2 class="section-title">Level-Specific ICF Practice Exam Simulator</h2>
+        <p class="section-subtitle">
+          Practice dedicated exam scenarios designed for <strong>ACC</strong>, <strong>PCC</strong>, and <strong>MCC</strong>.
+          Select <strong>1 BEST</strong> action and <strong>1 WORST</strong> action per client scenario.
+        </p>
+
+        <div id="exam-render-area" class="exam-container">
+          <!-- Rendered dynamically by examEngine.js & app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Hub 3: Books, Resources & Mentor Coaching (3rd Tab) -->
+    <section id="tab-resources" class="tab-content">
+      <!-- Mentor Coaching Official Rules Overview -->
+      <div class="glass-card">
+        <h2 class="section-title">🎓 Official ICF Mentor Coaching Requirements & Process</h2>
+        <p class="section-subtitle">Understanding the 10-hour mentor coaching mandate, timeframe limits, transcript audits, and mentor coach eligibility rules.</p>
         
+        <div id="mentor-rules-overview">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
 
-    function switchTab(tabId) {
-      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-      const activeBtn = document.getElementById('tab-btn-' + tabId);
-      if (activeBtn) activeBtn.classList.add('active');
-      renderTab(tabId);
-    }
+      <!-- Must-Read Books & Study Library -->
+      <div class="glass-card" style="margin-top: 32px;">
+        <h2 class="section-title">📖 Recommended Study Books & Textbook Library</h2>
+        <p class="section-subtitle">Curated reading list mapped to specific ICF Core Competencies to gain deep confidence and clear your credentialing exam.</p>
 
-    // Default to first tab
-    document.addEventListener('DOMContentLoaded', () => {
-      const firstTab = 'overview';
-      switchTab(firstTab);
-    });
-  </script>
+        <h3 style="font-size: 18px; margin-bottom: 14px; color: #a78bfa;">Must-Read Certification Books</h3>
+        <div id="books-resources-grid" class="competency-grid" style="margin-bottom: 32px;">
+          <!-- Rendered dynamically by JS -->
+        </div>
+
+        <h3 style="font-size: 18px; margin-bottom: 14px; color: #818cf8;">Official ICF Guidelines & Assessor Evaluation Rubrics</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Click <strong>📋 View Assessor Rubric & Breakdown</strong> for a full on-screen breakdown, or click <strong>🌐 Visit Official ICF Portal</strong> to access the document on coachingfederation.org.
+        </p>
+        
+        <div id="articles-resources-list">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Core Skill Areas for Mentor Coaching -->
+      <div class="glass-card" style="margin-top: 32px;">
+        <h2 class="section-title">🎯 Core Skill Areas Candidates Should Take Coaching / Mentoring On</h2>
+        <p class="section-subtitle">
+          To pass ICF performance evaluations and exam scenarios, candidates must unlearn old habits (like consulting or advice-giving) and master these 7 critical coaching capabilities.
+        </p>
+
+        <div id="coaching-focus-container">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Hub 4: Competencies & Case Studies (4th Tab) -->
+    <section id="tab-competencies" class="tab-content">
+      <div class="glass-card">
+        <h2 class="section-title">ICF 8 Core Competencies Vault</h2>
+        <p class="section-subtitle">Deep breakdown of official performance markers (ACC, PCC, MCC), exam traps, and powerful questions for all 8 Core Competencies.</p>
+
+        <div id="competency-grid" class="competency-grid">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+      <div class="glass-card" style="margin-top: 32px;">
+        <h2 class="section-title">Real-World Coaching Case Studies & Dilemmas</h2>
+        <p class="section-subtitle">Explore complex client scenarios involving ethical boundaries, multi-party sponsor contracts, and shifting focus from problem to person.</p>
+
+        <div id="case-studies-container">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+      <div class="glass-card" style="margin-top: 32px;" id="exam-info-box">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <div class="glass-card" style="margin-top: 32px;">
+        <h3 class="section-title">Step-by-Step Certification Pathways</h3>
+        <p class="section-subtitle">Clear milestone roadmaps whether you are pursuing Level 1 (ACC), Level 2 (PCC), Level 3 (MCC), or the Portfolio pathway.</p>
+        <div id="pathways-container">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>ICF Credentials Hub • Aligned with ICF 8 Core Competencies & Code of Ethics</p>
+      <p style="font-size: 11px; margin-top: 4px; color: var(--text-dim);">Created for professional coaching accreditation preparation.</p>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Assessor Rubric Modal -->
+  <div id="resource-modal" class="modal-overlay" onclick="if(event.target === this) closeResourceModal()">
+    <div class="modal-content-container">
+      <button class="modal-close-btn" onclick="closeResourceModal()" aria-label="Close modal">✕</button>
+      <div id="modal-body-content">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/examEngine.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
+
