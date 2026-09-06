@@ -775,15 +775,15 @@ function openPortalPreviewModal(id) {
     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
       <span style="font-size: 40px;">${portal.icon}</span>
       <div>
-        <h2 style="font-family: var(--font-heading); color: #fff; font-size: 24px;">${portal.title}</h2>
+        <h2 style="font-family: var(--font-heading); color: var(--text-heading); font-size: 24px;">${portal.title}</h2>
         <span class="portal-badge ${portal.badgeClass}">${portal.badge}</span>
       </div>
     </div>
     <p style="font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">${portal.desc}</p>
-    <h4 style="color: var(--accent-cyan); margin-bottom: 10px;">Key Capabilities & Features:</h4>
-    <ul style="padding-left: 20px; color: #e2e8f0; margin-bottom: 24px; font-size: 14px; line-height: 1.8;">
+    <h4 style="color: var(--accent-navy); margin-bottom: 10px;">Key Capabilities & Features:</h4>
+    <ul style="padding-left: 20px; color: var(--text-body); margin-bottom: 24px; font-size: 14px; line-height: 1.8;">
       <li>Production-ready interactive web application built by Santoshanand Adkar.</li>
-      <li>Designed with CSS Glassmorphism and responsive modular architecture.</li>
+      <li>Designed with a clean, responsive modular architecture.</li>
       <li>Part of Santoshanand's 36+ AI Systems & Enterprise Agile Portfolio.</li>
     </ul>
     <div style="display: flex; justify-content: flex-end; gap: 12px;">
@@ -817,7 +817,7 @@ function setupAiAssistant() {
       const query = input.value.trim();
       if (!query) return;
 
-      chatLog.innerHTML += `<div style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--border-glow); padding: 10px 14px; border-radius: 12px; margin-bottom: 10px; font-size: 13px; align-self: flex-end;"><strong>You:</strong> ${query}</div>`;
+      chatLog.innerHTML += `<div style="background: var(--accent-gold-soft); border: 1px solid var(--border-accent); padding: 10px 14px; border-radius: 12px; margin-bottom: 10px; font-size: 13px; align-self: flex-end;"><strong>You:</strong> ${query}</div>`;
       input.value = "";
       chatLog.scrollTop = chatLog.scrollHeight;
 
@@ -830,7 +830,7 @@ function setupAiAssistant() {
         } else if (query.toLowerCase().includes("certif")) {
           answer = "Santoshanand holds SAFe 6.0 Release Train Engineer (RTE), SAFe 4.5 Agilist, ICAgile Certified Professional (ICP-ACC, ICP-CAT, ICP-ENT), and CSM certifications.";
         }
-        chatLog.innerHTML += `<div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 10px 14px; border-radius: 12px; margin-bottom: 10px; font-size: 13px;"><strong>Santoshanand's AI Assistant:</strong> ${answer}</div>`;
+        chatLog.innerHTML += `<div style="background: var(--bg-card-alt); border: 1px solid var(--border-subtle); padding: 10px 14px; border-radius: 12px; margin-bottom: 10px; font-size: 13px;"><strong>Santoshanand's AI Assistant:</strong> ${answer}</div>`;
         chatLog.scrollTop = chatLog.scrollHeight;
       }, 600);
     });
