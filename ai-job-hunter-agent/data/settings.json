@@ -1,0 +1,10 @@
+{
+  "autoApplyEnabled": true,
+  "minAutoApplyScore": 80,
+  "userEmail": "candidate@example.com",
+  "smtpConfigured": false,
+  "smtpHost": "smtp.gmail.com",
+  "smtpPort": 587,
+  "smtpUser": "",
+  "smtpPass": ""
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <main class="main-content">
+        <div class="page-header">
+            <h1 id="greeting">Good day!</h1>
+            <p>Here's your account overview.</p>
+        </div>
+
+        <!-- Agentic AI Operations Control Center Link -->
+        <div class="glass-card mb-4" style="background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(10,15,30,0.8)); border: 1px solid var(--accent-gold);">
+            <div class="d-flex justify-between align-center">
+                <div>
+                    <h3 class="text-gold" style="margin-bottom: 4px;">⚡ Agentic AI Webhook Control Center</h3>
+                    <p class="text-secondary" style="font-size: 0.88rem;">Simulate & monitor autonomous Webhook transfers, FD Auto-Sweeps, and Cyber Threat Interventions.</p>
+                </div>
+                <a href="/agentic-dashboard.html" class="btn btn-primary" style="white-space: nowrap; margin-left: 1rem;">Open Control Center 🤖</a>
+            </div>
+        </div>
+
+        <div class="grid-2 mb-4">
+            <!-- Account Summary -->
+            <div class="glass-card balance-card">
+                <div class="d-flex justify-between align-center">
+                    <span class="text-secondary">Savings Account</span>
+                    <span class="badge badge-success">Active</span>
+                </div>
+                <div class="balance-amount" id="balance-amount">₹0.00</div>
+                <div class="text-secondary mb-3">A/C No: <span id="account-no">****1234</span></div>
+                
+                <div class="d-flex gap-2">
+                    <a href="/transfer.html" class="btn btn-primary" style="flex: 1;">Transfer</a>
+                    <a href="/bills.html" class="btn btn-secondary" style="flex: 1;">Pay Bills</a>
+                </div>
+            </div>
+
+            <!-- Bank Cards -->
+            <div class="d-flex gap-3" style="flex-direction: column;">
+                <div class="bank-card bank-card-debit">
+                    <div class="d-flex justify-between align-center">
+                        <span style="font-weight: 700; font-size: 1.2rem;">SecureBank</span>
+                        <span class="card-type">DEBIT</span>
+                    </div>
+                    <div class="card-number" id="debit-number">**** **** **** 4321</div>
+                    <div class="card-details">
+                        <div class="card-name" id="card-name">JOHN DOE</div>
+                        <div>VALID THRU<br>12/28</div>
+                        <div style="font-weight: 700; font-style: italic;">VISA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Recent Transactions -->
+            <div class="glass-card">
+                <div class="d-flex justify-between align-center mb-3">
+                    <h3>Recent Transactions</h3>
+                    <a href="#" style="font-size: 0.875rem;">View All</a>
+                </div>
+                
+                <div class="transaction-list" id="transaction-list">
+                    <!-- Loaded via JS -->
+                    <div class="text-center text-secondary py-3">Loading transactions...</div>
+                </div>
+            </div>
+
+            <!-- Active FDs Summary -->
+            <div class="glass-card">
+                <div class="d-flex justify-between align-center mb-3">
+                    <h3>Active Fixed Deposits</h3>
+                    <a href="/fd.html" class="btn btn-secondary" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">Open FD</a>
+                </div>
+                
+                <div id="fd-summary-list">
+                    <!-- Loaded via JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        requireAuth();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            startIdleTimer();
+            setGreeting();
+            loadDashboardData();
+        });
+
+        function setGreeting() {
+            const hour = new Date().getHours();
+            let greeting = 'Good evening';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 17) greeting = 'Good afternoon';
+            
+            const name = localStorage.getItem(CUSTOMER_NAME_KEY) || 'Customer';
+            document.getElementById('greeting').innerText = `${greeting}, ${name}!`;
+            document.getElementById('card-name').innerText = name;
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Mock API Call
+                // const data = await apiCall('/account/dashboard');
+                
+                // Mock Data
+                const data = {
+                    balance: 125430.50,
+                    accountNo: '10938472019',
+                    debitCardNo: '4532123456789012',
+                    transactions: [
+                        { id: 1, desc: 'Amazon Purchase', amount: 1200, type: 'DEBIT', date: '2025-09-02T14:30:00' },
+                        { id: 2, desc: 'Salary Credit', amount: 85000, type: 'CREDIT', date: '2025-09-01T09:00:00' },
+                        { id: 3, desc: 'Electricity Bill', amount: 1540, type: 'DEBIT', date: '2025-08-28T10:15:00' }
+                    ],
+                    fds: [
+                        { id: 101, amount: 50000, rate: 7.5, maturityDate: '2026-09-01' }
+                    ]
+                };
+
+                document.getElementById('balance-amount').innerText = formatCurrency(data.balance);
+                document.getElementById('account-no').innerText = maskCardNumber(data.accountNo).replace('**** **** **** ', 'XXXXXX');
+                document.getElementById('debit-number').innerText = maskCardNumber(data.debitCardNo);
+
+                // Render transactions
+                const txList = document.getElementById('transaction-list');
+                txList.innerHTML = '';
+                if (data.transactions.length === 0) {
+                    txList.innerHTML = '<div class="text-secondary text-center">No recent transactions</div>';
+                } else {
+                    data.transactions.forEach(tx => {
+                        const isCredit = tx.type === 'CREDIT';
+                        const sign = isCredit ? '+' : '-';
+                        const cls = isCredit ? 'transaction-credit' : 'transaction-debit';
+                        
+                        txList.innerHTML += `
+                            <div class="transaction-item ${cls}">
+                                <div>
+                                    <div style="font-weight: 500;">${tx.desc}</div>
+                                    <div class="text-secondary" style="font-size: 0.75rem;">${formatDate(tx.date)}</div>
+                                </div>
+                                <div class="amount" style="font-weight: 600;">${sign}${formatCurrency(tx.amount)}</div>
+                            </div>
+                        `;
+                    });
+                }
+
+                // Render FDs
+                const fdList = document.getElementById('fd-summary-list');
+                fdList.innerHTML = '';
+                if (data.fds.length === 0) {
+                    fdList.innerHTML = '<div class="text-secondary text-center">No active fixed deposits</div>';
+                } else {
+                    data.fds.forEach(fd => {
+                        fdList.innerHTML += `
+                            <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+                                <div class="d-flex justify-between align-center mb-2">
+                                    <span style="font-weight: 600;">FD-${fd.id}</span>
+                                    <span class="text-gold">${formatCurrency(fd.amount)}</span>
+                                </div>
+                                <div class="d-flex justify-between text-secondary" style="font-size: 0.875rem;">
+                                    <span>Rate: ${fd.rate}%</span>
+                                    <span>Matures: ${formatDate(fd.maturityDate)}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+            } catch (error) {
+                // Error handled by app.js
+            }
+        }
+    </script>
+</body>
+</html>

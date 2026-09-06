@@ -1,6 +1,6 @@
 /* ----------------------------------------------------
    SANTOSHANAND ADKAR - EXECUTIVE PORTFOLIO DATA & SCRIPT
-   Visual Career Roadmap, Certifications Nav Fix, 36 AI Portals
+   Updated with Root-Relative Launch URLs for All 36 Portals
    ---------------------------------------------------- */
 
 // 1. ALL 36 AI PORTALS REPOSITORY DATA
@@ -27,7 +27,7 @@ const PORTALS_DATA = [
     icon: "🤖",
     desc: "Autonomous multi-agent orchestration studio for enterprise workflows, agent collaboration, and dynamic task execution.",
     tags: ["Agentic AI", "Orchestration", "LLM Pipelines", "MCP Protocols"],
-    launchUrl: "../omniagent-os/index.html",
+    launchUrl: "omniagent-os/index.html",
     isExternal: false,
     featured: true
   },
@@ -40,7 +40,7 @@ const PORTALS_DATA = [
     icon: "🛡️",
     desc: "Vector search & RAG intelligence platform designed for real-time cybersecurity threat monitoring and compliance audit analysis.",
     tags: ["RAG Engine", "Cybersecurity", "Threat Intel", "Vector Search"],
-    launchUrl: "../cyber-rag-studio/index.html",
+    launchUrl: "cyber-rag-studio/index.html",
     isExternal: false,
     featured: true
   },
@@ -53,7 +53,7 @@ const PORTALS_DATA = [
     icon: "⚖️",
     desc: "Strategic framework & compliance dashboard for ethical AI deployment, ISO 42001 self-assessment, model risk oversight, and shadow AI prevention.",
     tags: ["ISO 42001", "AI Ethics", "NIST AI RMF", "Model Governance"],
-    launchUrl: "../ai-governance-portal/index.html",
+    launchUrl: "ai-governance-portal/index.html",
     isExternal: false,
     featured: true
   },
@@ -66,7 +66,7 @@ const PORTALS_DATA = [
     icon: "📊",
     desc: "Executive strategic alignment OS connecting enterprise objectives (OKRs) with engineering flow velocity and value stream delivery.",
     tags: ["OKR Alignment", "Flow Metrics", "Executive Dashboards"],
-    launchUrl: "../okr-metrics-nexus/index.html",
+    launchUrl: "okr-metrics-nexus/index.html",
     isExternal: false,
     featured: true
   },
@@ -79,7 +79,7 @@ const PORTALS_DATA = [
     icon: "🎓",
     desc: "Comprehensive coaching competencies vault, GROW model session trainer, Shu-Ha-Ri progression rubric, and PCC/MCC mastery studio.",
     tags: ["ICF Competencies", "GROW Model", "Shu-Ha-Ri", "Executive Coaching"],
-    launchUrl: "../icf-credentialing-hub/index.html",
+    launchUrl: "icf-credentialing-hub/index.html",
     isExternal: false,
     featured: true
   },
@@ -92,7 +92,7 @@ const PORTALS_DATA = [
     icon: "🔒",
     desc: "Interactive security controls matrix, ISMS policy generator, and audit prep studio for ISO 27001 certification compliance.",
     tags: ["ISO 27001", "ISMS", "Security Audit", "Risk Register"],
-    launchUrl: "../iso27001-readiness-portal/index.html",
+    launchUrl: "iso27001-readiness-portal/index.html",
     isExternal: false
   },
   {
@@ -104,7 +104,7 @@ const PORTALS_DATA = [
     icon: "🧪",
     desc: "Real-time prompt evaluation, toxic input filtration, hallucination benchmarking, and LLM safety testing suite.",
     tags: ["LLM Evals", "Prompt Safety", "Red Teaming", "Guardrails"],
-    launchUrl: "../ai-guardrails-evals-studio/index.html",
+    launchUrl: "ai-guardrails-evals-studio/index.html",
     isExternal: false
   },
   {
@@ -116,7 +116,7 @@ const PORTALS_DATA = [
     icon: "🚆",
     desc: "SAFe 6.0 ART management, Big Room Planning (BRP) studio, dependency matrix mapper, and confidence vote analyzer.",
     tags: ["SAFe 6.0 RTE", "BRP Planning", "ART Sync", "Dependency Mapping"],
-    launchUrl: "../rte-nexus-portal/index.html",
+    launchUrl: "rte-nexus-portal/index.html",
     isExternal: false
   },
   {
@@ -128,7 +128,7 @@ const PORTALS_DATA = [
     icon: "💎",
     desc: "AI-driven wealth management, portfolio asset allocation modeling, and high-net-worth financial roadmap simulator.",
     tags: ["Private Wealth", "Portfolio AI", "FinTech", "Risk Analytics"],
-    launchUrl: "../aura-private-wealth/index.html",
+    launchUrl: "aura-private-wealth/index.html",
     isExternal: false
   },
   {
@@ -140,7 +140,7 @@ const PORTALS_DATA = [
     icon: "💼",
     desc: "Executive playbook for C-Suite advisory, generative AI strategy adoption, organizational change, and digital ROI calculation.",
     tags: ["AI Strategy", "C-Suite Advisory", "Change Management"],
-    launchUrl: "../ai-leadership-consulting-portal/index.html",
+    launchUrl: "ai-leadership-consulting-portal/index.html",
     isExternal: false
   },
   {
@@ -152,7 +152,7 @@ const PORTALS_DATA = [
     icon: "🧠",
     desc: "Semantic document retriever for Scrum guidelines, framework whitepapers, and enterprise agile practices.",
     tags: ["RAG Engine", "Agile RAG", "Knowledge Base", "Vector DB"],
-    launchUrl: "../agile-rag-portal/index.html",
+    launchUrl: "agile-rag-portal/index.html",
     isExternal: false
   },
   {
@@ -164,7 +164,7 @@ const PORTALS_DATA = [
     icon: "🎯",
     desc: "Product roadmap generator, AI user story crafting studio, PRD generator, and product discovery workbench.",
     tags: ["AI Product Manager", "PRD Studio", "User Stories", "Roadmaps"],
-    launchUrl: "../ai-pm-portal/index.html",
+    launchUrl: "ai-pm-portal/index.html",
     isExternal: false
   },
   {
@@ -176,7 +176,7 @@ const PORTALS_DATA = [
     icon: "💻",
     desc: "Agentic coding assistant hub, prompt engineering playground, and modern vibe-coding methodology accelerator (Cursor, Vercel, GitHub).",
     tags: ["Vibe Coding", "Agentic Code", "Cursor AI", "Dev Productivity"],
-    launchUrl: "../vibe-coding-portal/index.html",
+    launchUrl: "vibe-coding-portal/index.html",
     isExternal: false
   },
   {
@@ -188,7 +188,7 @@ const PORTALS_DATA = [
     icon: "🛡️",
     desc: "Continuous automated security pipeline monitoring, SAST/DAST metrics tracker, and compliance vulnerability dashboard.",
     tags: ["AgileSecOps", "Vulnerability Tracker", "DevSecOps"],
-    launchUrl: "../agilesecops-sentinel/index.html",
+    launchUrl: "agilesecops-sentinel/index.html",
     isExternal: false
   },
   {
@@ -200,7 +200,7 @@ const PORTALS_DATA = [
     icon: "🚀",
     desc: "Automated resume optimizer, interview preparation coach, job match scoring engine, and career agent studio.",
     tags: ["Career Agent", "Resume AI", "Interview Prep", "Job Hunter"],
-    launchUrl: "../ai-job-hunter-agent/index.html",
+    launchUrl: "ai-job-hunter-agent/index.html",
     isExternal: false
   },
   {
@@ -212,7 +212,7 @@ const PORTALS_DATA = [
     icon: "🐍",
     desc: "Architectural blueprints, LangChain/LlamaIndex code patterns, vector database benchmarks, and RAG optimization patterns.",
     tags: ["Python RAG", "LangChain", "Vector Indexes", "Embedding Models"],
-    launchUrl: "../python-rag-mastery/index.html",
+    launchUrl: "python-rag-mastery/index.html",
     isExternal: false
   },
   {
@@ -224,7 +224,7 @@ const PORTALS_DATA = [
     icon: "🏆",
     desc: "Mentorship blueprints, team impediment remover, daily standup optimization studio, and Tribe Scrum Master Horizontal playbook.",
     tags: ["Scrum Master", "Team Coaching", "Impediment Vault", "TSM Horizontal"],
-    launchUrl: "../scrum_master_coaching/index.html",
+    launchUrl: "scrum_master_coaching/index.html",
     isExternal: false
   },
   {
@@ -236,7 +236,7 @@ const PORTALS_DATA = [
     icon: "🏦",
     desc: "Enterprise financial compliance, AML transaction anomaly analyzer, and banking risk regulation portal.",
     tags: ["SecureBank", "AML Compliance", "Risk Engine", "FinTech AI"],
-    launchUrl: "../securebank/index.html",
+    launchUrl: "securebank/index.html",
     isExternal: false
   },
   {
@@ -248,7 +248,7 @@ const PORTALS_DATA = [
     icon: "⚡",
     desc: "Deployment frequency metrics, lead time analyzer, DORA metrics engine, and continuous value stream delivery portal.",
     tags: ["DORA Metrics", "Delivery Flow", "Vibe Ops", "CI/CD"],
-    launchUrl: "../vibe-ops-hub/index.html",
+    launchUrl: "vibe-ops-hub/index.html",
     isExternal: false
   },
   {
@@ -260,7 +260,7 @@ const PORTALS_DATA = [
     icon: "❤️",
     desc: "Real-time team psychological safety sentiment pulse, burnout monitor, and organizational happiness analytics.",
     tags: ["Team Vibe", "Psych Safety", "Sentiment Analysis", "Burnout Monitor"],
-    launchUrl: "../vibepulse-studio/index.html",
+    launchUrl: "vibepulse-studio/index.html",
     isExternal: false
   },
   {
@@ -272,7 +272,7 @@ const PORTALS_DATA = [
     icon: "🌐",
     desc: "Enterprise technology radar, adopted languages/frameworks tracker, and software architecture standard vault.",
     tags: ["Tech Radar", "Engineering Standards", "Architecture Guild"],
-    launchUrl: "../tech-pulse-hub/index.html",
+    launchUrl: "tech-pulse-hub/index.html",
     isExternal: false
   },
   {
@@ -284,7 +284,7 @@ const PORTALS_DATA = [
     icon: "💳",
     desc: "Credit risk score model previewer, financial product strategy board, and portfolio credit line management OS.",
     tags: ["Credit Vision", "Risk Scorecard", "Product Strategy"],
-    launchUrl: "../product_vision_credit_management/index.html",
+    launchUrl: "product_vision_credit_management/index.html",
     isExternal: false
   },
   {
@@ -296,7 +296,7 @@ const PORTALS_DATA = [
     icon: "🗣️",
     desc: "Conflict resolution playbooks, stakeholder influence frameworks, active listening scenarios, and executive presence guide.",
     tags: ["Executive Presence", "Influence", "Conflict Resolution"],
-    launchUrl: "../soft-skills-portal/index.html",
+    launchUrl: "soft-skills-portal/index.html",
     isExternal: false
   },
   {
@@ -308,7 +308,7 @@ const PORTALS_DATA = [
     icon: "⚙️",
     desc: "Engineering leadership workbench for managing distributed software teams, resource allocation, and AI productivity tools.",
     tags: ["Engineering Management", "Resource Planning", "DevOps"],
-    launchUrl: "../ai-management-portal/index.html",
+    launchUrl: "ai-management-portal/index.html",
     isExternal: false
   },
   {
@@ -320,7 +320,7 @@ const PORTALS_DATA = [
     icon: "🏗️",
     desc: "System design patterns vault, cloud architecture decision records (ADR), and legacy modernization blueprints.",
     tags: ["System Architecture", "ADR Templates", "Legacy Modernization"],
-    launchUrl: "../architect-master-hub/index.html",
+    launchUrl: "architect-master-hub/index.html",
     isExternal: false
   },
   {
@@ -332,7 +332,7 @@ const PORTALS_DATA = [
     icon: "👥",
     desc: "Talent acquisition management, employee career pathing, skill matrix assessment, and HR automation portal.",
     tags: ["HRMS", "Talent Management", "Skill Matrix", "Career Paths"],
-    launchUrl: "../hrms-portal/index.html",
+    launchUrl: "hrms-portal/index.html",
     isExternal: false
   },
   {
@@ -344,7 +344,7 @@ const PORTALS_DATA = [
     icon: "🎨",
     desc: "Design thinking skill evaluator, UX/UI assessment rubric, and creative problem-solving challenge studio.",
     tags: ["Design Thinking", "UX Assessment", "Creative Evaluation"],
-    launchUrl: "../design-entrance-assessment-portal/index.html",
+    launchUrl: "design-entrance-assessment-portal/index.html",
     isExternal: false
   },
   {
@@ -356,7 +356,7 @@ const PORTALS_DATA = [
     icon: "🔌",
     desc: "Custom Model Context Protocol (MCP) server & tooling infrastructure for connecting AI agents to local filesystem and enterprise tools.",
     tags: ["MCP Server", "Agent Tooling", "Protocol", "Custom APIs"],
-    launchUrl: "../mcp-api-server/index.html",
+    launchUrl: "mcp-api-server/index.html",
     isExternal: false
   },
   {
@@ -368,7 +368,7 @@ const PORTALS_DATA = [
     icon: "🩺",
     desc: "Personalized health tracking OS, daily stress & energy optimizer, and executive wellness dashboard.",
     tags: ["Personal AI", "Health Tech", "Wellness Analytics"],
-    launchUrl: "../myhealth/index.html",
+    launchUrl: "myhealth/index.html",
     isExternal: false
   },
   {
@@ -380,7 +380,7 @@ const PORTALS_DATA = [
     icon: "🚀",
     desc: "Startup investor pitch deck evaluator, financial runway calculator, and seed round preparation workbench.",
     tags: ["Pitch Deck", "Seed Funding", "Financial Model"],
-    launchUrl: "../seed-prep-portal/index.html",
+    launchUrl: "seed-prep-portal/index.html",
     isExternal: false
   },
   {
@@ -392,7 +392,7 @@ const PORTALS_DATA = [
     icon: "⏱️",
     desc: "Personal and squad task management engine with WIP limit enforcement, cycle time tracking, and focus timers.",
     tags: ["Task Management", "WIP Limits", "Sprint Board"],
-    launchUrl: "../taskpulse_app/index.html",
+    launchUrl: "taskpulse_app/index.html",
     isExternal: false
   },
   {
@@ -404,7 +404,7 @@ const PORTALS_DATA = [
     icon: "✨",
     desc: "Astrological chart calculator and personal horizon analytics platform using custom algorithms.",
     tags: ["Personal Horizon", "Calculators", "Algorithms"],
-    launchUrl: "../astrology_portal/index.html",
+    launchUrl: "astrology_portal/index.html",
     isExternal: false
   },
   {
@@ -416,7 +416,7 @@ const PORTALS_DATA = [
     icon: "📖",
     desc: "Interactive playbook detailing how GenAI, Cursor, and Agentic Workflows revolutionize enterprise agile coaching.",
     tags: ["Agile Book", "GenAI Coaching", "Playbook"],
-    launchUrl: "../agile_ai_coaching_book/index.html",
+    launchUrl: "agile_ai_coaching_book/index.html",
     isExternal: false
   },
   {
@@ -428,7 +428,7 @@ const PORTALS_DATA = [
     icon: "🌊",
     desc: "Companion coaching studio providing team health surveys, ceremony guides, and retrospective icebreakers.",
     tags: ["Team Vibe", "Ceremony Facilitation", "Icebreakers"],
-    launchUrl: "../agile-vibe-portal/index.html",
+    launchUrl: "agile-vibe-portal/index.html",
     isExternal: false
   },
   {
@@ -440,7 +440,7 @@ const PORTALS_DATA = [
     icon: "📄",
     desc: "Curated summaries and architectural breakdowns of top AI research papers across LLMs, RAG, and Agentic Systems.",
     tags: ["AI Papers", "LLM Research", "Architectural Summaries"],
-    launchUrl: "../ai_research_papers/index.html",
+    launchUrl: "ai_research_papers/index.html",
     isExternal: false
   }
 ];

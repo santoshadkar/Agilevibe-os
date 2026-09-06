@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Job Intelligence & Matchmaker Agent 🇮🇳</title>
+  <meta name="description" content="AI Agent collecting job postings daily across India portals for Agile Coach, AI Consultant, AI Leader, and Cyber Security Consultant with high-probability interview call matching & auto-apply email notifications.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-title">
+        <h1>AI Job Intelligence Agent 🇮🇳</h1>
+        <p>India Morning Aggregator, High-Match Scorer & Auto-Apply Agent</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="badge-status">
+        <span class="pulse-dot"></span>
+        <span>Morning Scheduler & Auto-Apply Active (08:00 AM)</span>
+      </div>
+      <button class="btn btn-primary" onclick="triggerAutoApplyRun()">
+        ⚡ Auto-Apply High Matches
+      </button>
+      <button class="btn btn-secondary" onclick="triggerScraperRun()">
+        🔄 Refresh Jobs
+      </button>
+    </div>
+  </header>
+
+  <div class="main-container">
+
+    <!-- Top Metrics Overview -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon icon-purple">💼</div>
+        <div class="metric-info">
+          <h3 id="metric-total-jobs">0</h3>
+          <p>Total Scraped India Jobs</p>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon icon-emerald">🔥</div>
+        <div class="metric-info">
+          <h3 id="metric-high-match">0</h3>
+          <p>High Interview Call Chance (80%+)</p>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon icon-cyan">✉️</div>
+        <div class="metric-info">
+          <h3 id="metric-auto-applied">0</h3>
+          <p>Jobs Auto-Applied & Emailed</p>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon icon-amber">⏰</div>
+        <div class="metric-info">
+          <h3 id="metric-last-run">Today 08:00</h3>
+          <p>Last Agent Scrape & Apply Run</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="feed" onclick="switchTab('feed')">
+        📊 Scraped Jobs Feed
+      </button>
+      <button class="tab-btn" data-tab="high-match" onclick="switchTab('high-match')">
+        🔥 High-Probability Recommendations
+      </button>
+      <button class="tab-btn" data-tab="cv" onclick="switchTab('cv')">
+        📄 My CV & AI Match Profile
+      </button>
+      <button class="tab-btn" data-tab="tracker" onclick="switchTab('tracker')">
+        📋 Application Pipeline Tracker
+      </button>
+      <button class="tab-btn" data-tab="email-config" onclick="switchTab('email-config')">
+        ✉️ Auto-Apply & Email Alerts
+      </button>
+      <button class="tab-btn" data-tab="scheduler" onclick="switchTab('scheduler')">
+        ⚙️ Scheduler & Scraper Logs
+      </button>
+    </nav>
+
+    <!-- TAB 1 & 2: JOBS FEED & HIGH MATCH -->
+    <section id="tab-jobs-section">
+      <!-- Search & Filter Controls -->
+      <div class="filter-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="input-search" placeholder="Search title, skills, company (e.g. SAFe, CISSP, GenAI)..." oninput="applyFilters()">
+        </div>
+        <div class="filter-group">
+          <select id="select-category" class="filter-select" onchange="applyFilters()">
+            <option value="All">All Target Roles</option>
+            <option value="Agile Coach">Agile Coach</option>
+            <option value="AI Consultant">AI Consultant</option>
+            <option value="AI Leader">AI Leader</option>
+            <option value="Cyber Security Consultant">Cyber Security Consultant</option>
+          </select>
+          <select id="select-location" class="filter-select" onchange="applyFilters()">
+            <option value="All">All India Locations 🇮🇳</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Gurugram">Gurugram / NCR</option>
+            <option value="Pune">Pune</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Remote">Remote (India)</option>
+          </select>
+          <select id="select-worktype" class="filter-select" onchange="applyFilters()">
+            <option value="All">All Work Types</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Onsite">Onsite</option>
+          </select>
+          <select id="select-minscore" class="filter-select" onchange="applyFilters()">
+            <option value="0">Min Score: All</option>
+            <option value="80">🔥 High Match (80%+)</option>
+            <option value="60">⚡ Medium+ (60%+)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Jobs Cards Container -->
+      <div id="jobs-container" class="jobs-grid">
+        <!-- Dynamically rendered job cards -->
+      </div>
+    </section>
+
+    <!-- TAB 3: CV PROFILE & MATCH CONFIG -->
+    <section id="tab-cv-section" class="hidden">
+      <div class="cv-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h2 style="font-size: 1.3rem;">📄 Candidate CV & Matcher Profile</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">The AI Agent uses this profile to compute your interview call probability score against all market jobs.</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveCVProfile()">💾 Save Profile & Re-evaluate Jobs</button>
+        </div>
+
+        <div class="cv-field">
+          <label for="cv-name">Full Name</label>
+          <input type="text" id="cv-name">
+        </div>
+        <div class="cv-field">
+          <label for="cv-title">Target Professional Headline</label>
+          <input type="text" id="cv-title">
+        </div>
+        <div class="cv-field">
+          <label for="cv-summary">Executive Summary / Candidate Background</label>
+          <textarea id="cv-summary"></textarea>
+        </div>
+        <div class="cv-field">
+          <label for="cv-skills">Core Skills & Frameworks (Comma separated)</label>
+          <textarea id="cv-skills" style="min-height: 80px;"></textarea>
+        </div>
+        <div class="cv-field">
+          <label for="cv-certifications">Certifications (Comma separated)</label>
+          <input type="text" id="cv-certifications">
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: APPLICATION PIPELINE TRACKER -->
+    <section id="tab-tracker-section" class="hidden">
+      <h2 style="font-size: 1.3rem; margin-bottom: 1rem;">📋 Application Pipeline Tracker</h2>
+      <div class="kanban-grid">
+        <div class="kanban-column">
+          <div class="column-header">
+            <h3>⭐ Saved Jobs</h3>
+            <span class="column-count" id="count-saved">0</span>
+          </div>
+          <div id="col-saved" class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column">
+          <div class="column-header">
+            <h3>🚀 Applied & Emailed</h3>
+            <span class="column-count" id="count-applied">0</span>
+          </div>
+          <div id="col-applied" class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column">
+          <div class="column-header">
+            <h3>🎯 Interviewing</h3>
+            <span class="column-count" id="count-interviewing">0</span>
+          </div>
+          <div id="col-interviewing" class="kanban-cards"></div>
+        </div>
+
+        <div class="kanban-column">
+          <div class="column-header">
+            <h3>🎉 Offered</h3>
+            <span class="column-count" id="count-offered">0</span>
+          </div>
+          <div id="col-offered" class="kanban-cards"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: AUTO-APPLY & EMAIL NOTIFICATION CONFIG -->
+    <section id="tab-email-config-section" class="hidden">
+      <div class="cv-panel" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <div>
+            <h2 style="font-size: 1.3rem;">✉️ Auto-Apply & Email Alert Settings</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Configure target recipient email, auto-apply thresholds, and optional SMTP settings.</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveSettingsForm()">💾 Save Settings</button>
+        </div>
+
+        <div class="cv-field">
+          <label for="setting-user-email">Recipient Email Address for Confirmation Alerts</label>
+          <input type="email" id="setting-user-email" placeholder="e.g. yourname@gmail.com">
+        </div>
+
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+          <label class="checkbox-label">
+            <input type="checkbox" id="setting-auto-apply-enabled">
+            <span>Enable Automated Daily Morning Auto-Apply for High-Match Jobs</span>
+          </label>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Min Score Threshold:</label>
+            <select id="setting-min-score" class="filter-select">
+              <option value="85">🔥 85%+ High Match Only (Strict)</option>
+              <option value="80">🔥 80%+ High Match (Recommended)</option>
+              <option value="70">⚡ 70%+ Medium+ Match</option>
+            </select>
+          </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border-glass); margin: 1.25rem 0;">
+        <h4 style="font-size: 0.95rem; color: var(--primary-light); margin-bottom: 0.75rem;">⚙️ Optional Real SMTP Dispatch Configuration (Gmail / Outlook / Custom)</h4>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">If disabled, the agent logs generated confirmation emails to the audit trail below so you can inspect all auto-applications on your portal.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+          <div class="cv-field">
+            <label for="setting-smtp-host">SMTP Host</label>
+            <input type="text" id="setting-smtp-host" placeholder="smtp.gmail.com">
+          </div>
+          <div class="cv-field">
+            <label for="setting-smtp-port">SMTP Port</label>
+            <input type="number" id="setting-smtp-port" placeholder="587">
+          </div>
+          <div class="cv-field">
+            <label for="setting-smtp-user">SMTP Username / Email</label>
+            <input type="text" id="setting-smtp-user" placeholder="your-email@gmail.com">
+          </div>
+          <div class="cv-field">
+            <label for="setting-smtp-pass">SMTP App Password</label>
+            <input type="password" id="setting-smtp-pass" placeholder="App Password">
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Audit Trail -->
+      <div class="cv-panel">
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">📬 Applied Jobs Email Audit Log</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;">Every job applied on your behalf generates a confirmation log record with full details.</p>
+        
+        <table class="logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Applied Job & Company</th>
+              <th>Match Score</th>
+              <th>Recipient Email</th>
+              <th>Email Subject</th>
+            </tr>
+          </thead>
+          <tbody id="email-logs-table-body">
+            <!-- Rendered email logs -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- TAB 6: SCHEDULER & SCRAPER LOGS -->
+    <section id="tab-scheduler-section" class="hidden">
+      <div class="cv-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div>
+            <h2 style="font-size: 1.3rem;">⚙️ Daily Morning Scraper Logs & Status</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">View automated execution logs for morning job scraping runs across LinkedIn India, Naukri, Foundit, and Glassdoor.</p>
+          </div>
+          <button class="btn btn-secondary" onclick="loadStatsAndLogs()">🔄 Refresh Logs</button>
+        </div>
+
+        <table class="logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Log Event & Scraper Action</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody id="logs-table-body">
+            <!-- Render logs -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- JOB DETAIL MODAL -->
+  <div id="job-modal" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modal-body">
+        <!-- Rendered job details -->
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

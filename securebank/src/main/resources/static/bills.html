@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Pay Bills</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .bill-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        .bill-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-input);
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid transparent;
+        }
+        .bill-tab:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .bill-tab.active {
+            background: rgba(201, 168, 76, 0.15);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        .bill-form {
+            display: none;
+        }
+        .bill-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Pay Bills</h1>
+            <p>Instant bill payments with zero convenience fee.</p>
+        </div>
+
+        <div class="glass-card mb-4">
+            <div class="bill-tabs">
+                <div class="bill-tab active" onclick="switchTab('mobile')">📱 Mobile Recharge</div>
+                <div class="bill-tab" onclick="switchTab('electricity')">⚡ Electricity</div>
+                <div class="bill-tab" onclick="switchTab('creditcard')">💳 Credit Card</div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label class="form-label">Pay From Account</label>
+                <select class="form-select" id="fromAccount">
+                    <option value="10938472019">Savings - XXXXXX2019 (Balance: ₹1,25,430.50)</option>
+                </select>
+            </div>
+
+            <!-- Mobile Form -->
+            <form id="mobile-form" class="bill-form active" onsubmit="handleBillPay(event, 'Mobile')">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Operator</label>
+                        <select class="form-select" required>
+                            <option value="">Select Operator</option>
+                            <option>Airtel</option>
+                            <option>Jio</option>
+                            <option>Vi</option>
+                            <option>BSNL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mobile Number</label>
+                        <input type="tel" class="form-input" pattern="[0-9]{10}" placeholder="10 digit number" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Amount (₹)</label>
+                        <input type="number" class="form-input" required min="10">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Recharge Now</button>
+            </form>
+
+            <!-- Electricity Form -->
+            <form id="electricity-form" class="bill-form" onsubmit="handleBillPay(event, 'Electricity')">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Provider</label>
+                        <select class="form-select" required>
+                            <option value="">Select Provider</option>
+                            <option>BESCOM</option>
+                            <option>TATA Power</option>
+                            <option>Adani Electricity</option>
+                            <option>MSEDCL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Consumer Number</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Amount (₹)</label>
+                        <input type="number" class="form-input" required min="10">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Pay Bill</button>
+            </form>
+
+            <!-- Credit Card Form -->
+            <form id="creditcard-form" class="bill-form" onsubmit="handleBillPay(event, 'Credit Card')">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Bank</label>
+                        <select class="form-select" required>
+                            <option value="">Select Bank</option>
+                            <option>HDFC Bank</option>
+                            <option>ICICI Bank</option>
+                            <option>SBI Card</option>
+                            <option>Axis Bank</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Credit Card Number</label>
+                        <input type="text" class="form-input" pattern="[0-9]{16}" placeholder="16 digit card number" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Amount (₹)</label>
+                        <input type="number" class="form-input" required min="100">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Pay Bill</button>
+            </form>
+        </div>
+
+        <!-- AI Smart Bill Scheduler Agent Section -->
+        <div class="glass-card mb-4" style="border: 1px solid var(--accent-gold); background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(10,15,30,0.9));">
+            <div class="d-flex justify-between align-center mb-3">
+                <div>
+                    <h3 class="text-gold" style="display: flex; align-items: center; gap: 8px;">🤖 AI Smart Bill Auto-Pay Agent & Scheduler</h3>
+                    <p class="text-secondary" style="font-size: 0.88rem;">Select your preferred payment date. On that date, our AI Agent audits your balance, auto-pays your bill, and emails you a formal receipt!</p>
+                </div>
+                <span class="badge badge-success" style="font-size: 0.8rem;">🟢 AI Scheduler Active</span>
+            </div>
+
+            <!-- Schedule Form -->
+            <form id="ai-schedule-form" onsubmit="handleScheduleBill(event)" class="mb-4" style="background: rgba(0,0,0,0.25); padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                <div class="grid-2 gap-2 mb-2">
+                    <div class="form-group">
+                        <label class="form-label">Bill Category</label>
+                        <select id="ai-bill-category" class="form-select" required>
+                            <option value="ELECTRICITY">⚡ Electricity Bill</option>
+                            <option value="PHONE">📱 Phone / Mobile Recharge</option>
+                            <option value="BROADBAND">🌐 Broadband Internet</option>
+                            <option value="WATER">🚰 Water Supply</option>
+                            <option value="CREDIT_CARD">💳 Credit Card Statement</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Biller Name</label>
+                        <input type="text" id="ai-biller-name" class="form-input" placeholder="e.g. State Electricity Board / Airtel" value="State Electricity Board" required>
+                    </div>
+                </div>
+                <div class="grid-2 gap-2 mb-3">
+                    <div class="form-group">
+                        <label class="form-label">Bill Amount ($)</label>
+                        <input type="number" id="ai-bill-amount" class="form-input" placeholder="124.50" value="124.50" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">📅 Select AI Payment Date</label>
+                        <input type="date" id="ai-bill-date" class="form-input" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">🤖 Enable Autonomous AI Auto-Pay & Email Notification</button>
+            </form>
+
+            <!-- Scheduled Bills List -->
+            <h4 class="mb-2 text-gold">📅 Your Scheduled AI Auto-Pay Bills</h4>
+            <div id="ai-scheduled-bills-list">
+                <div class="text-secondary text-center p-3">Loading AI scheduled bills...</div>
+            </div>
+        </div>
+
+        <!-- Recent Bills -->
+        <div class="glass-card">
+            <h3 class="mb-3">Recent Bill Payments</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Biller</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01 Sep 2025</td>
+                        <td>Electricity</td>
+                        <td>BESCOM (Cons: 12345678)</td>
+                        <td>$1,540.00</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                    <tr>
+                        <td>28 Aug 2025</td>
+                        <td>Mobile</td>
+                        <td>Airtel (9876543210)</td>
+                        <td>$499.00</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        requireAuth();
+        document.addEventListener('DOMContentLoaded', () => {
+            startIdleTimer();
+            // Set default date picker to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('ai-bill-date').value = today;
+            loadScheduledBills();
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.bill-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.bill-form').forEach(f => f.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId + '-form').classList.add('active');
+        }
+
+        async function handleScheduleBill(e) {
+            e.preventDefault();
+            const payload = {
+                billerName: document.getElementById('ai-biller-name').value,
+                category: document.getElementById('ai-bill-category').value,
+                amount: parseFloat(document.getElementById('ai-bill-amount').value),
+                scheduledDate: document.getElementById('ai-bill-date').value
+            };
+
+            try {
+                const res = await apiCall('/ai/scheduled-bills/create', 'POST', payload);
+                if (res && res.success) {
+                    showToast('🤖 AI Auto-Pay Scheduled Successfully!');
+                    loadScheduledBills();
+                } else {
+                    showToast(res ? res.message : 'Scheduling failed', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function loadScheduledBills() {
+            try {
+                const res = await apiCall('/ai/scheduled-bills', 'GET');
+                const container = document.getElementById('ai-scheduled-bills-list');
+
+                if (!res || !res.success || !res.data || res.data.length === 0) {
+                    container.innerHTML = '<div class="text-secondary text-center p-3">No scheduled bills yet. Select a date above to enable AI Auto-Pay!</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                res.data.forEach(bill => {
+                    let badgeCls = 'badge-secondary';
+                    let statusLabel = bill.status;
+
+                    if (bill.status === 'PAID') {
+                        badgeCls = 'badge-success';
+                        statusLabel = 'PAID (Email Sent 📧)';
+                    } else if (bill.status === 'INSUFFICIENT_FUNDS') {
+                        badgeCls = 'badge-danger';
+                        statusLabel = 'INSUFFICIENT BALANCE ⚠️';
+                    } else if (bill.status === 'PENDING') {
+                        badgeCls = 'badge-warning';
+                        statusLabel = 'PENDING (AI Monitored 🤖)';
+                    }
+
+                    container.innerHTML += `
+                        <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem; margin-bottom: 0.8rem;" class="d-flex justify-between align-center">
+                            <div>
+                                <div style="font-weight: 600;" class="text-gold">${bill.billerName} (${bill.category})</div>
+                                <div class="text-secondary" style="font-size: 0.85rem;">
+                                    Scheduled Date: <strong>${bill.scheduledDate}</strong> • Amount: <strong>$${bill.amount}</strong>
+                                </div>
+                            </div>
+                            <div class="d-flex align-center gap-2">
+                                <span class="badge ${badgeCls}">${statusLabel}</span>
+                                ${(bill.status === 'PENDING' || bill.status === 'INSUFFICIENT_FUNDS') ? `<button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="triggerBillNow(${bill.id})">⚡ Run AI Pay Now</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function triggerBillNow(billId) {
+            try {
+                const res = await apiCall(`/ai/scheduled-bills/${billId}/execute-now`, 'POST');
+                if (res && res.success) {
+                    if (res.data.status === 'PAID') {
+                        showToast('🎉 AI Agent Paid Bill & Sent Email Confirmation!', 'success');
+                    } else if (res.data.status === 'INSUFFICIENT_FUNDS') {
+                        showToast('⚠️ Insufficient Balance! AI Agent paused bill & sent shortage email.', 'error');
+                    }
+                    loadScheduledBills();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function handleBillPay(e, type) {
+            e.preventDefault();
+            const form = e.target;
+            const amount = form.querySelector('input[type="number"]').value;
+            
+            try {
+                showToast(`${type} bill of $${amount} paid successfully!`);
+                form.reset();
+            } catch (error) {
+                // Handled
+            }
+        }
+    </script>
+</body>
+</html>

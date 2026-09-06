@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Agentic AI Control Center & Webhook Operations</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .agentic-container {
+            max-width: 1300px;
+            margin: 90px auto 40px;
+            padding: 0 24px;
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            border-radius: var(--border-radius-card);
+        }
+
+        .simulator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-card);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-card);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .agent-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+
+        .badge-transfer { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-fraud { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .step-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 1.2rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .step-item.active {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .status-pill {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .status-completed { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+        .status-frozen { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        .status-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+
+        .log-table-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-card);
+            padding: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .simulator-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            🏦 SecureBank <span style="font-size:0.9rem; font-weight:400; color:var(--text-secondary); margin-left:8px;">| Agentic AI Engine</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a href="/dashboard.html" class="btn btn-secondary" style="font-size:0.85rem;">Banking Dashboard</a>
+            <a href="/index.html" class="btn btn-primary" style="font-size:0.85rem;">Main Portal</a>
+        </div>
+    </nav>
+
+    <div class="agentic-container">
+        <!-- Header -->
+        <div class="agent-header">
+            <div>
+                <h1 class="text-gold" style="font-size: 1.8rem; margin-bottom: 4px;">⚡ Agentic AI Operations & Webhook Monitor</h1>
+                <p class="text-secondary" style="font-size: 0.9rem;">Real-Time Autonomous Agent Execution Engine & Security Intervention Hub</p>
+            </div>
+            <div style="text-align: right;">
+                <span class="status-pill status-completed" style="font-size: 0.85rem; padding: 6px 14px;">
+                    🟢 2 Autonomous Agents Active
+                </span>
+            </div>
+        </div>
+
+        <!-- Case Study Simulators -->
+        <div class="simulator-grid">
+            <!-- Case Study 1: Smart Transfer & Auto-Sweep Agent -->
+            <div class="agent-card">
+                <div class="agent-badge badge-transfer">
+                    🤖 CASE STUDY 1: WEBHOOK SMART TRANSFER AGENT
+                </div>
+                <h3 class="mb-1">Autonomous Webhook Payment & FD Auto-Sweep</h3>
+                <p class="text-secondary mb-3" style="font-size: 0.85rem;">
+                    Accepts incoming bill payment webhooks, audits checking liquidity, <strong>autonomously sweeps cash from Fixed Deposits</strong> if funds are short, executes the transfer, and posts callback webhooks.
+                </p>
+
+                <form id="transfer-webhook-form" onsubmit="triggerPaymentWebhook(event)">
+                    <div class="form-group mb-2">
+                        <label class="form-label" style="font-size:0.8rem;">Biller / Beneficiary Name</label>
+                        <input type="text" id="ws-biller" class="form-input" value="City Hydro Power & Electric" required style="padding:8px 12px; font-size:0.85rem;">
+                    </div>
+                    <div class="grid-2 mb-2" style="gap:10px;">
+                        <div class="form-group">
+                            <label class="form-label" style="font-size:0.8rem;">Payment Amount ($)</label>
+                            <input type="number" id="ws-amount" class="form-input" value="650.00" step="10" required style="padding:8px 12px; font-size:0.85rem;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="font-size:0.8rem;">Account Number</label>
+                            <input type="text" id="ws-account" class="form-input" value="10938472019" style="padding:8px 12px; font-size:0.85rem;">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2" style="width:100%;">⚡ Trigger Payment Webhook Event</button>
+                </form>
+
+                <!-- Live Agent Execution Timeline -->
+                <div id="transfer-timeline" class="step-timeline" style="display:none;">
+                    <div class="step-item active" id="t-step-1">📥 1. Ingesting Webhook Payload...</div>
+                    <div class="step-item" id="t-step-2">🔍 2. Auditing Available Balance & Liquidity...</div>
+                    <div class="step-item" id="t-step-3">📈 3. Autonomously Sweeping Cash from Active FD...</div>
+                    <div class="step-item" id="t-step-4">💸 4. Executing Transfer via Banking Engine...</div>
+                    <div class="step-item" id="t-step-5">📤 5. Dispatched Outbound Completion Callback Webhook!</div>
+                </div>
+            </div>
+
+            <!-- Case Study 2: Autonomous Fraud Guardian Agent -->
+            <div class="agent-card">
+                <div class="agent-badge badge-fraud">
+                    🛡️ CASE STUDY 2: AUTONOMOUS FRAUD GUARDIAN AGENT
+                </div>
+                <h3 class="mb-1">Event-Driven Threat Analysis & Account Freeze</h3>
+                <p class="text-secondary mb-3" style="font-size: 0.85rem;">
+                    Evaluates transaction events in real time. If anomaly risk exceeds 60%, <strong>autonomously freezes sender account</strong>, revokes active JWT sessions, and emits security webhooks.
+                </p>
+
+                <form id="fraud-webhook-form" onsubmit="triggerFraudWebhook(event)">
+                    <div class="grid-2 mb-2" style="gap:10px;">
+                        <div class="form-group">
+                            <label class="form-label" style="font-size:0.8rem;">Transfer Amount ($)</label>
+                            <input type="number" id="fw-amount" class="form-input" value="9500.00" step="100" required style="padding:8px 12px; font-size:0.85rem;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="font-size:0.8rem;">Target Account</label>
+                            <input type="text" id="fw-account" class="form-input" value="ACC-OFFSHORE-99" style="padding:8px 12px; font-size:0.85rem;">
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label class="form-label" style="font-size:0.8rem;">IP Address / Device Risk</label>
+                        <select id="fw-ip" class="form-select" style="padding:8px 12px; font-size:0.85rem;">
+                            <option value="192.168.1.1 (TOR VPN Proxy)">🚨 High Risk (TOR / Suspicious VPN Proxy)</option>
+                            <option value="10.0.0.12 (Recognized Home Network)">🟢 Low Risk (Home WiFi Network)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2" style="width:100%; background: linear-gradient(135deg, #ef4444, #991b1b); border:none;">🛡️ Trigger Cyber Fraud Event Webhook</button>
+                </form>
+
+                <!-- Live Agent Execution Timeline -->
+                <div id="fraud-timeline" class="step-timeline" style="display:none;">
+                    <div class="step-item active" id="f-step-1">📥 1. Ingesting Real-Time Transaction Event...</div>
+                    <div class="step-item" id="f-step-2">🧮 2. Scoring Anomaly Risk Multiplier...</div>
+                    <div class="step-item" id="f-step-3">🔒 3. Freezing Account & Invalidating Active JWT Sessions...</div>
+                    <div class="step-item" id="f-step-4">📡 4. Emitting Critical Security Alert Webhook Log...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-Time Audit Log Feed -->
+        <div class="log-table-wrapper">
+            <div class="d-flex justify-between align-center mb-3">
+                <h3>📜 Live Agent Execution Audit Feed</h3>
+                <button class="btn btn-secondary" onclick="loadAuditLogs()" style="font-size:0.8rem; padding:4px 12px;">🔄 Refresh Logs</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Agent Name</th>
+                        <th>Event Type</th>
+                        <th>Status</th>
+                        <th>Execution Details</th>
+                    </tr>
+                </thead>
+                <tbody id="audit-log-body">
+                    <tr>
+                        <td colspan="5" class="text-center text-secondary">Loading agent execution logs...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAuditLogs();
+            setInterval(loadAuditLogs, 5000); // Auto refresh audit logs every 5s
+        });
+
+        async function triggerPaymentWebhook(e) {
+            e.preventDefault();
+            const timeline = document.getElementById('transfer-timeline');
+            timeline.style.display = 'flex';
+            resetTimeline('t-step', 5);
+
+            setStepActive('t-step-1');
+
+            const payload = {
+                billerName: document.getElementById('ws-biller').value,
+                billerId: 'BILL-' + Math.floor(Math.random()*9000 + 1000),
+                amount: parseFloat(document.getElementById('ws-amount').value),
+                accountNumber: document.getElementById('ws-account').value,
+                callbackUrl: 'https://api.external-biller.com/webhooks/status'
+            };
+
+            setTimeout(() => setStepActive('t-step-2'), 400);
+
+            try {
+                const res = await fetch('/api/webhooks/payment-request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                setTimeout(() => setStepActive('t-step-3'), 800);
+                setTimeout(() => setStepActive('t-step-4'), 1200);
+                setTimeout(() => {
+                    setStepActive('t-step-5');
+                    showToast('SmartTransferAgent Webhook Executed Successfully!');
+                    loadAuditLogs();
+                }, 1600);
+
+            } catch (err) {
+                showToast('Webhook execution error', 'error');
+            }
+        }
+
+        async function triggerFraudWebhook(e) {
+            e.preventDefault();
+            const timeline = document.getElementById('fraud-timeline');
+            timeline.style.display = 'flex';
+            resetTimeline('f-step', 4);
+
+            setStepActive('f-step-1');
+
+            const payload = {
+                transactionId: 'TXN-' + Math.floor(Math.random()*900000 + 100000),
+                fromAccount: '10938472019',
+                toAccount: document.getElementById('fw-account').value,
+                amount: parseFloat(document.getElementById('fw-amount').value),
+                ipAddress: document.getElementById('fw-ip').value,
+                newBeneficiary: true
+            };
+
+            setTimeout(() => setStepActive('f-step-2'), 400);
+
+            try {
+                const res = await fetch('/api/webhooks/fraud-check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                setTimeout(() => setStepActive('f-step-3'), 800);
+                setTimeout(() => {
+                    setStepActive('f-step-4');
+                    if (data && data.data && data.data.status.includes('CRITICAL')) {
+                        showToast('🚨 Fraud Guardian Agent FROZE account & revoked JWT sessions!', 'error');
+                    } else {
+                        showToast('Fraud check complete');
+                    }
+                    loadAuditLogs();
+                }, 1200);
+
+            } catch (err) {
+                showToast('Webhook execution error', 'error');
+            }
+        }
+
+        async function loadAuditLogs() {
+            try {
+                const res = await fetch('/api/webhooks/audit-logs');
+                const json = await res.json();
+
+                const tbody = document.getElementById('audit-log-body');
+                if (!json.success || !json.data || json.data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-secondary">No agent audit logs recorded yet. Trigger a webhook simulator above!</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                json.data.forEach(log => {
+                    let badgeCls = 'status-completed';
+                    if (log.status.includes('FROZEN') || log.status.includes('FAILED')) badgeCls = 'status-frozen';
+                    else if (log.status.includes('OTP')) badgeCls = 'status-warning';
+
+                    const timeStr = new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="text-secondary" style="font-size:0.85rem;">${timeStr}</td>
+                            <td><strong class="text-gold">${log.agentName}</strong></td>
+                            <td><span style="font-size:0.8rem; font-family:monospace;">${log.eventType}</span></td>
+                            <td><span class="status-pill ${badgeCls}">${log.status}</span></td>
+                            <td style="font-size:0.85rem; line-height:1.4;">${log.executionDetails}</td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                console.warn('Failed to load audit logs:', err);
+            }
+        }
+
+        function setStepActive(stepId) {
+            const el = document.getElementById(stepId);
+            if (el) el.classList.add('active');
+        }
+
+        function resetTimeline(prefix, count) {
+            for (let i = 1; i <= count; i++) {
+                const el = document.getElementById(`${prefix}-${i}`);
+                if (el) el.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

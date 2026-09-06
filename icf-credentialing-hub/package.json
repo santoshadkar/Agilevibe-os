@@ -1,0 +1,9 @@
+{
+  "name": "icf-credentials-hub",
+  "version": "1.0.0",
+  "description": "ICF Credentials Hub - ACC PCC MCC Certification Portal",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "email-1787907680490",
+    "timestamp": "2026-08-28T09:01:20.490Z",
+    "recipient": "candidate@example.com",
+    "subject": "[AI Auto-Applied] Applied for Principal Cyber Security Consultant at PwC India Advisory (87% Match)",
+    "jobTitle": "Principal Cyber Security Consultant",
+    "company": "PwC India Advisory",
+    "matchScore": 87,
+    "status": "Sent & Logged",
+    "bodyPreview": "Applied for Principal Cyber Security Consultant at PwC India Advisory"
+  },
+  {
+    "id": "email-1787907680486",
+    "timestamp": "2026-08-28T09:01:20.486Z",
+    "recipient": "candidate@example.com",
+    "subject": "[AI Auto-Applied] Applied for AI Strategy & Implementation Consultant at Accenture AI Labs India (87% Match)",
+    "jobTitle": "AI Strategy & Implementation Consultant",
+    "company": "Accenture AI Labs India",
+    "matchScore": 87,
+    "status": "Sent & Logged",
+    "bodyPreview": "Applied for AI Strategy & Implementation Consultant at Accenture AI Labs India"
+  }
+]

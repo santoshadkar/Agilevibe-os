@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GovAI CertHub - AI Governance & Tech Certification Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div style="background: linear-gradient(90deg, #0f172a, #1e1b4b); border-bottom: 1px solid #38bdf8; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 9999; font-family: sans-serif;"><div style="display: flex; align-items: center; gap: 10px; color: #fff; font-size: 13px; font-weight: 600;"><span>? Santoshanand Adkar Master Ecosystem</span></div><a href="../index.html" style="padding: 6px 14px; background: linear-gradient(135deg, #6366f1, #38bdf8); color: #fff; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);"><span>??</span> Return to Main Portfolio</a></div>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="header-container">
+      <!-- Clickable Brand Logo Linking to Home / Landing Tab -->
+      <a href="index.html" class="logo" onclick="switchTab('roadmap'); return false;" title="Return to Landing Page">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>GovAI CertHub</span>
+        <span class="logo-badge">2026 EDITION</span>
+      </a>
+      <nav>
+        <button class="nav-tab active" onclick="switchTab('roadmap')">
+          <i class="fa-solid fa-diagram-project"></i> Sequential Roadmap & Interdependencies
+        </button>
+        <button class="nav-tab" onclick="switchTab('catalog')">
+          <i class="fa-solid fa-graduation-cap"></i> Certifications & Pre-reqs
+        </button>
+        <button class="nav-tab" onclick="switchTab('exam')">
+          <i class="fa-solid fa-file-pen"></i> Sample Questions
+        </button>
+        <button class="nav-tab" onclick="switchTab('scenarios')">
+          <i class="fa-solid fa-scale-balanced"></i> Scenario Studio
+        </button>
+        <button class="nav-tab" onclick="switchTab('media')">
+          <i class="fa-solid fa-circle-play"></i> Video Vault & Books
+        </button>
+        <button class="nav-tab" onclick="switchTab('readiness')">
+          <i class="fa-solid fa-chart-line"></i> Readiness Evaluator
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <h1>Master <span>AI Governance & Enterprise Risk</span> Certifications</h1>
+      <p>Follow step-by-step certification sequences (What to do 1st, 2nd, 3rd), understand certification interdependencies, practice sample questions, and evaluate your readiness.</p>
+    </section>
+
+    <!-- TAB 0: SEQUENTIAL ROADMAP & INTERDEPENDENCIES -->
+    <section id="view-roadmap" class="tab-view active">
+      <div style="margin-bottom: 2rem; text-align: center;">
+        <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;">Recommended Certification Sequences & Interdependencies</h2>
+        <p style="color: var(--text-muted); max-width: 800px; margin: 0 auto;">Select your career track below to see the exact 3-stage sequence of certifications (First &rarr; Second &rarr; Third) and how credentials build upon each other.</p>
+      </div>
+
+      <!-- Roadmap Pathways Container -->
+      <div id="pathways-container" style="display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 3rem;">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Interdependencies Matrix Table -->
+      <div class="calculator-box" style="max-width: 1000px; margin: 0 auto;">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary-cyan); text-align: center;">
+          <i class="fa-solid fa-network-wired"></i> Certification Interdependency & Prerequisite Matrix
+        </h3>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-muted);">
+                <th style="padding: 10px;">Foundation Cert (First)</th>
+                <th style="padding: 10px;">Target AI Cert (Next)</th>
+                <th style="padding: 10px;">Interdependency Strength</th>
+                <th style="padding: 10px;">How They Connect</th>
+              </tr>
+            </thead>
+            <tbody id="interdependencies-tbody">
+              <!-- Rendered dynamically by app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1: CERTIFICATION CATALOG & PATHWAY MAP -->
+    <section id="view-catalog" class="tab-view">
+      <div class="controls-bar">
+        <div class="filter-group">
+          <button class="filter-btn active" onclick="filterCerts('all', this)">All Credentials</button>
+          <button class="filter-btn" onclick="filterCerts('AI Governance', this)">AI Governance</button>
+          <button class="filter-btn" onclick="filterCerts('Cybersecurity', this)">Cybersecurity</button>
+          <button class="filter-btn" onclick="filterCerts('Privacy', this)">Privacy Law</button>
+          <button class="filter-btn" onclick="filterCerts('Risk Management', this)">Risk Management</button>
+          <button class="filter-btn" onclick="filterCerts('AI Security', this)">AI Security</button>
+          <button class="filter-btn" onclick="filterCerts('AI Audit', this)">AI Audit</button>
+        </div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass" style="color: var(--text-dim);"></i>
+          <input type="text" id="cert-search" placeholder="Search by name, role, or keyword..." oninput="searchCerts()">
+        </div>
+      </div>
+
+      <div class="grid-cards" id="certs-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 2: EXAM SIMULATOR -->
+    <section id="view-exam" class="tab-view">
+      <div class="quiz-container">
+        <div class="quiz-header" style="flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="badge" style="background: rgba(139, 92, 246, 0.2); color: var(--primary-violet);" id="quiz-cert-badge">AIGP MOCK EXAM</span>
+            <h2 style="font-size: 1.2rem; margin-top: 4px;" id="quiz-progress-text">Question 1 of 12</h2>
+          </div>
+
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <select id="exam-cert-selector" class="form-control" style="padding: 6px 12px; font-size: 0.85rem; width: auto;" onchange="filterExamByCert()">
+              <option value="all">Select Exam: All Certifications</option>
+              <option value="aigp">IAPP AIGP</option>
+              <option value="cissp">CISSP</option>
+              <option value="cipp">CIPP/E & CIPP/US</option>
+              <option value="crisc">CRISC</option>
+              <option value="iso42001">ISO/IEC 42001</option>
+              <option value="aaism">ISACA AAISM</option>
+              <option value="aaia">ISACA AAIA</option>
+            </select>
+            <div class="btn" style="background: rgba(6, 182, 212, 0.1); color: var(--primary-cyan); white-space: nowrap;" id="quiz-score-tracker">Score: 0</div>
+          </div>
+        </div>
+
+        <div class="quiz-question" id="quiz-question-text">Loading question...</div>
+
+        <div class="options-list" id="quiz-options-container">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="explanation-box" id="quiz-explanation-box">
+          <div class="explanation-title"><i class="fa-solid fa-book-bookmark"></i> Regulatory Rationale & Citations:</div>
+          <div id="quiz-explanation-text" style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main);"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 1.5rem;">
+          <button class="btn" onclick="resetQuiz()"><i class="fa-solid fa-rotate-left"></i> Reset Quiz</button>
+          <button class="btn btn-primary" id="btn-next-question" onclick="nextQuestion()" style="display: none;">Next Question <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: SCENARIO CASE STUDIO -->
+    <section id="view-scenarios" class="tab-view">
+      <div style="margin-bottom: 1.5rem; text-align: center;">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Interactive AI Governance Scenario Studio</h2>
+        <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">Build real-world portfolio experience by evaluating enterprise AI dilemmas under the EU AI Act, NIST AI RMF, and ISO 42001.</p>
+      </div>
+
+      <div class="quiz-container" id="scenario-studio-box">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 4: VIDEO VAULT, BOOKS & SITES -->
+    <section id="view-media" class="tab-view">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Curated Learning Vault, Books & Official Links</h2>
+        <p style="color: var(--text-muted);">Watch expert career breakdowns, read official framework specifications, and access official certification body sites.</p>
+      </div>
+
+      <div class="grid-cards" id="resources-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- TAB 5: READINESS CALCULATOR -->
+    <section id="view-readiness" class="tab-view">
+      <div class="calculator-box">
+        <h2 style="font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem;">Check Your Exam & Career Readiness</h2>
+        <p style="color: var(--text-muted); text-align: center; margin-bottom: 1.5rem;">Answer a few quick questions to receive a tailored certification pathway and target timeline.</p>
+
+        <div class="form-group">
+          <label>Years of Work Experience in IT / Legal / Security / Compliance:</label>
+          <select id="eval-exp" class="form-control">
+            <option value="0">0 - 2 Years (Entry / Transitioning)</option>
+            <option value="3">3 - 4 Years (Mid-level)</option>
+            <option value="5">5+ Years (Senior / Architect)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Current Certifications Held:</label>
+          <select id="eval-certs" class="form-control">
+            <option value="none">None yet</option>
+            <option value="cipp">CIPP / Privacy Credential</option>
+            <option value="cissp">CISSP / Security Credential</option>
+            <option value="crisc">CRISC / CISA / Risk Credential</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Target Career Goal:</label>
+          <select id="eval-goal" class="form-control">
+            <option value="aigp">Lead Corporate AI Governance & EU Compliance (IAPP AIGP)</option>
+            <option value="iso42001">Implement & Audit ISO 42001 AI Management Systems</option>
+            <option value="aaism">Secure Technical LLM & AI Pipelines (ISACA AAISM)</option>
+            <option value="trifecta">Build Foundation Security & Risk (CISSP / CIPP / CRISC)</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" onclick="calculateReadiness()" style="width: 100%; padding: 12px; margin-top: 10px; font-size: 1rem;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Custom Pathway
+        </button>
+
+        <div class="result-card" id="readiness-result">
+          <h3 style="color: var(--text-main); font-size: 1.1rem;" id="result-title">Recommendation</h3>
+          <div class="score-circle" id="result-score">85%</div>
+          <p id="result-desc" style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>GovAI CertHub &copy; 2026. Empowering Aspirants in AI Governance, Privacy, Risk & Security Certification.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="certifications-data.js"></script>
+  <script src="resources-data.js"></script>
+  <script src="questions-data.js"></script>
+  <script src="scenarios-data.js"></script>
+  <script src="roadmap-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

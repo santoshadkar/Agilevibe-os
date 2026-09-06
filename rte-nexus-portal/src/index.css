@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-navy-950 text-slate-100 font-sans antialiased selection:bg-sapphire-600 selection:text-white min-h-screen overflow-x-hidden;
+    background-image: 
+      radial-gradient(at 15% 10%, rgba(37, 99, 235, 0.12) 0px, transparent 45%),
+      radial-gradient(at 85% 20%, rgba(14, 165, 233, 0.08) 0px, transparent 40%),
+      radial-gradient(at 50% 90%, rgba(234, 179, 8, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+.glass-panel {
+  background: rgba(13, 21, 42, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(20, 31, 58, 0.85);
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.25);
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-sky-400;
+}
+
+.text-gradient-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500;
+}
+
+.text-gradient-emerald {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-teal-400 to-cyan-400;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #040711;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111c38;
+  border-radius: 4px;
+  border: 2px solid #040711;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8;
+}

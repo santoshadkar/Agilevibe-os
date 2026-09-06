@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Open an Account</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card register glass-card">
+            <div class="text-center mb-4">
+                <h1 class="text-gold" style="font-size: 2.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">🏦 SecureBank</h1>
+                <p>Your trusted banking partner. Open your account in minutes.</p>
+            </div>
+            
+            <div id="landing-actions" class="text-center mb-4">
+                <button class="btn btn-primary" onclick="document.getElementById('register-form').style.display='block'; this.parentElement.style.display='none';">Open Account</button>
+                <a href="/login.html" class="btn btn-secondary" style="margin-left: 1rem;">Sign In</a>
+            </div>
+
+            <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-input" id="dob" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-input" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-input" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-input" id="state" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Pincode</label>
+                        <input type="text" class="form-input" id="pincode" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PAN Number</label>
+                        <input type="text" class="form-input" id="pan" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Aadhaar Number</label>
+                        <input type="text" class="form-input" id="aadhaar" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Occupation</label>
+                        <select class="form-select" id="occupation">
+                            <option value="Salaried">Salaried</option>
+                            <option value="Self-Employed">Self-Employed</option>
+                            <option value="Student">Student</option>
+                            <option value="Retired">Retired</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Annual Income</label>
+                        <input type="number" class="form-input" id="income" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label class="form-label">Account Type</label>
+                        <div class="d-flex gap-3">
+                            <label><input type="radio" name="accType" value="SAVINGS" checked> Savings</label>
+                            <label><input type="radio" name="accType" value="CURRENT"> Current</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Initial Deposit (₹)</label>
+                        <input type="number" class="form-input" id="initialDeposit" required min="1000">
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-input" id="confirmPassword" required>
+                    </div>
+                </div>
+                
+                <div class="form-group mt-3">
+                    <label>
+                        <input type="checkbox" required> I agree to the Terms & Conditions
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal text-center">
+            <h2 class="text-gold mb-3">🎉 Registration Successful!</h2>
+            <p>Welcome to SecureBank. Your account has been created.</p>
+            <div class="mt-4 mb-4" style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px;">
+                <p class="mb-2">Your Customer ID:</p>
+                <h3 id="display-customer-id" class="text-gold"></h3>
+                <small class="text-secondary">Please save this for login.</small>
+            </div>
+            <a href="/login.html" class="btn btn-primary">Go to Login</a>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        async function handleRegister(e) {
+            e.preventDefault();
+            if (document.getElementById('password').value !== document.getElementById('confirmPassword').value) {
+                showToast('Passwords do not match', 'error');
+                return;
+            }
+
+            const payload = {
+                fullName: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                dateOfBirth: document.getElementById('dob').value,
+                address: document.getElementById('address').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: document.getElementById('state').value.trim(),
+                pincode: document.getElementById('pincode').value.trim(),
+                panNumber: document.getElementById('pan').value.trim(),
+                aadharNumber: document.getElementById('aadhaar').value.trim(),
+                occupation: document.getElementById('occupation').value,
+                annualIncome: parseFloat(document.getElementById('income').value),
+                accountType: document.querySelector('input[name="accType"]:checked').value,
+                initialDeposit: parseFloat(document.getElementById('initialDeposit').value),
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const res = await apiCall('/auth/register', 'POST', payload);
+                if (res && res.success && res.data) {
+                    const custId = res.data.customerId;
+                    const accNo = res.data.accountNumber;
+                    document.getElementById('display-customer-id').innerText = custId;
+                    document.getElementById('success-modal').classList.add('active');
+                } else {
+                    showToast(res ? res.message : 'Registration failed', 'error');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

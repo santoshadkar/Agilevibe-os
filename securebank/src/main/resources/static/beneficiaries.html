@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Manage Beneficiaries</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <main class="main-content">
+        <div class="d-flex justify-between align-center page-header">
+            <div>
+                <h1>Manage Beneficiaries</h1>
+                <p>Add and manage accounts for quick transfers.</p>
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('add-bene-modal').classList.add('active')">
+                + Add Beneficiary
+            </button>
+        </div>
+
+        <div class="glass-card mb-4" style="padding: 1rem;">
+            <div class="d-flex gap-2">
+                <button class="btn btn-secondary active-filter" style="border-color: var(--accent-gold); color: var(--accent-gold);">All</button>
+                <button class="btn btn-secondary">Internal (SecureBank)</button>
+                <button class="btn btn-secondary">External</button>
+            </div>
+        </div>
+
+        <div class="grid-2" id="bene-list">
+            <!-- Card 1 -->
+            <div class="glass-card d-flex align-center justify-between">
+                <div class="d-flex align-center gap-3">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold), var(--accent-light-gold)); display: flex; justify-content: center; align-items: center; font-weight: bold; color: var(--bg-main); font-size: 1.2rem;">
+                        RS
+                    </div>
+                    <div>
+                        <h4 style="margin: 0;">Rahul Sharma <span class="badge badge-warning" style="font-size: 0.6rem; margin-left: 0.5rem;">External</span></h4>
+                        <div class="text-secondary" style="font-size: 0.875rem; margin-top: 0.25rem;">HDFC Bank • XXXXXX3214</div>
+                        <div class="text-secondary" style="font-size: 0.75rem;">IFSC: HDFC0001234</div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 flex-column">
+                    <a href="/transfer.html" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Transfer</a>
+                    <button class="btn btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;" onclick="deleteBene(1)">Delete</button>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-card d-flex align-center justify-between">
+                <div class="d-flex align-center gap-3">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-gold), var(--accent-light-gold)); display: flex; justify-content: center; align-items: center; font-weight: bold; color: var(--bg-main); font-size: 1.2rem;">
+                        PP
+                    </div>
+                    <div>
+                        <h4 style="margin: 0;">Priya Patel <span class="badge badge-success" style="font-size: 0.6rem; margin-left: 0.5rem;">Internal</span></h4>
+                        <div class="text-secondary" style="font-size: 0.875rem; margin-top: 0.25rem;">SecureBank • XXXXXX9876</div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 flex-column">
+                    <a href="/transfer.html" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Transfer</a>
+                    <button class="btn btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;" onclick="deleteBene(2)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Beneficiary Modal -->
+    <div class="modal-overlay" id="add-bene-modal">
+        <div class="modal">
+            <div class="d-flex justify-between align-center mb-4">
+                <h2 class="text-gold" style="margin:0;">Add Beneficiary</h2>
+                <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem;" onclick="document.getElementById('add-bene-modal').classList.remove('active')">X</button>
+            </div>
+            
+            <form onsubmit="handleAddBene(event)">
+                <div class="form-group">
+                    <label class="form-label">Beneficiary Name</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Account Number</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Account Number</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">IFSC Code</label>
+                    <input type="text" class="form-input" required placeholder="Leave blank for SecureBank accounts">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nickname (Optional)</label>
+                    <input type="text" class="form-input">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Add Beneficiary</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        requireAuth();
+        document.addEventListener('DOMContentLoaded', startIdleTimer);
+
+        async function handleAddBene(e) {
+            e.preventDefault();
+            try {
+                // Mock API call
+                showToast('Beneficiary added successfully!');
+                document.getElementById('add-bene-modal').classList.remove('active');
+                // Refresh list...
+            } catch (err) {}
+        }
+
+        async function deleteBene(id) {
+            if(confirm('Are you sure you want to delete this beneficiary?')) {
+                try {
+                    showToast('Beneficiary deleted');
+                    // Refresh list...
+                } catch (err) {}
+            }
+        }
+    </script>
+</body>
+</html>

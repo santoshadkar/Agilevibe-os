@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Fixed Deposits</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <main class="main-content">
+        <div class="d-flex justify-between align-center page-header">
+            <div>
+                <h1>Fixed Deposits</h1>
+                <p>Grow your savings with secure, high-yield term deposits.</p>
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('open-fd-modal').classList.add('active')">
+                + Open New FD
+            </button>
+        </div>
+
+        <!-- Summary & Rates -->
+        <div class="grid-2 mb-4">
+            <div class="glass-card">
+                <h3 class="mb-3">My FD Summary</h3>
+                <div class="d-flex justify-between align-center mb-3 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                    <span class="text-secondary">Total Deposit Amount</span>
+                    <span class="text-gold" style="font-size: 1.5rem; font-weight: bold;">₹1,50,000.00</span>
+                </div>
+                <div class="d-flex justify-between align-center">
+                    <span class="text-secondary">Total Active FDs</span>
+                    <span style="font-size: 1.25rem; font-weight: bold;">2</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3 class="mb-3">Current Interest Rates</h3>
+                <table class="data-table" style="font-size: 0.875rem;">
+                    <thead>
+                        <tr>
+                            <th>Tenure</th>
+                            <th>General</th>
+                            <th>Senior Citizen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>7 days to 45 days</td><td>3.50%</td><td>4.00%</td></tr>
+                        <tr><td>46 days to 179 days</td><td>4.50%</td><td>5.00%</td></tr>
+                        <tr><td>180 days to < 1 Year</td><td>6.00%</td><td>6.50%</td></tr>
+                        <tr><td>1 Year to < 2 Years</td><td>7.10%</td><td>7.60%</td></tr>
+                        <tr><td>2 Years & above</td><td>7.50%</td><td>8.00%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3 class="mb-3">Active Fixed Deposits</h3>
+        <div class="grid-2" id="fd-list">
+            <!-- Example FD Card -->
+            <div class="glass-card">
+                <div class="d-flex justify-between align-center mb-3">
+                    <div>
+                        <span class="badge badge-success mb-1">Active</span>
+                        <h4 style="margin:0;">FD-39482710</h4>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-secondary" style="font-size: 0.75rem;">Principal</div>
+                        <div class="text-gold" style="font-weight:bold; font-size:1.2rem;">₹1,00,000</div>
+                    </div>
+                </div>
+                
+                <div class="grid-2 mb-3" style="gap: 1rem; font-size: 0.875rem;">
+                    <div><span class="text-secondary">Interest Rate:</span> <br>7.10% p.a.</div>
+                    <div><span class="text-secondary">Tenure:</span> <br>12 Months</div>
+                    <div><span class="text-secondary">Start Date:</span> <br>01 Jan 2025</div>
+                    <div><span class="text-secondary">Maturity Date:</span> <br>01 Jan 2026</div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-between text-secondary" style="font-size: 0.75rem; margin-bottom: 0.25rem;">
+                        <span>Progress (67%)</span>
+                        <span>Maturity: ₹1,07,100</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 67%;"></div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" style="width: 100%;" onclick="showCloseModal('39482710', 100000)">Close Prematurely</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Open FD Modal -->
+    <div class="modal-overlay" id="open-fd-modal">
+        <div class="modal" style="max-width: 600px;">
+            <div class="d-flex justify-between align-center mb-4">
+                <h2 class="text-gold" style="margin:0;">Open Fixed Deposit</h2>
+                <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem;" onclick="document.getElementById('open-fd-modal').classList.remove('active')">X</button>
+            </div>
+            
+            <form onsubmit="handleOpenFD(event)">
+                <div class="form-group">
+                    <label class="form-label">From Account</label>
+                    <select class="form-select" required>
+                        <option value="10938472019">Savings - XXXXXX2019 (Avail: ₹1,25,430)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Deposit Amount (₹)</label>
+                    <input type="number" class="form-input" id="fdAmount" required min="10000" oninput="calculateFD()">
+                    <small class="text-secondary">Minimum ₹10,000</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Tenure (Months): <span id="tenureLabel" class="text-gold">12</span></label>
+                    <input type="range" id="fdTenure" min="1" max="60" value="12" style="width: 100%;" oninput="calculateFD()">
+                </div>
+
+                <div class="glass-card mb-4" style="background: rgba(0,0,0,0.3); padding: 1rem;">
+                    <div class="grid-2">
+                        <div>
+                            <span class="text-secondary" style="font-size: 0.875rem;">Interest Rate</span>
+                            <div id="calcRate" style="font-weight: bold; font-size: 1.2rem;">7.10%</div>
+                        </div>
+                        <div>
+                            <span class="text-secondary" style="font-size: 0.875rem;">Maturity Amount</span>
+                            <div id="calcMaturity" class="text-gold" style="font-weight: bold; font-size: 1.2rem;">₹0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Confirm & Open FD</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Close FD Modal -->
+    <div class="modal-overlay" id="close-fd-modal">
+        <div class="modal">
+            <h2 class="text-danger mb-3">Premature Closure</h2>
+            <p class="mb-4">Are you sure you want to close this FD? A penalty of 1% will be applied on the applicable interest rate.</p>
+            
+            <div class="mb-4" style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px;">
+                <div class="d-flex justify-between mb-2"><span class="text-secondary">FD Number:</span> <span id="close-fd-id"></span></div>
+                <div class="d-flex justify-between mb-2"><span class="text-secondary">Principal:</span> <span id="close-fd-amt"></span></div>
+                <div class="d-flex justify-between mb-2"><span class="text-secondary text-danger">Penalty applied:</span> <span class="text-danger">-₹1,250</span></div>
+                <div class="d-flex justify-between pt-2 mt-2" style="border-top: 1px solid var(--border-color);">
+                    <span class="text-secondary">Amount to receive:</span> 
+                    <span class="text-gold" style="font-weight: bold;">₹1,02,400</span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('close-fd-modal').classList.remove('active')">Cancel</button>
+                <button class="btn btn-danger" style="flex: 1;" onclick="executeCloseFD()">Confirm Closure</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        requireAuth();
+        document.addEventListener('DOMContentLoaded', startIdleTimer);
+
+        function calculateFD() {
+            const amt = parseFloat(document.getElementById('fdAmount').value) || 0;
+            const months = parseInt(document.getElementById('fdTenure').value) || 12;
+            document.getElementById('tenureLabel').innerText = months;
+
+            let rate = 7.5;
+            if (months < 6) rate = 4.5;
+            else if (months < 12) rate = 6.0;
+            else if (months < 24) rate = 7.1;
+
+            document.getElementById('calcRate').innerText = rate.toFixed(2) + '%';
+            
+            if (amt > 0) {
+                // Simple interest for demo
+                const interest = (amt * rate * (months/12)) / 100;
+                const maturity = amt + interest;
+                document.getElementById('calcMaturity').innerText = formatCurrency(maturity);
+            } else {
+                document.getElementById('calcMaturity').innerText = '₹0';
+            }
+        }
+
+        async function handleOpenFD(e) {
+            e.preventDefault();
+            try {
+                // Mock API
+                showToast('Fixed Deposit opened successfully!');
+                document.getElementById('open-fd-modal').classList.remove('active');
+                setTimeout(() => window.location.reload(), 1500);
+            } catch (err) {}
+        }
+
+        let pendingCloseId = null;
+        function showCloseModal(id, amt) {
+            pendingCloseId = id;
+            document.getElementById('close-fd-id').innerText = 'FD-' + id;
+            document.getElementById('close-fd-amt').innerText = formatCurrency(amt);
+            document.getElementById('close-fd-modal').classList.add('active');
+        }
+
+        async function executeCloseFD() {
+            try {
+                // Mock API
+                showToast('FD Closed successfully. Amount credited to savings.');
+                document.getElementById('close-fd-modal').classList.remove('active');
+                setTimeout(() => window.location.reload(), 1500);
+            } catch (err) {}
+        }
+    </script>
+</body>
+</html>

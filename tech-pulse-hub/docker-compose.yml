@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  techpulse-nexus:
+    build: .
+    container_name: techpulse_nexus_prod
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+    restart: always
+    volumes:
+      - news_data:/app/data
+
+volumes:
+  news_data:

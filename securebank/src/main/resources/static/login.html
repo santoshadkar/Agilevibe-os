@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank | Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card glass-card">
+            
+            <div id="timeout-alert" class="mb-4" style="display: none; background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; padding: 1rem; border-radius: 8px; color: #f59e0b; text-align: center;">
+                Session expired due to inactivity. Please login again.
+            </div>
+
+            <!-- Step 1: Login -->
+            <div id="step-1">
+                <div class="text-center mb-4">
+                    <h1 class="text-gold" style="font-size: 2.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">🏦 SecureBank</h1>
+                    <p>Sign in to your account</p>
+                </div>
+
+                <form onsubmit="handleLoginStep1(event)">
+                    <div class="form-group">
+                        <label class="form-label">Customer ID</label>
+                        <input type="text" class="form-input" id="customerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                    
+                    <div class="text-center mt-3">
+                        <a href="#" style="font-size: 0.875rem;">Forgot Password?</a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-secondary">New to SecureBank? <a href="/index.html">Open an Account</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: OTP -->
+            <div id="step-2" style="display: none;">
+                <div class="text-center mb-4">
+                    <h2 class="text-gold">Enter OTP</h2>
+                    <p>We've sent a 6-digit OTP to your registered email/phone.</p>
+                    <div id="otp-notice" style="display: none; margin-top: 1rem; padding: 0.75rem; background: rgba(201, 168, 76, 0.15); border: 1px solid #c9a84c; border-radius: 8px; text-align: center;"></div>
+                </div>
+                
+                <form onsubmit="handleLoginStep2(event)">
+                    <div class="otp-container mb-4">
+                        <input type="text" class="otp-box" maxlength="1" required>
+                        <input type="text" class="otp-box" maxlength="1" required>
+                        <input type="text" class="otp-box" maxlength="1" required>
+                        <input type="text" class="otp-box" maxlength="1" required>
+                        <input type="text" class="otp-box" maxlength="1" required>
+                        <input type="text" class="otp-box" maxlength="1" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Verify OTP</button>
+                    
+                    <div class="text-center mt-3">
+                        <p class="text-secondary" id="timer-text">Resend OTP in <span id="timer">60</span>s</p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        // Check for timeout reason
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('reason') === 'timeout') {
+            document.getElementById('timeout-alert').style.display = 'block';
+        }
+
+        let tempCustomerId = '';
+        
+        async function handleLoginStep1(e) {
+            e.preventDefault();
+            tempCustomerId = document.getElementById('customerId').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await apiCall('/auth/login/step1', 'POST', { customerId: tempCustomerId, password });
+                if (res && res.success) {
+                    const devOtp = res.data ? res.data.devOtp : null;
+                    if (devOtp) {
+                        showToast(`OTP Code: ${devOtp}`, 'success');
+                        const otpNotice = document.getElementById('otp-notice');
+                        if (otpNotice) {
+                            otpNotice.innerHTML = `<strong>Demo Mode OTP:</strong> <span style="font-size: 1.5rem; letter-spacing: 4px; color: #c9a84c;">${devOtp}</span>`;
+                            otpNotice.style.display = 'block';
+                        }
+                        // Auto-fill OTP boxes for convenience
+                        const otpInputs = document.querySelectorAll('.otp-box');
+                        devOtp.split('').forEach((digit, idx) => {
+                            if (otpInputs[idx]) otpInputs[idx].value = digit;
+                        });
+                    } else {
+                        showToast(res.message || 'OTP sent to registered email');
+                    }
+                    
+                    document.getElementById('step-1').style.display = 'none';
+                    document.getElementById('step-2').style.display = 'block';
+                    startTimer();
+                } else {
+                    showToast(res ? res.message : 'Invalid credentials', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function handleLoginStep2(e) {
+            e.preventDefault();
+            const inputs = document.querySelectorAll('.otp-box');
+            let otp = '';
+            inputs.forEach(input => otp += input.value.trim());
+
+            if (otp.length !== 6) {
+                showToast('Enter valid 6-digit OTP', 'error');
+                return;
+            }
+
+            try {
+                const res = await apiCall('/auth/login/step2', 'POST', { customerId: tempCustomerId, otp });
+                if (res && res.success && res.data) {
+                    const authData = res.data;
+                    localStorage.setItem(TOKEN_KEY, authData.token);
+                    localStorage.setItem(CUSTOMER_ID_KEY, authData.customerId);
+                    localStorage.setItem(CUSTOMER_NAME_KEY, authData.customerName || 'Customer');
+                    
+                    showToast('Login successful!');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 500);
+                } else {
+                    showToast(res ? res.message : 'Invalid OTP', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // Auto advance OTP boxes
+        const otpInputs = document.querySelectorAll('.otp-box');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= '0' && e.key <= '9') {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                }
+            });
+        });
+
+        // Timer
+        function startTimer() {
+            let time = 60;
+            const timerEl = document.getElementById('timer');
+            const interval = setInterval(() => {
+                time--;
+                timerEl.innerText = time;
+                if (time <= 0) {
+                    clearInterval(interval);
+                    document.getElementById('timer-text').innerHTML = '<a href="#" onclick="resendOtp()">Resend OTP</a>';
+                }
+            }, 1000);
+        }
+
+        function resendOtp() {
+            showToast('OTP Resent');
+            document.getElementById('timer-text').innerHTML = 'Resend OTP in <span id="timer">60</span>s';
+            startTimer();
+        }
+    </script>
+</body>
+</html>

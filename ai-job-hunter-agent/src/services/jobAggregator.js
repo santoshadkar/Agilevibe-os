@@ -1,0 +1,242 @@
+/**
+ * Job Aggregator Service
+ * Aggregates job postings across multiple portals (LinkedIn, Indeed, Glassdoor, Google Jobs, ZipRecruiter)
+ * for target roles: Agile Coach, AI Consultant, AI Leader, Cyber Security Consultant.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const isVercel = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+const DATA_DIR = isVercel ? '/tmp/data' : path.join(__dirname, '../../data');
+const JOBS_FILE = path.join(DATA_DIR, 'jobs.json');
+
+// Initial baseline jobs database covering all 4 target domains EXCLUSIVELY FOR INDIA
+const INITIAL_JOB_POOL = [
+  {
+    id: "job-agile-ind-001",
+    title: "Enterprise Agile Coach",
+    company: "Infosys Transformation Services",
+    location: "Bengaluru, Karnataka (Hybrid)",
+    portal: "LinkedIn India",
+    workType: "Hybrid",
+    category: "Agile Coach",
+    postedDate: "2026-08-28T07:30:00Z",
+    salary: "₹30 - ₹42 LPA",
+    url: "https://in.linkedin.com/jobs/view/enterprise-agile-coach-bengaluru",
+    skills: ["SAFe 6.0", "Scaled Agile", "Executive Coaching", "Jira Align", "Value Stream Mapping", "OKRs", "Kanban"],
+    description: "Leading enterprise agile transformation across 20+ delivery squads in Bengaluru. Responsible for executive mentoring, value stream optimization, SAFe 6.0 deployment, and driving OKR alignment.",
+    requirements: "10+ years in agile leadership, SPC 6.0 certification preferred, experience scaling global engineering teams."
+  },
+  {
+    id: "job-agile-ind-002",
+    title: "Senior Agile Transformation Consultant",
+    company: "TCS Strategic Advisory",
+    location: "Hyderabad, Telangana (Remote - India)",
+    portal: "Naukri",
+    workType: "Remote",
+    category: "Agile Coach",
+    postedDate: "2026-08-27T16:00:00Z",
+    salary: "₹25 - ₹35 LPA",
+    url: "https://www.naukri.com/job-listings-agile-consultant-tcs-hyderabad",
+    skills: ["Scrum Master", "Agile Maturity Assessment", "Design Thinking", "Change Management", "Metrics & Data", "Jira"],
+    description: "Guide Global Fortune 500 GCCs in India through digital transformations. Facilitate leadership workshops, establish agile maturity benchmarks, and coach cross-functional product teams.",
+    requirements: "7+ years coaching experience, CSM/CSPO certification, strong change management track record."
+  },
+  {
+    id: "job-ai-ind-001",
+    title: "AI Strategy & Implementation Consultant",
+    company: "Accenture AI Labs India",
+    location: "Gurugram / NCR (Hybrid)",
+    portal: "LinkedIn India",
+    workType: "Hybrid",
+    category: "AI Consultant",
+    postedDate: "2026-08-28T06:15:00Z",
+    salary: "₹35 - ₹50 LPA",
+    url: "https://in.linkedin.com/jobs/view/ai-strategy-consultant-gurugram",
+    skills: ["Generative AI", "LLM Fine-tuning", "Python", "RAG Architecture", "Enterprise AI Strategy", "AI ROI Analysis"],
+    description: "Help enterprise GCCs and Indian leaders build, evaluate, and deploy Generative AI solutions. Formulate corporate AI roadmaps, build custom RAG pipelines, and measure business ROI.",
+    requirements: "5+ years in management or tech consulting, hands-on experience with LLM frameworks (LangChain, LlamaIndex, OpenAI/Azure APIs)."
+  },
+  {
+    id: "job-ai-ind-002",
+    title: "Senior AI & MLOps Consultant",
+    company: "Fractal Analytics",
+    location: "Mumbai, Maharashtra (Hybrid)",
+    portal: "Naukri",
+    workType: "Hybrid",
+    category: "AI Consultant",
+    postedDate: "2026-08-28T08:00:00Z",
+    salary: "₹28 - ₹40 LPA",
+    url: "https://www.naukri.com/job-listings-ai-mlops-consultant-fractal-mumbai",
+    skills: ["AWS SageMaker", "Azure AI", "MLOps", "Model Governance", "PyTorch", "AI Security", "CI/CD"],
+    description: "Design production-ready machine learning architectures and AI pipelines for enterprise clients. Focus on model monitoring, security guardrails, cost optimization, and scalable model deployment.",
+    requirements: "AWS/Azure AI certification, strong Python skills, experience deploying deep learning models to production."
+  },
+  {
+    id: "job-ailead-ind-001",
+    title: "Head of Artificial Intelligence & Innovation",
+    company: "Reliance Jio AI Center of Excellence",
+    location: "Mumbai / Navi Mumbai (Onsite)",
+    portal: "LinkedIn India",
+    workType: "Onsite",
+    category: "AI Leader",
+    postedDate: "2026-08-27T19:45:00Z",
+    salary: "₹65 - ₹90 LPA + Stock Options",
+    url: "https://in.linkedin.com/jobs/view/head-of-ai-jio-mumbai",
+    skills: ["AI Governance", "Executive Leadership", "Generative AI", "Team Building", "AI Ethics", "P&L Ownership", "IP Strategy"],
+    description: "Direct the corporate AI strategy and lead a 40+ person team of AI engineers and data scientists. Oversee enterprise AI product development, compliance, and executive board reporting.",
+    requirements: "10+ years in AI executive leadership, Master's/Ph.D. in CS/AI related field preferred, strong track record in scaling AI groups."
+  },
+  {
+    id: "job-ailead-ind-002",
+    title: "Director - AI & Advanced Analytics GCC",
+    company: "Target India Innovation Center",
+    location: "Bengaluru, Karnataka (Hybrid)",
+    portal: "Foundit (Monster)",
+    workType: "Hybrid",
+    category: "AI Leader",
+    postedDate: "2026-08-28T05:00:00Z",
+    salary: "₹55 - ₹75 LPA",
+    url: "https://www.foundit.in/job/director-ai-analytics-target-bengaluru",
+    skills: ["Strategic Roadmap", "AI Product Management", "NLP", "Budgeting", "Stakeholder Management", "Talent Acquisition"],
+    description: "Lead the India AI organization driving cross-functional AI automation initiatives. Partner with global executives to integrate Agentic AI workflows and predictive analytics.",
+    requirements: "Proven track record scaling AI teams from ground up in India GCC ecosystem."
+  },
+  {
+    id: "job-sec-ind-001",
+    title: "Principal Cyber Security Consultant",
+    company: "PwC India Advisory",
+    location: "Bengaluru / Remote (India)",
+    portal: "LinkedIn India",
+    workType: "Remote",
+    category: "Cyber Security Consultant",
+    postedDate: "2026-08-28T07:10:00Z",
+    salary: "₹32 - ₹45 LPA",
+    url: "https://in.linkedin.com/jobs/view/principal-cyber-security-pwc-india",
+    skills: ["CISSP", "Zero Trust Architecture", "ISO 27001", "Threat Modeling", "Cloud Security (AWS/Azure)", "NIST CSF"],
+    description: "Provide strategic security advisory services for enterprise clients across APAC & India. Conduct threat modeling, design Zero Trust architectures, and perform ISO 27001 assessments.",
+    requirements: "CISSP or CISM active certification, 8+ years cybersecurity advisory experience."
+  },
+  {
+    id: "job-sec-ind-002",
+    title: "Senior Cloud & AI Security Specialist",
+    company: "Wipro Cyber Transform",
+    location: "Pune, Maharashtra (Hybrid)",
+    portal: "Naukri",
+    workType: "Hybrid",
+    category: "Cyber Security Consultant",
+    postedDate: "2026-08-27T22:30:00Z",
+    salary: "₹26 - ₹36 LPA",
+    url: "https://www.naukri.com/job-listings-cloud-ai-security-wipro-pune",
+    skills: ["AI Model Security", "Penetration Testing", "Kubernetes Security", "DevSecOps", "SIEM", "Incident Response"],
+    description: "Specialized security consulting focused on securing AI endpoints, LLM data privacy, container workloads, and continuous DevSecOps automation for modern tech firms.",
+    requirements: "CISM/CEH/CCSP certification, experience securing Generative AI API pipelines and cloud-native infrastructure."
+  }
+];
+
+// Additional simulated job feed to simulate real-time daily scraper additions FOR INDIA
+const DAILY_SCRAPED_EXTRAS = [
+  {
+    id: "job-agile-ind-003",
+    title: "Agile Practice Lead & Executive Coach",
+    company: "Razorpay Tech",
+    location: "Bengaluru, Karnataka (Hybrid)",
+    portal: "LinkedIn India",
+    workType: "Hybrid",
+    category: "Agile Coach",
+    postedDate: "2026-08-28T09:15:00Z",
+    salary: "₹35 - ₹48 LPA",
+    url: "https://in.linkedin.com/jobs/view/agile-practice-lead-razorpay",
+    skills: ["Executive Coaching", "LeSS / SAFe", "Agile Metrics", "Jira Align", "Change Management", "Kanban"],
+    description: "Lead our engineering Agile Center of Excellence (CoE). Champion continuous improvement across 25+ product squads and mentor senior tech leaders on agile governance.",
+    requirements: "SAFe Program Consultant (SPC 6.0), 8+ years coaching enterprise organizations."
+  },
+  {
+    id: "job-ai-ind-003",
+    title: "Generative AI Solutions Architect / Consultant",
+    company: "Tiger Analytics",
+    location: "Chennai, Tamil Nadu (Remote - India)",
+    portal: "Naukri",
+    workType: "Remote",
+    category: "AI Consultant",
+    postedDate: "2026-08-28T10:00:00Z",
+    salary: "₹32 - ₹45 LPA",
+    url: "https://www.naukri.com/job-listings-genai-architect-tiger-chennai",
+    skills: ["Generative AI", "LangChain", "Vector DBs (Chroma/Pinecone)", "RAG", "Agentic Workflows", "Python"],
+    description: "Design tailored Generative AI agents and knowledge automation portals for Fortune 500 clients.",
+    requirements: "Solid hands-on background in Python, RAG pipelines, and enterprise AI transformation."
+  },
+  {
+    id: "job-sec-ind-003",
+    title: "Cyber Security & AI Risk Advisory Consultant",
+    company: "Deloitte India",
+    location: "Hyderabad, Telangana (Hybrid)",
+    portal: "Foundit (Monster)",
+    workType: "Hybrid",
+    category: "Cyber Security Consultant",
+    postedDate: "2026-08-28T08:45:00Z",
+    salary: "₹30 - ₹42 LPA",
+    url: "https://www.foundit.in/job/cyber-ai-risk-deloitte-hyderabad",
+    skills: ["NIST CSF", "AI Governance", "CISM", "Risk Management", "SOC 2", "Data Privacy (DPDP / GDPR)"],
+    description: "Help enterprises navigate AI security risks, establish AI compliance guardrails, and implement robust NIST and India DPDP frameworks.",
+    requirements: "CISM or CISSP certification, prior experience in IT audit or security compliance consulting."
+  }
+];
+
+function ensureDataDirectory() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+}
+
+function getAllJobs() {
+  ensureDataDirectory();
+  if (!fs.existsSync(JOBS_FILE)) {
+    fs.writeFileSync(JOBS_FILE, JSON.stringify(INITIAL_JOB_POOL, null, 2));
+    return INITIAL_JOB_POOL;
+  }
+  try {
+    const raw = fs.readFileSync(JOBS_FILE, 'utf-8');
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("Error reading jobs file:", err);
+    return INITIAL_JOB_POOL;
+  }
+}
+
+function saveJobs(jobs) {
+  ensureDataDirectory();
+  fs.writeFileSync(JOBS_FILE, JSON.stringify(jobs, null, 2));
+}
+
+/**
+ * Simulates scraping multiple job portals (LinkedIn, Indeed, Glassdoor, etc.)
+ */
+function scrapeJobsFromPortals() {
+  const currentJobs = getAllJobs();
+  const existingIds = new Set(currentJobs.map(j => j.id));
+  
+  let newlyAddedCount = 0;
+  DAILY_SCRAPED_EXTRAS.forEach(extra => {
+    if (!existingIds.has(extra.id)) {
+      currentJobs.unshift(extra);
+      existingIds.add(extra.id);
+      newlyAddedCount++;
+    }
+  });
+
+  saveJobs(currentJobs);
+  return {
+    success: true,
+    totalJobs: currentJobs.length,
+    newJobsScraped: newlyAddedCount,
+    timestamp: new Date().toISOString()
+  };
+}
+
+module.exports = {
+  getAllJobs,
+  saveJobs,
+  scrapeJobsFromPortals
+};

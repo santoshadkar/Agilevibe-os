@@ -1,0 +1,24 @@
+{
+  "name": "mcp-api-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for REST API integration",
+  "main": "build/index.js",
+  "type": "module",
+  "bin": {
+    "mcp-api-server": "build/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "inspector": "npx @modelcontextprotocol/inspector node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "axios": "^1.7.9",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

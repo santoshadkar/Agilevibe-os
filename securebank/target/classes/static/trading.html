@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Desk - SecureBank</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/manya.css">
+    <style>
+        .ticker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .ticker-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+        .ticker-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-gold);
+        }
+        .ticker-symbol {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        .ticker-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0.3rem 0;
+        }
+        .ticker-change.up { color: #4ade80; }
+        .ticker-change.down { color: #f87171; }
+        .trade-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .trade-form-grid { grid-template-columns: 1fr; }
+        }
+        .pnl-positive { color: #4ade80; font-weight: 700; }
+        .pnl-negative { color: #f87171; font-weight: 700; }
+        .security-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #34d399;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <div class="d-flex justify-between align-center mb-3">
+            <div>
+                <h2>📈 Wealth & Stock Trading Desk</h2>
+                <p class="text-secondary">Trade Equities & Crypto with AI Risk Guard & Bank-Grade Security</p>
+            </div>
+            <div class="d-flex gap-2">
+                <span class="security-badge">🛡️ Rate Limited</span>
+                <span class="security-badge">🔒 2FA Trade PIN</span>
+                <span class="security-badge">🤖 AI Sentinel Active</span>
+            </div>
+        </div>
+
+        <!-- Live Market Tickers -->
+        <h3 class="mb-2 text-gold">⚡ Live Market Tickers</h3>
+        <div class="ticker-grid" id="market-tickers-container">
+            <div class="ticker-card">Loading tickers...</div>
+        </div>
+
+        <div class="trade-form-grid">
+            <!-- Execution Card -->
+            <div class="glass-card">
+                <h3 class="mb-3">💸 Execute Trade Order</h3>
+                <form id="trade-order-form" onsubmit="handleTradeOrder(event)">
+                    <div class="form-group mb-2">
+                        <label class="form-label">Select Asset</label>
+                        <select id="trade-symbol" class="form-select" onchange="updatePriceLabel()" required>
+                            <option value="NVDA">NVDA - NVIDIA Corp ($128.50)</option>
+                            <option value="AAPL">AAPL - Apple Inc ($224.20)</option>
+                            <option value="TSLA">TSLA - Tesla Inc ($210.80)</option>
+                            <option value="GOOGL">GOOGL - Alphabet Inc ($165.40)</option>
+                            <option value="BTC">BTC - Bitcoin ($58,450.00)</option>
+                            <option value="ETH">ETH - Ethereum ($2,510.00)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-2 d-flex gap-2">
+                        <div style="flex: 1;">
+                            <label class="form-label">Order Type</label>
+                            <select id="trade-type" class="form-select" required>
+                                <option value="BUY">BUY 🟢</option>
+                                <option value="SELL">SELL 🔴</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Quantity (Shares/Coins)</label>
+                            <input type="number" id="trade-qty" class="form-input" value="5" step="0.01" min="0.01" required oninput="calculateEstTotal()">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2 d-flex gap-2">
+                        <div style="flex: 1;">
+                            <label class="form-label">🤖 AI Stop-Loss Target ($)</label>
+                            <input type="number" id="trade-stop-loss" class="form-input" placeholder="e.g. 115.00" step="0.01">
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">🤖 AI Take-Profit Target ($)</label>
+                            <input type="number" id="trade-take-profit" class="form-input" placeholder="e.g. 145.00" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">🔒 2FA Security PIN Confirmation</label>
+                        <input type="password" id="trade-pin" class="form-input" placeholder="Enter 4-digit Trade PIN (e.g. 1234)" value="1234" maxlength="4" required>
+                    </div>
+
+                    <div style="background: rgba(201, 168, 76, 0.1); border: 1px solid var(--accent-gold); padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem;" class="d-flex justify-between align-center">
+                        <span>Est. Order Total:</span>
+                        <strong id="trade-est-total" class="text-gold" style="font-size: 1.2rem;">$642.50</strong>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">⚡ Execute Instant Trade</button>
+                </form>
+            </div>
+
+            <!-- Portfolio Summary -->
+            <div class="glass-card">
+                <h3 class="mb-3">📊 Portfolio & Profit / Loss</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+                    <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px;">
+                        <div class="text-secondary" style="font-size: 0.85rem;">Total Invested</div>
+                        <div id="port-total-invested" style="font-size: 1.3rem; font-weight: 700;">$0.00</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px;">
+                        <div class="text-secondary" style="font-size: 0.85rem;">Current Value</div>
+                        <div id="port-current-val" style="font-size: 1.3rem; font-weight: 700;" class="text-gold">$0.00</div>
+                    </div>
+                </div>
+                <div style="background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;" class="d-flex justify-between align-center">
+                    <span class="text-secondary">Overall Profit / Loss (P&L):</span>
+                    <span id="port-pnl" style="font-size: 1.3rem; font-weight: 700;">$0.00 (0.00%)</span>
+                </div>
+                <div class="text-secondary" style="font-size: 0.82rem;">
+                    💡 <em>AI Trade Sentinel continuously monitors your open positions to execute stop-loss and take-profit targets in real time.</em>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Holdings Table -->
+        <div class="glass-card mt-3">
+            <h3 class="mb-3">💼 Your Active Holdings</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Asset</th>
+                        <th>Quantity</th>
+                        <th>Cost Basis</th>
+                        <th>Current Price</th>
+                        <th>Current Value</th>
+                        <th>Unrealized P&L</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="holdings-table-body">
+                    <tr><td colspan="8" class="text-center p-3 text-secondary">Loading portfolio holdings...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/manya.js"></script>
+    <script>
+        requireAuth();
+        let marketDataMap = {};
+
+        document.addEventListener('DOMContentLoaded', () => {
+            startIdleTimer();
+            loadMarketPrices();
+            loadPortfolio();
+            setInterval(loadMarketPrices, 5000); // Live price polling every 5s
+        });
+
+        async function loadMarketPrices() {
+            try {
+                const res = await apiCall('/trading/market-prices', 'GET');
+                if (res && res.success && res.data) {
+                    const container = document.getElementById('market-tickers-container');
+                    container.innerHTML = '';
+                    res.data.forEach(asset => {
+                        marketDataMap[asset.symbol] = asset.currentPrice;
+                        const changeCls = asset.change24h.startsWith('+') ? 'up' : 'down';
+                        container.innerHTML += `
+                            <div class="ticker-card" onclick="selectTicker('${asset.symbol}')">
+                                <div class="ticker-symbol">${asset.symbol}</div>
+                                <div class="text-secondary" style="font-size: 0.75rem;">${asset.companyName}</div>
+                                <div class="ticker-price">$${Number(asset.currentPrice).toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+                                <div class="ticker-change ${changeCls}" style="font-size: 0.85rem; font-weight: 600;">${asset.change24h}%</div>
+                            </div>
+                        `;
+                    });
+                    calculateEstTotal();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function selectTicker(sym) {
+            document.getElementById('trade-symbol').value = sym;
+            calculateEstTotal();
+        }
+
+        function calculateEstTotal() {
+            const sym = document.getElementById('trade-symbol').value;
+            const price = marketDataMap[sym] || 100;
+            const qty = parseFloat(document.getElementById('trade-qty').value) || 0;
+            const total = price * qty;
+            document.getElementById('trade-est-total').innerText = '$' + total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        async function loadPortfolio() {
+            try {
+                const res = await apiCall('/trading/portfolio', 'GET');
+                if (res && res.success && res.data) {
+                    const p = res.data;
+                    document.getElementById('port-total-invested').innerText = '$' + Number(p.totalInvested).toLocaleString('en-US', {minimumFractionDigits: 2});
+                    document.getElementById('port-current-val').innerText = '$' + Number(p.totalCurrentValue).toLocaleString('en-US', {minimumFractionDigits: 2});
+                    
+                    const pnlElem = document.getElementById('port-pnl');
+                    const pnlVal = Number(p.totalProfitLoss);
+                    const pnlPct = Number(p.totalProfitLossPercent);
+                    pnlElem.innerText = `${pnlVal >= 0 ? '+' : ''}$${pnlVal.toLocaleString('en-US', {minimumFractionDigits: 2})} (${pnlPct}%)`;
+                    pnlElem.className = pnlVal >= 0 ? 'pnl-positive' : 'pnl-negative';
+
+                    const tbody = document.getElementById('holdings-table-body');
+                    if (!p.holdings || p.holdings.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="8" class="text-center p-3 text-secondary">No active holdings. Execute a BUY order above to start trading!</td></tr>';
+                        return;
+                    }
+
+                    tbody.innerHTML = '';
+                    p.holdings.forEach(h => {
+                        const itemPnl = Number(h.profitLoss);
+                        const itemPnlCls = itemPnl >= 0 ? 'pnl-positive' : 'pnl-negative';
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><strong class="text-gold">${h.symbol}</strong></td>
+                                <td>${h.companyName}</td>
+                                <td>${h.quantity}</td>
+                                <td>$${Number(h.totalCostBasis).toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                                <td>$${Number(h.currentPrice).toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                                <td><strong>$${Number(h.currentValue).toLocaleString('en-US', {minimumFractionDigits: 2})}</strong></td>
+                                <td class="${itemPnlCls}">${itemPnl >= 0 ? '+' : ''}$${itemPnl.toLocaleString('en-US', {minimumFractionDigits: 2})} (${h.profitLossPercentage}%)</td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="quickSell('${h.symbol}', ${h.quantity})">🔴 Sell</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function handleTradeOrder(e) {
+            e.preventDefault();
+            const symbol = document.getElementById('trade-symbol').value;
+            const orderType = document.getElementById('trade-type').value;
+            const quantity = parseFloat(document.getElementById('trade-qty').value);
+            const stopLoss = parseFloat(document.getElementById('trade-stop-loss').value) || null;
+            const takeProfit = parseFloat(document.getElementById('trade-take-profit').value) || null;
+            const pin = document.getElementById('trade-pin').value;
+
+            if (!pin || pin.length < 4) {
+                showToast('🔒 Please enter valid 4-digit Security PIN', 'error');
+                return;
+            }
+
+            const payload = {
+                symbol,
+                orderType,
+                quantity,
+                stopLossPrice: stopLoss,
+                takeProfitPrice: takeProfit,
+                securityPin: pin
+            };
+
+            try {
+                const res = await apiCall('/trading/order', 'POST', payload);
+                if (res && res.success) {
+                    showToast(`⚡ Instant ${orderType} Trade Executed for ${quantity} ${symbol}!`, 'success');
+                    loadPortfolio();
+                } else {
+                    showToast(res ? res.message : 'Trade execution failed', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function quickSell(symbol, qty) {
+            document.getElementById('trade-symbol').value = symbol;
+            document.getElementById('trade-type').value = 'SELL';
+            document.getElementById('trade-qty').value = qty;
+            calculateEstTotal();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

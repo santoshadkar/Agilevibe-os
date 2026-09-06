@@ -1,0 +1,30 @@
+[
+  {
+    "topic": "Agile Coaching Competency Framework (Lyssa Adkins)",
+    "content": "Lyssa Adkins' Agile Coaching Framework defines 8 core competencies: Agile-Lean Practitioner, Teaching, Mentoring, Professional Coaching, Facilitation, Technical Mastery, Business Mastery, and Transformation Mastery. The coach balances these stances depending on team maturity."
+  },
+  {
+    "topic": "SAFe 6.0 WSJF Prioritization Formula",
+    "content": "Weighted Shortest Job First (WSJF) in SAFe is calculated as Cost of Delay divided by Job Duration. Cost of Delay = User-Business Value + Time Criticality + Risk Reduction / Opportunity Enablement. High WSJF features deliver maximum ROI first."
+  },
+  {
+    "topic": "2020 Scrum Guide Core Rules",
+    "content": "The 2020 Scrum Guide defines 3 accountabilities: Product Owner (maximizes value), Scrum Master (establishes Scrum & effectiveness), and Developers (creates usable increments). The Scrum team is self-managing with a limit of 10 or fewer people."
+  },
+  {
+    "topic": "MITRE ATT&CK T1190 Initial Access",
+    "content": "T1190 refers to Exploitation of Public-Facing Applications. Attackers leverage vulnerabilities in web servers, databases, or SaaS APIs to gain unauthorized initial access. Mitigations include patch management, WAF implementation, and network segmentation."
+  },
+  {
+    "topic": "OWASP LLM01 Prompt Injection Defense",
+    "content": "Prompt Injection occurs when untrusted user inputs manipulate the LLM's system instructions. Mitigation requires strict input sanitization, architectural segregation between system instructions and data context, and dual-LLM validation."
+  },
+  {
+    "topic": "NIST SP 800-207 Zero Trust Architecture",
+    "content": "NIST Zero Trust assumes no implicit trust based on network location. Core tenets include continuous authentication, microsegmentation, policy engine verification, and least privilege access across all enterprise assets."
+  },
+  {
+    "topic": "Edge Small Language Models (SLMs) vs Cloud LLMs",
+    "content": "Edge SLMs (e.g. Microsoft Phi-3, Gemma 2B) run 4-bit quantized (GGUF/AWQ) on local hardware with sub-100ms latency, zero cloud API costs, and 100% privacy compliance for air-gapped security operations."
+  }
+]

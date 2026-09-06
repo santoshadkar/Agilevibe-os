@@ -1,0 +1,56 @@
+[
+  {
+    "id": "log-1787908586590",
+    "timestamp": "2026-08-28T09:16:26.590Z",
+    "message": "AI Job Hunter Agent active with Auto-Apply & Email Dispatcher (08:00 AM daily)."
+  },
+  {
+    "id": "log-1787908533115",
+    "timestamp": "2026-08-28T09:15:33.115Z",
+    "message": "AI Job Hunter Agent active with Auto-Apply & Email Dispatcher (08:00 AM daily)."
+  },
+  {
+    "id": "log-1787908307766",
+    "timestamp": "2026-08-28T09:11:47.766Z",
+    "message": "AI Job Hunter Agent active with Auto-Apply & Email Dispatcher (08:00 AM daily)."
+  },
+  {
+    "id": "log-1787908053896",
+    "timestamp": "2026-08-28T09:07:33.896Z",
+    "message": "AI Job Hunter Agent active with Auto-Apply & Email Dispatcher (08:00 AM daily)."
+  },
+  {
+    "id": "log-1787907965563",
+    "timestamp": "2026-08-28T09:06:05.563Z",
+    "message": "AI Job Hunter Agent active with Auto-Apply & Email Dispatcher (08:00 AM daily)."
+  },
+  {
+    "id": "log-1787907680493",
+    "timestamp": "2026-08-28T09:01:20.493Z",
+    "message": "AI Auto-Apply Agent executed. Automatically applied for 2 high-probability jobs and dispatched email alerts.",
+    "type": "auto_apply",
+    "totalApplied": 2
+  },
+  {
+    "id": "log-1787907670345",
+    "timestamp": "2026-08-28T09:01:10.345Z",
+    "message": "AI Job Hunter Agent active with Auto-Apply & Email Dispatcher (08:00 AM daily)."
+  },
+  {
+    "id": "log-1787907511709",
+    "timestamp": "2026-08-28T08:58:31.709Z",
+    "message": "AI Job Hunter Server started. Morning scheduler active (08:00 AM)."
+  },
+  {
+    "id": "log-1787907411010",
+    "timestamp": "2026-08-28T08:56:51.010Z",
+    "message": "Manual/On-Demand Job Aggregation executed. Found 3 new postings.",
+    "type": "manual",
+    "newJobsScraped": 3
+  },
+  {
+    "id": "log-1787907394519",
+    "timestamp": "2026-08-28T08:56:34.519Z",
+    "message": "AI Job Hunter Server started. Morning scheduler active (08:00 AM)."
+  }
+]
