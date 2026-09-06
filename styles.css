@@ -1,13 +1,13 @@
 /* ----------------------------------------------------
    SANTOSHANAND ADKAR - MASTER EXECUTIVE PORTFOLIO STYLES
-   Left Sidebar Layout, 36 Portals Directory, Responsive Design
+   Left Sidebar Layout, Visual Career Roadmap, Certifications
    ---------------------------------------------------- */
 
 :root {
   --bg-dark: #090d16;
   --bg-sidebar: #0b1120;
-  --bg-card: rgba(15, 23, 42, 0.8);
-  --bg-card-hover: rgba(30, 41, 59, 0.9);
+  --bg-card: rgba(15, 23, 42, 0.85);
+  --bg-card-hover: rgba(30, 41, 59, 0.95);
   --bg-glass: rgba(255, 255, 255, 0.03);
   
   --border-glass: rgba(255, 255, 255, 0.08);
@@ -80,9 +80,7 @@ body {
   background: #334155;
 }
 
-/* ----------------------------------------------------
-   LEFT SIDEBAR NAVIGATION
-   ---------------------------------------------------- */
+/* LEFT SIDEBAR NAVIGATION */
 .main-sidebar {
   width: var(--sidebar-width);
   height: 100vh;
@@ -166,7 +164,6 @@ body {
   100% { transform: scale(0.95); opacity: 0.7; }
 }
 
-/* Sidebar Nav Menu Links */
 .sidebar-section-title {
   font-size: 11px;
   font-weight: 700;
@@ -292,9 +289,7 @@ body {
   color: var(--text-dim);
 }
 
-/* ----------------------------------------------------
-   MAIN CONTENT AREA
-   ---------------------------------------------------- */
+/* MAIN CONTENT AREA */
 .main-wrapper {
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
@@ -302,7 +297,6 @@ body {
   padding: 40px;
 }
 
-/* Mobile Header Bar */
 .mobile-top-bar {
   display: none;
   position: fixed;
@@ -524,6 +518,150 @@ body {
   gap: 8px;
 }
 
+/* ----------------------------------------------------
+   INTERACTIVE CAREER ROADMAP (STUNNING VISUAL TIMELINE)
+   ---------------------------------------------------- */
+.roadmap-container {
+  position: relative;
+  padding-left: 50px;
+  margin-top: 30px;
+}
+
+.roadmap-spine {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--accent-indigo) 35%, var(--accent-purple) 70%, var(--accent-emerald) 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+}
+
+.roadmap-item {
+  position: relative;
+  margin-bottom: 44px;
+}
+
+.roadmap-node {
+  position: absolute;
+  left: -48px;
+  top: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 3px solid var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  z-index: 10;
+  transition: var(--transition-smooth);
+}
+
+.roadmap-item:hover .roadmap-node {
+  transform: scale(1.25);
+  border-color: var(--accent-emerald);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.8);
+}
+
+.roadmap-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.roadmap-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+}
+
+.roadmap-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-glow);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+.roadmap-period-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--accent-cyan);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.roadmap-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.roadmap-company {
+  font-size: 14px;
+  color: var(--accent-emerald);
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.roadmap-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.roadmap-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.roadmap-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  color: #cbd5e1;
+}
+
+.roadmap-bullets {
+  padding-left: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.roadmap-bullets li {
+  margin-bottom: 8px;
+}
+
 /* 36 AI PORTALS GRID */
 .portals-section {
   margin-bottom: 50px;
@@ -647,7 +785,7 @@ body {
   border-top: 1px solid var(--border-glass);
 }
 
-/* CAREER TIMELINE */
+/* CAREER TIMELINE & TABS */
 .cv-section {
   margin-bottom: 60px;
 }
@@ -658,6 +796,7 @@ body {
   margin-bottom: 30px;
   border-bottom: 1px solid var(--border-glass);
   padding-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 .cv-tab-btn {
@@ -669,6 +808,7 @@ body {
   font-family: var(--font-heading);
   padding: 8px 16px;
   cursor: pointer;
+  transition: var(--transition-smooth);
 }
 
 .cv-tab-btn.active, .cv-tab-btn:hover {
@@ -682,75 +822,6 @@ body {
 
 .cv-panel.active {
   display: block;
-}
-
-.timeline {
-  position: relative;
-  padding-left: 28px;
-  border-left: 2px solid var(--border-glass);
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 36px;
-}
-
-.timeline-dot {
-  position: absolute;
-  left: -35px;
-  top: 4px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--accent-cyan);
-  box-shadow: 0 0 10px var(--accent-cyan);
-}
-
-.timeline-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-}
-
-.timeline-period {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-.timeline-role {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 2px;
-}
-
-.timeline-company {
-  font-size: 13px;
-  color: var(--accent-emerald);
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.timeline-body {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 10px;
-}
-
-.timeline-list {
-  padding-left: 18px;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.timeline-list li {
-  margin-bottom: 6px;
 }
 
 /* FLOATING CHAT & MODALS */
@@ -819,6 +890,18 @@ body {
   }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .roadmap-container {
+    padding-left: 36px;
+  }
+  .roadmap-node {
+    left: -34px;
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  .roadmap-spine {
+    left: 14px;
   }
 }
 

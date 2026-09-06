@@ -1,6 +1,6 @@
 /* ----------------------------------------------------
    SANTOSHANAND ADKAR - EXECUTIVE PORTFOLIO DATA & SCRIPT
-   Updated with Barclays VP Role, 26+ Years History & 36 AI Portals
+   Visual Career Roadmap, Certifications Nav Fix, 36 AI Portals
    ---------------------------------------------------- */
 
 // 1. ALL 36 AI PORTALS REPOSITORY DATA
@@ -445,25 +445,29 @@ const PORTALS_DATA = [
   }
 ];
 
-// 2. CAREER TIMELINE DATA (UPDATED WITH BARCLAYS VP ROLE & 26+ YEARS DETAILED EXPERIENCE)
-const TIMELINE_DATA = [
+// 2. CAREER ROADMAP DATA (26+ YEARS VISUAL MILESTONES)
+const ROADMAP_DATA = [
   {
-    period: "MAY 2025 - PRESENT",
+    period: "MAY 2025 – PRESENT",
     role: "Vice President, Agile Strategy & Transformation",
-    company: "Barclays — Pune, India",
-    description: "Leading Agile strategy and transformation across PBWM (Private Bank & Wealth Management) domain, embedded across Smart Investing, CLM (Client Lifecycle Management), and Data & Analytics tribes.",
+    company: "🏢 Barclays — Pune, India",
+    nodeIcon: "👑",
+    chips: ["PBWM Domain", "10-Dimension Assessment", "839 Question Bank", "Jira Data Center SME", "TSM Horizontal"],
+    description: "Leading Agile strategy & transformation across PBWM domain (Smart Investing, CLM, and Data & Analytics tribes). Established tribe-wide maturity baselines, DoD/DoR, Jira intake process, and TSM peer coaching.",
     achievements: [
       "Built & rolled out a uniform 10-dimension, 50-question Agile Maturity Assessment across PBWM, backed by an 839-question independent verification bank across 8 dimensions & 5 maturity levels.",
       "Established tribe-wide standardized Definition of Ready (DoR), Definition of Done (DoD), and Spike definitions.",
-      "Jira Data Center Subject Matter Expert — designed standardized work breakdown structure & new front-door intake process for Process Automation team.",
+      "Jira Data Center SME — designed standardized work breakdown structure & new front-door intake access process governing Process Automation team.",
       "Initiated & run the bi-weekly Tribe Scrum Master Horizontal to coach TSMs as a peer group; conduct 1:1 GROW-model and Shu-Ha-Ri coaching sessions for SMs and POs.",
       "Standardized Big Room Planning (BRP) and PI Planning templates across tribes; implemented phased OKRs and Jira metrics governance dashboards."
     ]
   },
   {
-    period: "JAN 2023 - APR 2025",
+    period: "JAN 2023 – APR 2025",
     role: "Enterprise Agile Coach & Release Train Engineer (RTE)",
-    company: "Wolters Kluwer India Ltd — Pune",
+    company: "🌐 Wolters Kluwer India Ltd — Pune",
+    nodeIcon: "🚆",
+    chips: ["SAFe 6.0 RTE", "LAC Setup", "CoP Leadership", "Developer Platform ART"],
     description: "Served as Agile Process Coach for Tax & Accounting (TAA) business unit and RTE for the Developer Platform Agile Release Train (ART).",
     achievements: [
       "Established the Lean-Agile Center (LAC) and Lean-Agile metrics framework at TAA North America level.",
@@ -472,9 +476,11 @@ const TIMELINE_DATA = [
     ]
   },
   {
-    period: "JAN 2022 - JAN 2023",
-    role: "Enterprise Agile Coach (Large Manufacturing Client, USA)",
-    company: "Infosys Ltd — Pune",
+    period: "JAN 2022 – JAN 2023",
+    role: "Enterprise Agile Coach (Large Manufacturing Client)",
+    company: "🏭 Infosys Ltd — Pune / USA Client",
+    nodeIcon: "⚡",
+    chips: ["Manufacturing Scaling", "Productivity Optimization", "Lean Coffee"],
     description: "Guided leaders and associates in large-scale manufacturing client's Agile transformation.",
     achievements: [
       "Created tailored Agile frameworks to optimize team productivity and reduce delivery lead times.",
@@ -482,9 +488,11 @@ const TIMELINE_DATA = [
     ]
   },
   {
-    period: "NOV 2019 - DEC 2021",
-    role: "Enterprise Agile Coach (Large Telecom Client, Slough, UK)",
-    company: "Tech Mahindra Ltd — Pune",
+    period: "NOV 2019 – DEC 2021",
+    role: "Enterprise Agile Coach (Large Telecom Client)",
+    company: "📡 Tech Mahindra Ltd — Slough, UK Client",
+    nodeIcon: "🇬🇧",
+    chips: ["Telecom Networks", "SAFe Multi-Vendor", "IoT Proof-of-Concept"],
     description: "Helped UK telecom giant transition networks area to Agile ways of working and SAFe framework.",
     achievements: [
       "Migrated legacy network systems to Agile; introduced Epics & User Stories for requirements capture.",
@@ -493,9 +501,11 @@ const TIMELINE_DATA = [
     ]
   },
   {
-    period: "JAN 2018 - OCT 2019",
+    period: "JAN 2018 – OCT 2019",
     role: "Senior Consultant – Agile, Learning & Development Group",
-    company: "Tech Mahindra Ltd — Pune",
+    company: "📚 Tech Mahindra Ltd — Pune",
+    nodeIcon: "🎓",
+    chips: ["100,000+ Course Views", "Design Thinking Workshops", "L&D Leadership"],
     description: "Provided delivery team coaching and facilitated Design Thinking workshops across business units.",
     achievements: [
       "Delivered Scrum Master Agile Fundamentals course with 100,000+ views — most-viewed course on Tech Mahindra's internal social learning network.",
@@ -503,63 +513,77 @@ const TIMELINE_DATA = [
     ]
   },
   {
-    period: "DEC 2016 - DEC 2017",
-    role: "Agile Coach & Scrum Master (Telecom Client, Atlanta, USA)",
-    company: "Tech Mahindra Ltd — Pune",
+    period: "DEC 2016 – DEC 2017",
+    role: "Agile Coach & Scrum Master (Telecom Billing)",
+    company: "🇺🇸 Tech Mahindra Ltd — Atlanta, USA Client",
+    nodeIcon: "💼",
+    chips: ["Multi-Vendor Billing", "Risk Management", "Offshore Enablement"],
     description: "Scrum Master and Agile Coach for complex billing software project with multi-vendor teams.",
     achievements: [
       "Tracked risks, managed inter-dependencies, and cleared roadblocks for smooth offshore/onsite delivery."
     ]
   },
   {
-    period: "FEB 2014 - NOV 2016",
+    period: "FEB 2014 – NOV 2016",
     role: "Senior Consultant – Program Quality Assurance",
-    company: "Wipro Technologies Ltd — Pune",
+    company: "🛡️ Wipro Technologies Ltd — Pune",
+    nodeIcon: "⚙️",
+    chips: ["Project Risk Officer", "EBITDA Levers", "SDLC Templates"],
     description: "Project management & QA consulting across SDLC; Project Risk Officer building Risk Registers.",
     achievements: [
       "Created standardized project management templates organization-wide and EBITDA-controlling statistical levers."
     ]
   },
   {
-    period: "JUL 2013 - FEB 2014",
-    role: "Scrum Master – UK-Based Insurance Company Portal",
-    company: "Wipro Technologies Ltd — Pune",
+    period: "JUL 2013 – FEB 2014",
+    role: "Scrum Master – UK Insurance Portal",
+    company: "🏥 Wipro Technologies Ltd — Pune",
+    nodeIcon: "🃏",
+    chips: ["Insurance Integration", "Backlog Refinement", "Sprint Facilitation"],
     description: "Scrum Master consolidating isolated insurance systems (policy creation, claims, billing).",
     achievements: [
       "Managed product backlog refinement, daily standups, and stakeholder collaboration."
     ]
   },
   {
-    period: "OCT 2011 - JUL 2013",
+    period: "OCT 2011 – JUL 2013",
     role: "Consultant – Talent Management Academy",
-    company: "Wipro Technologies Ltd — Pune",
+    company: "🌍 Wipro Technologies Ltd — Pune / UK / South Africa",
+    nodeIcon: "🌟",
+    chips: ["2,000+ Leaders Trained", "95%+ Feedback Rating", "TLCP Program"],
     description: "Developed project management programs for entry-level and experienced project managers.",
     achievements: [
       "Delivered PM programs in UK and South Africa with 95%+ feedback ratings; conceptualized Technical Leads Program (TLCP)."
     ]
   },
   {
-    period: "MAR 2006 - OCT 2011",
-    role: "Project Manager – Projects in Canada, Austria & Pune",
-    company: "Wipro Technologies Ltd — Pune",
+    period: "MAR 2006 – OCT 2011",
+    role: "Project Manager – Canada, Austria & Pune Projects",
+    company: "🇨🇦 Wipro Technologies Ltd — Pune",
+    nodeIcon: "🎯",
+    chips: ["Insurance & Banking", "Code Harvesting", "Unitrax Retrofitting"],
     description: "Led end-to-end project management for India's largest insurance company & global banking org.",
     achievements: [
       "Managed estimation, initiation, execution, code reviews, and stakeholder escalations."
     ]
   },
   {
-    period: "DEC 2003 - MAR 2006",
+    period: "DEC 2003 – MAR 2006",
     role: "Team Leader / Project Lead",
-    company: "IBM Global Services India Ltd — Netherlands & Pune",
+    company: "🇳🇱 IBM Global Services India — Netherlands Client",
+    nodeIcon: "🚢",
+    chips: ["13 Countries Span", "45 Offices", "24x7 AMS Delivery"],
     description: "Led 12-member team for Dutch Transport & Logistics Application Management spanning 13 countries and 45 offices.",
     achievements: [
       "Ensured 24x7 customer support and earned top customer ratings."
     ]
   },
   {
-    period: "DEC 1999 - NOV 2003",
+    period: "DEC 1999 – NOV 2003",
     role: "Software & Systems Engineer (Multiple Roles)",
-    company: "Opus Software | BOSCH | CNPL | Saptarishi Infomatics",
+    company: "💻 Opus | BOSCH | CNPL | Saptarishi Infomatics",
+    nodeIcon: "🛠️",
+    chips: ["Core Engineering", "Systems Architecture", "SDLC Foundations"],
     description: "Hands-on software development, systems engineering, testing, and application maintenance.",
     achievements: [
       "Built solid foundation in software engineering across financial, automotive, and IT domains."
@@ -571,15 +595,16 @@ const TIMELINE_DATA = [
 document.addEventListener("DOMContentLoaded", () => {
   renderSidebarPortals(PORTALS_DATA);
   renderPortalsGrid(PORTALS_DATA);
-  renderTimeline(TIMELINE_DATA);
+  renderRoadmap(ROADMAP_DATA);
   setupFilterListeners();
   setupCvTabs();
   setupAiAssistant();
   setupContactForm();
   setupSidebarToggle();
+  setupSidebarNavHandlers();
 });
 
-// Render Left Sidebar Quick Directory of 36 AI Portals
+// Render Left Sidebar Quick Directory
 function renderSidebarPortals(portals) {
   const container = document.getElementById("sidebarPortalsList");
   if (!container) return;
@@ -655,28 +680,36 @@ function setupFilterListeners() {
   }
 }
 
-// Render Timeline
-function renderTimeline(timeline) {
-  const container = document.getElementById("timelineContainer");
+// Render Visual Interactive Career Roadmap
+function renderRoadmap(roadmap) {
+  const container = document.getElementById("roadmapContainer");
   if (!container) return;
 
-  container.innerHTML = timeline.map(item => `
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-card">
-        <div class="timeline-period">${item.period}</div>
-        <h3 class="timeline-role">${item.role}</h3>
-        <div class="timeline-company">${item.company}</div>
-        <p class="timeline-body">${item.description}</p>
-        <ul class="timeline-list">
-          ${item.achievements.map(a => `<li>${a}</li>`).join('')}
-        </ul>
-      </div>
+  container.innerHTML = `
+    <div class="roadmap-container">
+      <div class="roadmap-spine"></div>
+      ${roadmap.map(item => `
+        <div class="roadmap-item">
+          <div class="roadmap-node" title="${item.role}">${item.nodeIcon}</div>
+          <div class="roadmap-card">
+            <div class="roadmap-period-badge">🗓️ ${item.period}</div>
+            <h3 class="roadmap-title">${item.role}</h3>
+            <div class="roadmap-company">${item.company}</div>
+            <p class="roadmap-desc">${item.description}</p>
+            <div class="roadmap-chips">
+              ${item.chips.map(c => `<span class="roadmap-chip">${c}</span>`).join('')}
+            </div>
+            <ul class="roadmap-bullets">
+              ${item.achievements.map(a => `<li>${a}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `).join('')}
     </div>
-  `).join('');
+  `;
 }
 
-// Setup CV Tabs
+// Setup CV Tabs & Sidebar Certs Navigation Fix
 function setupCvTabs() {
   const tabs = document.querySelectorAll(".cv-tab-btn");
   const panels = document.querySelectorAll(".cv-panel");
@@ -689,6 +722,23 @@ function setupCvTabs() {
       tab.classList.add("active");
       const targetPanel = document.getElementById(`panel-${tab.dataset.tab}`);
       if (targetPanel) targetPanel.classList.add("active");
+    });
+  });
+}
+
+// Sidebar Certs & Anchor Click Handler
+function setupSidebarNavHandlers() {
+  const certsLinks = document.querySelectorAll("a[href='#certs']");
+  certsLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      // Activate the Certifications tab inside CV section
+      const certsTabBtn = document.querySelector(".cv-tab-btn[data-tab='certs']");
+      if (certsTabBtn) certsTabBtn.click();
+
+      // Scroll smoothly to CV / Certifications section
+      const cvSection = document.getElementById("cv");
+      if (cvSection) cvSection.scrollIntoView({ behavior: "smooth" });
     });
   });
 }
