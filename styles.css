@@ -208,6 +208,13 @@ h1, h2, h3, h4, h5, h6, .hero-title, .roadmap-title, .section-title, .portal-tit
 
 .sidebar-link .icon {
   font-size: 16px;
+  display: inline-flex;
+  width: 18px;
+  justify-content: center;
+}
+
+.sidebar-link .icon i {
+  font-size: 14px;
 }
 
 /* 36 AI Portals Sidebar Quick Directory */

@@ -844,7 +844,17 @@ function setupContactForm() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    alert("Thank you! Your request has been received. Santoshanand Adkar will get back to you shortly.");
+    const name = form.querySelector('[name="name"]')?.value || "";
+    const email = form.querySelector('[name="email"]')?.value || "";
+    const message = form.querySelector('[name="message"]')?.value || "";
+
+    const subject = encodeURIComponent(`Executive Advisory Inquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+
+    // No backend on this static site — hand off to the visitor's own email
+    // client, addressed and pre-filled, so the message actually reaches
+    // santoshadkar@gmail.com instead of silently going nowhere.
+    window.location.href = `mailto:santoshadkar@gmail.com?subject=${subject}&body=${body}`;
     form.reset();
   });
 }

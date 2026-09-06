@@ -13,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons (sidebar navigation) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- CSS Styles -->
   <link rel="stylesheet" href="styles.css">
@@ -51,13 +54,13 @@
     <!-- MAIN NAVIGATION MENU -->
     <div class="sidebar-section-title">Navigation</div>
     <ul class="sidebar-menu">
-      <li><a href="#hero" class="sidebar-link active"><span class="icon">🏠</span> Overview</a></li>
-      <li><a href="#barclays" class="sidebar-link"><span class="icon">🏢</span> Barclays VP Role</a></li>
-      <li><a href="#cv" class="sidebar-link"><span class="icon">📜</span> 26-Year Roadmap</a></li>
-      <li><a href="#certs" class="sidebar-link"><span class="icon">🎓</span> Certifications</a></li>
-      <li><a href="#agilevibe-spotlight" class="sidebar-link"><span class="icon">⚡</span> AgileVibe OS</a></li>
-      <li><a href="#portals" class="sidebar-link"><span class="icon">🤖</span> 36+ AI Portals</a></li>
-      <li><a href="#contact" class="sidebar-link"><span class="icon">📧</span> Contact & Advisory</a></li>
+      <li><a href="#hero" class="sidebar-link active"><span class="icon"><i class="fa-solid fa-house"></i></span> Overview</a></li>
+      <li><a href="#barclays" class="sidebar-link"><span class="icon"><i class="fa-solid fa-building"></i></span> Barclays VP Role</a></li>
+      <li><a href="#cv" class="sidebar-link"><span class="icon"><i class="fa-solid fa-scroll"></i></span> 26-Year Roadmap</a></li>
+      <li><a href="#certs" class="sidebar-link"><span class="icon"><i class="fa-solid fa-graduation-cap"></i></span> Certifications</a></li>
+      <li><a href="#agilevibe-spotlight" class="sidebar-link"><span class="icon"><i class="fa-solid fa-bolt"></i></span> AgileVibe OS</a></li>
+      <li><a href="#portals" class="sidebar-link"><span class="icon"><i class="fa-solid fa-robot"></i></span> 36+ AI Portals</a></li>
+      <li><a href="#contact" class="sidebar-link"><span class="icon"><i class="fa-solid fa-envelope"></i></span> Contact & Advisory</a></li>
     </ul>
 
     <!-- 36 AI PORTALS QUICK DIRECTORY IN SIDEBAR -->
@@ -333,7 +336,7 @@
           <p style="font-size: 14px; color: #e2e8f0; line-height: 1.6; margin-bottom: 20px;">
             Complete preservation of your original portal under <code>/agilevibe-os/</code> containing CFD Flow Generator, Estimation Poker, Retrospective Studio, Agile Maturity Radar, and Metrics Encyclopedia.
           </p>
-          <a href="agilevibe-os/index.html" class="btn btn-portal" style="padding: 12px 24px;">⚡ Launch AgileVibe OS Portal →</a>
+          <a href="agilevibe-os/index.html" class="btn btn-portal" style="padding: 12px 24px;">⚡ Explore the 19 Coaching Tools →</a>
         </div>
 
         <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 20px; border-radius: var(--radius-md); text-align: center; min-width: 220px;">
@@ -394,17 +397,18 @@
         <form id="contactForm">
           <div style="margin-bottom: 16px;">
             <label style="display: block; font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 6px;">Your Name</label>
-            <input type="text" class="sidebar-search-input" required placeholder="e.g. Hiring Manager / Enterprise Leader" style="padding: 10px;">
+            <input type="text" name="name" class="sidebar-search-input" required placeholder="e.g. Hiring Manager / Enterprise Leader" style="padding: 10px;">
           </div>
           <div style="margin-bottom: 16px;">
             <label style="display: block; font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 6px;">Email Address</label>
-            <input type="email" class="sidebar-search-input" required placeholder="e.g. leader@company.com" style="padding: 10px;">
+            <input type="email" name="email" class="sidebar-search-input" required placeholder="e.g. leader@company.com" style="padding: 10px;">
           </div>
           <div style="margin-bottom: 16px;">
             <label style="display: block; font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 6px;">Message / Inquiry</label>
-            <textarea class="sidebar-search-input" required placeholder="Share brief details..." style="padding: 10px; height: 100px; resize: vertical;"></textarea>
+            <textarea name="message" class="sidebar-search-input" required placeholder="Share brief details..." style="padding: 10px; height: 100px; resize: vertical;"></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">📩 Send Strategic Consultation Request</button>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">This opens your email app addressed to santoshadkar@gmail.com so your message actually reaches me.</p>
         </form>
       </div>
     </section>
