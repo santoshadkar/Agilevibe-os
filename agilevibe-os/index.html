@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgileVibe OS | Santoshanand Adkar</title>
+  <meta name="description" content="AgileVibe OS is an interactive central portal for Agile Coaches by Santoshanand Adkar featuring retrospective tools, estimation poker, metrics encyclopedia, coaching models vault, facilitation playbooks, and AI coaching superpowers.">
+  
+  <!-- FAVICON -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50%' y='68%' font-size='65' text-anchor='middle' fill='%2338bdf8'>⚡</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">⚡</div>
+      <div class="brand-text">
+        <h1>AgileVibe OS</h1>
+        <span>Coach Superpowers</span>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item active" data-tab="welcome">
+        <span class="icon">🌟</span>
+        <span>Welcome & Services</span>
+      </li>
+      <li class="nav-item" data-tab="coach-role">
+        <span class="icon">📖</span>
+        <span>Coach Role & Daily Life</span>
+      </li>
+      <li class="nav-item" data-tab="scrum-events">
+        <span class="icon">🗓️</span>
+        <span>Scrum Events & Do's/Don'ts</span>
+      </li>
+      <li class="nav-item" data-tab="kanban-scrumban">
+        <span class="icon">🎛️</span>
+        <span>Kanban & Scrumban Hub</span>
+      </li>
+      <li class="nav-item" data-tab="cfd">
+        <span class="icon">📈</span>
+        <span>CFD Flow Generator</span>
+      </li>
+      <li class="nav-item" data-tab="gamification">
+        <span class="icon">🎮</span>
+        <span>Gamified Agile Arena</span>
+      </li>
+      <li class="nav-item" data-tab="retro">
+        <span class="icon">🎯</span>
+        <span>Retro & Event Studio</span>
+      </li>
+      <li class="nav-item" data-tab="poker">
+        <span class="icon">🃏</span>
+        <span>Estimation Playground</span>
+      </li>
+      <li class="nav-item" data-tab="maturity">
+        <span class="icon">🕸️</span>
+        <span>Agile Maturity Radar</span>
+      </li>
+      <li class="nav-item" data-tab="psych">
+        <span class="icon">🛡️</span>
+        <span>Psychological Safety</span>
+      </li>
+      <li class="nav-item" data-tab="metrics">
+        <span class="icon">📊</span>
+        <span>Metrics Encyclopedia</span>
+      </li>
+      <li class="nav-item" data-tab="tools">
+        <span class="icon">⚙️</span>
+        <span>Agile Tools Setup</span>
+      </li>
+      <li class="nav-item" data-tab="dashboards">
+        <span class="icon">📈</span>
+        <span>Executive Dashboards</span>
+      </li>
+      <li class="nav-item" data-tab="models">
+        <span class="icon">🧠</span>
+        <span>Coaching Models Vault</span>
+      </li>
+      <li class="nav-item" data-tab="methods">
+        <span class="icon">🎪</span>
+        <span>Facilitation Playbooks</span>
+      </li>
+      <li class="nav-item" data-tab="scaling">
+        <span class="icon">🌐</span>
+        <span>Scaling Compass</span>
+      </li>
+      <li class="nav-item" data-tab="ai">
+        <span class="icon">🤖</span>
+        <span>AI Coach Superpowers</span>
+      </li>
+      <li class="nav-item" data-tab="custom">
+        <span class="icon">🛠️</span>
+        <span>Custom Framework Lab</span>
+      </li>
+      <li class="nav-item" data-tab="knowledge">
+        <span class="icon">📚</span>
+        <span>Knowledge & Certifications</span>
+      </li>
+    </ul>
+
+
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <img src="Santosh.jpg" alt="Santoshanand Adkar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-cyan);">
+        <div class="user-info">
+          <div class="name">Santoshanand Adkar</div>
+          <div class="role">Agile Coach & Consultant</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-wrapper">
+    <!-- TOP BAR WITH SEARCH BAR, MULTI-TEAM SWITCHER & EXPORTERS -->
+    <header class="top-bar">
+      <div class="page-title" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <!-- MOBILE MENU HAMBURGER BUTTON -->
+        <button id="mobileMenuBtn" class="btn btn-primary mobile-toggle-btn" style="padding: 6px 12px; font-size: 13px;">
+          <span>☰ Nav Menu</span>
+        </button>
+        <h2>Central Coaching Portal</h2>
+        <!-- CTRL+K QUICK SEARCH BAR -->
+        <button id="openGlobalSearchBtn" class="btn btn-secondary" style="font-size: 12px; padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-muted);">
+          🔍 Search OS... <kbd style="background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); margin-left: 6px;">Ctrl + K</kbd>
+        </button>
+      </div>
+
+      <div class="top-stats">
+        <button class="btn btn-download" id="exportExecutivePDFBtn" style="padding: 6px 14px; font-size: 12px; font-weight: 600;">
+          📄 Export Executive PDF
+        </button>
+        <div class="stat-pill" style="background: rgba(99, 102, 241, 0.15); border-color: var(--border-glow);">
+          <span>Active Squad:</span>
+          <select id="teamSelector" class="team-select-dropdown"></select>
+        </div>
+        <div class="stat-pill">
+          <span>Active Sprint:</span> <strong>Sprint 42</strong>
+        </div>
+        <div class="stat-pill">
+          <span>Team Vibe:</span> <strong>🔥 94% High Flow</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <div class="content-body">
+
+      <!-- PANEL 1: WELCOME & COACHING SERVICES LANDING PAGE -->
+      <section id="panel-welcome" class="tab-panel active">
+        <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(56, 189, 248, 0.15)); border: 1px solid var(--border-glow); padding: 32px; border-radius: var(--radius-lg); margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+          <div style="max-width: 600px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <span style="font-size: 36px;">⚡</span>
+              <h2 style="font-family: var(--font-heading); font-size: 32px; font-weight: 800; color: #fff;">AgileVibe OS & Coaching Practice</h2>
+            </div>
+            <p style="font-size: 15px; color: #e2e8f0; line-height: 1.6; margin-bottom: 16px;">
+              Empowering technology organizations, senior leadership, and cross-functional engineering squads to achieve continuous value delivery, psychological safety, and high-flow agility.
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button class="btn btn-primary" id="openLiveChatBtn">💬 Open Live Chat</button>
+              <a href="#contactSection" class="btn btn-secondary" style="text-decoration: none;">📝 Submit Coaching Request</a>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 24px 20px; border-radius: var(--radius-md); text-align: center; min-width: 260px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+            <div style="position: relative; width: 88px; height: 88px; margin: 0 auto 14px auto;">
+              <img src="Santosh.jpg" alt="Santoshanand Adkar" style="width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-cyan); box-shadow: 0 0 24px rgba(56,189,248,0.5); display: block;">
+              <div style="position: absolute; bottom: 0; right: 0; background: var(--accent-emerald); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; border: 2px solid var(--bg-card);">ACTIVE</div>
+            </div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff;">Santoshanand Adkar</h4>
+            <div style="font-size: 12px; color: var(--accent-cyan); margin-bottom: 8px; font-weight: 600;">Agile Coach & Transformation Specialist</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Enterprise Scaling • Flow Metrics • Team Health</div>
+          </div>
+        </div>
+
+        <!-- EXECUTIVE FLOW WASTE ROI CALCULATOR -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 32px;">
+          <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-amber); margin-bottom: 8px;">💰 Executive Flow Efficiency & Waste ROI Calculator</h3>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Calculate how much financial capacity your organization is currently losing to idle waiting queues and context switching context:</p>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; color: #fff; display: flex; justify-content: space-between;">
+                  <span>Number of Software Engineers:</span>
+                  <strong id="calcDevsVal" style="color: var(--accent-cyan);">50 Devs</strong>
+                </label>
+                <input type="range" id="calcDevs" min="10" max="500" step="10" value="50" style="width: 100%; margin-top: 6px;">
+              </div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; color: #fff; display: flex; justify-content: space-between;">
+                  <span>Average Engineer Fully-Loaded Hourly Rate ($):</span>
+                  <strong id="calcRateVal" style="color: var(--accent-cyan);">$80 / hr</strong>
+                </label>
+                <input type="range" id="calcRate" min="40" max="200" step="5" value="80" style="width: 100%; margin-top: 6px;">
+              </div>
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; color: #fff; display: flex; justify-content: space-between;">
+                  <span>Current Estimated Flow Efficiency %:</span>
+                  <strong id="calcFlowVal" style="color: var(--accent-rose);">15% (Typical Siloed Org)</strong>
+                </label>
+                <input type="range" id="calcFlow" min="5" max="60" step="5" value="15" style="width: 100%; margin-top: 6px;">
+              </div>
+            </div>
+
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 20px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: center;" id="roiCalculatorResults">
+              <div style="font-size: 12px; color: var(--accent-rose); font-weight: 700; margin-bottom: 4px;">ESTIMATED ANNUAL FLOW WASTE COST:</div>
+              <div style="font-size: 36px; font-weight: 800; color: #ef4444; font-family: var(--font-heading);" id="wasteDollarOutput">$6,800,000 / yr</div>
+              <div style="font-size: 12px; color: #cbd5e1; margin-top: 8px;" id="wasteHoursOutput">🔹 85% of developer time spent waiting on PR reviews, QA queues, & handoffs.</div>
+              <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: var(--accent-emerald);">
+                💡 <strong>Coaching Recovery Potential:</strong> Raising Flow Efficiency to 35% recovers <strong>$1.6M+</strong> in engineering velocity!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); font-size: 22px; margin-bottom: 16px;">💼 Products & Coaching Services</h3>
+        <div class="deep-card-grid" id="servicesCatalogGrid" style="margin-bottom: 32px;"></div>
+
+        <!-- TRANSFORMATION CASE STUDIES -->
+        <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-cyan); margin-bottom: 16px;">🏆 Client Transformation Case Studies</h3>
+        <div class="deep-card-grid" style="margin-bottom: 32px;">
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 11px; color: var(--accent-cyan); font-weight: 700;">FINTECH ENTERPRISE (12 SQUADS)</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 6px 0;">Lead Time Reduction: 28 Days ➔ 4.5 Days</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Implemented automated CI/CD flow policies, pair programming, and strict WIP limits. Resulted in an 84% reduction in feature lead time and 0 critical security escapes in 6 months.</p>
+          </div>
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 11px; color: var(--accent-emerald); font-weight: 700;">HEALTHTECH SCALE-UP</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 6px 0;">Scaled from 3 to 12 Squads using LeSS</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Transitioned from siloed component teams to feature-based customer squads with joint sprint planning. Eliminating management bloat saved $450k in operational overhead.</p>
+          </div>
+          <div class="deep-card" style="padding: 20px;">
+            <div style="font-size: 11px; color: var(--accent-amber); font-weight: 700;">SAAS UNICORN PLATFORM</div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; color: #fff; margin: 6px 0;">Psychological Safety Score: 58% ➔ 94%</h4>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Conducted Amy Edmondson trust audits and blameless post-mortem systems. Reduced developer turnover to 0% and boosted Sprint Goal achievement rate from 52% to 91%.</p>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 40px;">
+          <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--accent-cyan); margin-bottom: 12px;">👤 About Me | Santoshanand Adkar</h3>
+          <p style="font-size: 14px; color: #e2e8f0; line-height: 1.7; margin-bottom: 16px;">
+            As an experienced Agile Coach, I specialize in guiding engineering organizations through agile transformations, optimizing value stream flow, and establishing high-trust team cultures. My approach combines non-directive GROW coaching with empirical flow analytics (Cycle Time, Lead Time, CFD) to help teams deliver high-quality software with predictability and joy.
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-emerald);">50+</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Squads Coached</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-cyan);">35%</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Avg Flow Efficiency Gain</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--accent-amber);">100%</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Psych Safety Focus</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="contactSection" class="cfd-layout" style="margin-bottom: 40px;">
+          <div class="cfd-chart-card">
+            <h3 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 8px;">📝 Submit a Coaching or Audit Request</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Fill out the form below to request an initial discovery session or team health audit with Santoshanand:</p>
+
+            <form id="coachingRequestForm">
+              <div class="form-group">
+                <label>Your Name & Title</label>
+                <input type="text" id="reqName" required placeholder="e.g. Alex Morgan, VP of Engineering">
+              </div>
+              <div class="form-group">
+                <label>Work Email Address</label>
+                <input type="email" id="reqEmail" required placeholder="e.g. alex@yourcompany.com">
+              </div>
+              <div class="form-group">
+                <label>Select Product / Service Required</label>
+                <select id="reqService" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px;">
+                  <option value="Enterprise Scaling & Transformation">Enterprise Scaling & Transformation</option>
+                  <option value="Scrum Master & PO Mentorship">Scrum Master & PO Mentorship</option>
+                  <option value="Psychological Safety & Trust Audit">Psychological Safety & Trust Audit</option>
+                  <option value="AI-Powered Agile Bootcamp">AI-Powered Agile Bootcamp</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Squad Size & Primary Challenges</label>
+                <textarea id="reqNotes" rows="3" placeholder="Describe your team size, current bottlenecks, or coaching objectives..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">🚀 Submit Request to Santoshanand</button>
+            </form>
+
+            <div id="requestSuccessBox" style="display: none; margin-top: 16px; padding: 14px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-emerald); border-radius: 8px; color: #fff; font-size: 13px;"></div>
+          </div>
+
+          <div class="cfd-table-card">
+            <h3 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 12px;">📞 Direct Contact Details</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Connect directly with Santoshanand Adkar for consultations or workshops:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <a href="mailto:santoshadkar@gmail.com" style="text-decoration: none;" target="_blank">
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass);">
+                  <span style="font-size: 24px;">📧</span>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Direct Email</div>
+                    <strong style="font-size: 13px; color: var(--accent-cyan);">santoshadkar@gmail.com</strong>
+                  </div>
+                </div>
+              </a>
+
+              <a href="https://www.linkedin.com/in/santoshanandadkar/" style="text-decoration: none;" target="_blank">
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass);">
+                  <span style="font-size: 24px;">💼</span>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted);">LinkedIn Profile</div>
+                    <strong style="font-size: 13px; color: var(--accent-emerald);">linkedin.com/in/santoshanandadkar</strong>
+                  </div>
+                </div>
+              </a>
+
+              <a href="mailto:santoshadkar@gmail.com?subject=Agile%20Coaching%20Discovery%20Session" style="text-decoration: none;" target="_blank">
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass);">
+                  <span style="font-size: 24px;">📅</span>
+                  <div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Schedule Discovery Session</div>
+                    <strong style="font-size: 13px; color: var(--accent-amber);">Click to Book 1-on-1 Session</strong>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 2: AGILE COACH ROLE & DAY IN THE LIFE -->
+      <section id="panel-coach-role" class="tab-panel">
+        <div class="panel-header">
+          <h3>📖 Who is an Agile Coach & Day in the Life</h3>
+          <p>Explore the core definition, 6 primary coaching stances, and an hourly timeline of how an Agile Coach drives continuous value and cultural transformation.</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); padding: 24px; border-radius: var(--radius-lg); margin-bottom: 24px;">
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: var(--accent-cyan); margin-bottom: 8px;">Definition & Impact</h4>
+          <p style="font-size: 14px; color: #e2e8f0; line-height: 1.6;">
+            An <strong>Agile Coach</strong> is a catalyst for organizational transformation, team performance, and cultural evolution. Rather than managing work, an Agile Coach helps teams, leaders, and organizations adopt an agile mindset, optimize flow, and achieve sustainable high performance.
+          </p>
+        </div>
+        <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 16px;">The 6 Coaching Stances:</h4>
+        <div class="deep-card-grid" id="coachStancesGrid" style="margin-bottom: 32px;"></div>
+        <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 16px;">⏰ A Day in the Life of an Agile Coach (Hourly Timeline):</h4>
+        <div id="dayInLifeTimeline"></div>
+      </section>
+
+      <!-- PANEL 3: SCRUM EVENTS & DO'S AND DON'TS -->
+      <section id="panel-scrum-events" class="tab-panel">
+        <div class="panel-header">
+          <h3>🗓️ Scrum Events Master Playbook & Do's & Don'ts</h3>
+          <p>Master guides for Sprint Planning, Daily Standup, Sprint Review/Demo, Sprint Retrospective, and Backlog Refinement.</p>
+        </div>
+        <div id="scrumEventsGrid"></div>
+      </section>
+
+      <!-- PANEL 4: KANBAN & SCRUMBAN MASTER HUB -->
+      <section id="panel-kanban-scrumban" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎛️ Kanban & Scrumban Master Hub</h3>
+          <p>Deep-dive definitions, the 6 Core Principles of Kanban, Scrumban hybrid models, and decision matrix.</p>
+        </div>
+        <div class="deep-card-grid" id="kanbanCardsGrid" style="margin-bottom: 32px;"></div>
+      </section>
+
+      <!-- PANEL 5: CUMULATIVE FLOW DIAGRAM (CFD) GENERATOR -->
+      <section id="panel-cfd" class="tab-panel">
+        <div class="panel-header">
+          <h3>📈 Cumulative Flow Diagram (CFD) Generator & Flow Diagnostic</h3>
+          <p>Visualize stacked area work items over time, measure Lead Time & WIP, and run automated bottleneck diagnostics across standard workflow states.</p>
+        </div>
+        <div class="cfd-layout">
+          <div class="cfd-chart-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+              <h4 style="font-family: var(--font-heading); font-size: 18px;">Flow Stacked Area Chart</h4>
+              <div class="cfd-preset-selector">
+                <button class="tpl-btn cfd-preset-btn active" data-preset="healthy">🟢 Healthy Parallel</button>
+                <button class="tpl-btn cfd-preset-btn" data-preset="bottleneck">🔴 QA Bottleneck</button>
+                <button class="tpl-btn cfd-preset-btn" data-preset="scopeCreep">🟠 Scope Creep</button>
+              </div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;" id="cfdPresetDesc"></p>
+            <div class="cfd-canvas-wrapper"><canvas id="cfdCanvas"></canvas></div>
+            <div id="cfdDiagnosticsBox" style="margin-top: 20px;"></div>
+          </div>
+          <div class="cfd-table-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">Daily Work Item Counts</h4>
+            <div class="table-responsive">
+              <table class="matrix-table" style="font-size: 12px;">
+                <thead>
+                  <tr><th>Day</th><th>Backlog</th><th>Dev</th><th>Review</th><th>QA</th><th>Done</th></tr>
+                </thead>
+                <tbody id="cfdTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 6: GAMIFIED AGILE ARENA -->
+      <section id="panel-gamification" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎮 Gamified Agile Arena & Ceremony Boosters</h3>
+          <p>Boost team engagement during ceremonies with the Standup Speaker Wheel, Retro Icebreakers, and Squad Achievement Badges.</p>
+        </div>
+        <div class="cfd-layout">
+          <div class="cfd-chart-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">🎰 Daily Standup Speaker Wheel of Fortune</h4>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Spin the wheel to pick the next team member for their standup update!</p>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+              <canvas id="wheelCanvas"></canvas>
+              <button class="btn btn-primary" id="spinWheelBtn" style="padding: 10px 28px; font-weight: 700;">🎰 Spin Wheel!</button>
+              <div id="wheelResultText" style="font-size: 15px; color: var(--accent-cyan); min-height: 24px; text-align: center;">Click Spin Wheel to start turn selection!</div>
+            </div>
+          </div>
+          <div class="cfd-table-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">🏆 Squad Achievement Badges</h4>
+            <div id="squadBadgesGrid" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;"></div>
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">🧊 Retro Icebreaker Cards</h4>
+            <div id="icebreakerDeckGrid" style="display: flex; flex-direction: column; gap: 12px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 7: RETROSPECTIVE BOARD -->
+      <section id="panel-retro" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎯 Retrospective & Event Canvases</h3>
+          <p>Facilitate engaging, action-oriented sprint retrospectives.</p>
+        </div>
+        <div class="retro-controls">
+          <div class="template-selector" id="retroTemplateButtons">
+            <button class="tpl-btn active" data-tpl="4ls">The 4 Ls</button>
+            <button class="tpl-btn" data-tpl="sailboat">Sailboat Retro</button>
+            <button class="tpl-btn" data-tpl="starfish">Starfish Retro</button>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-download" id="exportRetroMDBtn">📥 Download Markdown (.md)</button>
+            <button class="btn btn-secondary" id="exportRetroJSONBtn">💾 Download JSON</button>
+          </div>
+        </div>
+        <div class="retro-grid" id="retroGrid"></div>
+      </section>
+
+      <!-- PANEL 8: ESTIMATION PLAYGROUND -->
+      <section id="panel-poker" class="tab-panel">
+        <div class="panel-header">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <h3>🃏 Interactive Planning Poker Playground</h3>
+              <p>Pick your Fibonacci card, invite team votes, and calculate team consensus instantly.</p>
+            </div>
+            <button class="btn btn-secondary" id="openEstimationGuideBtn">📖 Read Estimation Masterclass Guide</button>
+          </div>
+        </div>
+        <div class="poker-layout">
+          <div class="card-deck-section">
+            <h4>Select Your Card:</h4>
+            <div class="cards-grid" id="pokerCardsGrid"></div>
+          </div>
+          <div class="poker-table-card">
+            <div class="table-header">
+              <span>Team Voting Table</span>
+              <button class="btn btn-primary" id="revealCardsBtn">👁️ Reveal Cards</button>
+            </div>
+            <div class="voters-list" id="votersList"></div>
+            <div class="poker-stats" id="pokerStats"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 9: AGILE MATURITY RADAR -->
+      <section id="panel-maturity" class="tab-panel">
+        <div class="panel-header">
+          <h3>🕸️ Multi-Dimensional Agile Maturity Radar</h3>
+          <p>Evaluate your team across 5 core dimensions of agility.</p>
+        </div>
+        <div class="radar-layout">
+          <div class="radar-controls" id="maturityControls"></div>
+          <div class="radar-canvas-container">
+            <canvas id="maturityRadar"></canvas>
+            <div id="maturityScoreBadge" style="margin-top: 20px; text-align: center;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 10: PSYCHOLOGICAL SAFETY DIAGNOSTIC -->
+      <section id="panel-psych" class="tab-panel">
+        <div class="panel-header">
+          <h3>🛡️ Psychological Safety Diagnostic</h3>
+          <p>Based on Dr. Amy Edmondson's research.</p>
+        </div>
+        <div class="psych-questions-list" id="psychQuestionsList"></div>
+        <div style="text-align: center; margin-top: 20px;">
+          <button class="btn btn-primary" id="calcPsychBtn">📊 Compute Psychological Safety Score</button>
+        </div>
+        <div id="psychResultBox"></div>
+      </section>
+
+      <!-- PANEL 11: METRICS ENCYCLOPEDIA -->
+      <section id="panel-metrics" class="tab-panel">
+        <div class="panel-header">
+          <h3>📊 Comprehensive Agile & Flow Metrics Encyclopedia</h3>
+          <p>Deep-dive guides into key delivery, engineering, and quality metrics.</p>
+        </div>
+        <div class="deep-card-grid" id="metricsGrid"></div>
+      </section>
+
+      <!-- PANEL 12: AGILE TOOLS SETUP -->
+      <section id="panel-tools" class="tab-panel">
+        <div class="panel-header">
+          <h3>⚙️ Agile Tools Setup & Board Configuration Procedures</h3>
+          <p>Step-by-step guides for Jira Cloud, Jira Data Center, Azure DevOps (ADO), and Confluence.</p>
+        </div>
+        <div class="deep-card-grid" id="toolsGrid"></div>
+      </section>
+
+      <!-- PANEL 13: EXECUTIVE DASHBOARDS -->
+      <section id="panel-dashboards" class="tab-panel">
+        <div class="panel-header">
+          <h3>📈 Executive Decision-Making Dashboards</h3>
+          <p>Blueprint configurations for Team Operational, RTE, C-Level, and Engineering Health dashboards.</p>
+        </div>
+        <div class="deep-card-grid" id="dashboardsGrid"></div>
+      </section>
+
+      <!-- PANEL 14: COACHING MODELS VAULT -->
+      <section id="panel-models" class="tab-panel">
+        <div class="panel-header">
+          <h3>🧠 Coaching Models Vault</h3>
+          <p>Structured coaching frameworks including GROW, OSKAR, and Cynefin.</p>
+        </div>
+        <div class="deep-card-grid" id="modelsGrid"></div>
+      </section>
+
+      <!-- PANEL 15: FACILITATION PLAYBOOKS -->
+      <section id="panel-methods" class="tab-panel">
+        <div class="panel-header">
+          <h3>🎪 Facilitation Playbooks</h3>
+          <p>Step-by-step guides for 1-2-4-All, Lean Coffee, and Delegation Poker.</p>
+        </div>
+        <div class="deep-card-grid" id="methodsGrid"></div>
+      </section>
+
+      <!-- PANEL 16: SCALING COMPASS -->
+      <section id="panel-scaling" class="tab-panel">
+        <div class="panel-header">
+          <h3>🌐 Enterprise Scaling Compass & Diagnostic Quiz</h3>
+          <p>Compare scaling frameworks and run the diagnostic wizard to pick the right scaling model for your organization.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 24px; border-radius: var(--radius-lg); margin-bottom: 32px;">
+          <h4 style="font-family: var(--font-heading); font-size: 18px; color: var(--accent-cyan); margin-bottom: 8px;">🧭 Interactive Scaling Model Diagnostic Quiz</h4>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Answer 3 questions to get a tailored framework recommendation for your engineering org:</p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label style="font-size: 12px; color: #fff; display: block; margin-bottom: 4px;">Total Engineering People:</label>
+              <select id="quizSize" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 8px; border-radius: 6px;">
+                <option value="small">20 - 80 People (3-8 Teams)</option>
+                <option value="medium">80 - 200 People (8-20 Teams)</option>
+                <option value="enterprise">200+ People (Enterprise Orgs)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; color: #fff; display: block; margin-bottom: 4px;">Regulatory & Compliance Level:</label>
+              <select id="quizCompliance" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 8px; border-radius: 6px;">
+                <option value="low">Low (Standard Web/SaaS)</option>
+                <option value="high">High (Banking, Healthcare, Defense)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; color: #fff; display: block; margin-bottom: 4px;">Team Autonomy Goal:</label>
+              <select id="quizAutonomy" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 8px; border-radius: 6px;">
+                <option value="high">High Squad Autonomy (Spotify / LeSS)</option>
+                <option value="governed">Strict Centralized Governance (SAFe)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="runScalingQuizBtn" style="font-size: 12px;">🧭 Calculate Recommended Scaling Framework</button>
+          <div id="scalingQuizResultBox" style="margin-top: 14px; display: none;"></div>
+        </div>
+
+        <div id="scalingContainer"></div>
+      </section>
+
+      <!-- PANEL 17: AI COACH SUPERPOWERS STUDIO (MASTERCLASS FLAGSHIP ATTRACTION) -->
+      <section id="panel-ai" class="tab-panel">
+        <div class="panel-header">
+          <h3>🤖 AI Coach Superpowers Studio & Prompt Engineering Sandbox</h3>
+          <p>The flagship AI accelerator for Agile Coaches, Product Owners, and Scrum Masters. Run live prompt simulations or copy 8 pre-engineered production prompts.</p>
+        </div>
+
+        <!-- LIVE INTERACTIVE AI PROMPT SANDBOX -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glow); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 32px;">
+          <h4 style="font-family: var(--font-heading); font-size: 20px; color: var(--accent-cyan); margin-bottom: 8px;">⚡ Live AI Prompt Simulator Sandbox</h4>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Test your prompt engineering inputs directly inside the portal to generate structured User Stories, Retro Actions, or Executive Emails:</p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+              <div class="form-group">
+                <label>Select AI Prompt Template</label>
+                <select id="sandboxPromptSelect" style="width: 100%; background: #0f172a; color: #fff; border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px;">
+                  <option value="invest">INVEST User Story & Gherkin Generator</option>
+                  <option value="retro">Retrospective Sticky Theme Synthesizer</option>
+                  <option value="sprintGoal">Outcome-Oriented Sprint Goal Formulator</option>
+                  <option value="execEmail">C-Level Executive Weekly Email Generator</option>
+                  <option value="nvc">Non-Violent Communication Conflict Script</option>
+                  <option value="techdebt">Tech Debt Payback ROI Calculator Prompt</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Your Raw Input Text (Requirements, Retro stickies, or notes)</label>
+                <textarea id="sandboxInputText" rows="5" style="width: 100%; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid var(--border-glass); padding: 12px; border-radius: 6px; font-family: monospace; font-size: 12px;" placeholder="e.g. Users complain that checkout payment page freezes when clicking submit..."></textarea>
+              </div>
+              <button class="btn btn-primary" id="runAiSandboxBtn" style="width: 100%; justify-content: center; padding: 12px; font-weight: 700;">⚡ Generate AI Prompt Output</button>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-glass); padding: 20px; border-radius: 8px; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <strong style="color: var(--accent-emerald); font-size: 13px;">🤖 SIMULATED AI OUTPUT RESULT:</strong>
+                <button class="btn btn-secondary" id="copyAiSandboxOutputBtn" style="font-size: 11px; padding: 4px 10px;">📋 Copy Output</button>
+              </div>
+              <div id="aiSandboxOutputLog" style="flex: 1; font-family: monospace; font-size: 12px; color: #e2e8f0; line-height: 1.6; white-space: pre-wrap; overflow-y: auto; max-height: 260px;">
+<em>Select a template, enter raw notes on the left, and click "Generate AI Prompt Output" to preview the AI transformation result!</em>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 20px; margin-bottom: 16px;">📚 8 Pre-Engineered Masterclass Production AI Prompt Templates:</h4>
+        <div class="deep-card-grid" id="aiPromptsGrid"></div>
+      </section>
+
+      <!-- PANEL 18: CUSTOM FRAMEWORK LAB -->
+      <section id="panel-custom" class="tab-panel">
+        <div class="panel-header">
+          <h3>🛠️ Custom Framework Lab & Retrospective Builder</h3>
+          <p>Design, save, and launch custom sprint retrospective boards tailored to your squads' specific culture.</p>
+        </div>
+        <div class="cfd-layout">
+          <div class="cfd-chart-card">
+            <h4 style="color: #fff; margin-bottom: 12px;">✨ Create Custom Retrospective Board</h4>
+            <form id="customBoardForm">
+              <div class="form-group">
+                <label>Retrospective Template Title</label>
+                <input type="text" id="customBoardTitle" required placeholder="e.g. Squad Delta Technical Debt & Kudos Retro">
+              </div>
+              <div class="form-group">
+                <label>Column 1 (Name, Icon, Color)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="col1Name" required value="What Standard to Break?" style="flex: 2;">
+                  <input type="text" id="col1Icon" value="⚡" style="flex: 1; text-align: center;">
+                  <input type="color" id="col1Color" value="#ec4899" style="width: 44px; height: 38px; border: none; background: none; cursor: pointer;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Column 2 (Name, Icon, Color)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="col2Name" required value="Unsung Hero Kudos" style="flex: 2;">
+                  <input type="text" id="col2Icon" value="🏆" style="flex: 1; text-align: center;">
+                  <input type="color" id="col2Color" value="#10b981" style="width: 44px; height: 38px; border: none; background: none; cursor: pointer;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Column 3 (Name, Icon, Color)</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="col3Name" required value="Blockers to Vanish" style="flex: 2;">
+                  <input type="text" id="col3Icon" value="🛑" style="flex: 1; text-align: center;">
+                  <input type="color" id="col3Color" value="#ef4444" style="width: 44px; height: 38px; border: none; background: none; cursor: pointer;">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-weight: 700;">💾 Save & Launch Custom Retro Board</button>
+            </form>
+          </div>
+
+          <div class="cfd-table-card">
+            <h4 style="font-family: var(--font-heading); font-size: 18px; margin-bottom: 12px;">📁 Your Saved Custom Frameworks</h4>
+            <div id="savedCustomFrameworksList">
+              <div style="font-size: 13px; color: var(--text-muted);">No custom templates saved yet. Fill out the builder on the left to create your first custom retro board!</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 19: KNOWLEDGE VAULT & CERTIFICATIONS HUB -->
+      <section id="panel-knowledge" class="tab-panel">
+
+        <div class="panel-header">
+          <h3>📚 Knowledge Vault, Recommended Books & Certification Exams</h3>
+          <p>Curated literature, industry whitepapers, certification roadmap guides, and study resources for Agile practitioners.</p>
+        </div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 20px; color: var(--accent-cyan); margin-bottom: 16px;">📖 1. Essential Must-Read Agile Literature</h4>
+        <div class="deep-card-grid" id="booksGrid" style="margin-bottom: 32px;"></div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 20px; color: var(--accent-emerald); margin-bottom: 16px;">🎓 2. Agile Certification Exam Guides & Study Roadmaps</h4>
+        <div class="deep-card-grid" id="certsGrid" style="margin-bottom: 32px;"></div>
+
+        <h4 style="font-family: var(--font-heading); font-size: 20px; color: var(--accent-amber); margin-bottom: 16px;">📰 3. Official Framework Guides & State of Agile Reports</h4>
+        <div class="deep-card-grid" id="reportsGrid"></div>
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- GLOBAL CTRL+K SEARCH MODAL -->
+  <div class="drawer-overlay" id="globalSearchModal">
+    <div class="drawer-container" style="max-width: 600px; max-height: 80vh;">
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+          <span style="font-size: 20px;">🔍</span>
+          <input type="text" id="globalSearchInput" placeholder="Search across all 18 tabs, metrics, tools, models..." style="width: 100%; background: transparent; border: none; color: #fff; font-size: 16px; outline: none;">
+        </div>
+        <button class="btn btn-secondary" id="closeSearchModalBtn">✕</button>
+      </div>
+      <div class="drawer-body" id="globalSearchResultsLog" style="overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 13px; color: var(--text-muted);">Type to search across Cycle Time, Jira setup, GROW model, DORA metrics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE / MASTERCLASS READER DRAWER -->
+  <div class="drawer-overlay" id="articleModalDrawer">
+    <div class="drawer-container" style="max-width: 680px;">
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">📖</span>
+          <h3 style="font-family: var(--font-heading); font-size: 18px;" id="articleDrawerTitle">Masterclass Guide</h3>
+        </div>
+        <button class="btn btn-secondary" id="closeArticleDrawerBtn">✕</button>
+      </div>
+      <div class="drawer-body" id="articleDrawerBody" style="overflow-y: auto; padding: 24px;"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING LIVE CHAT ASSISTANT DRAWER -->
+  <div class="drawer-overlay" id="liveChatDrawer">
+    <div class="drawer-container" style="max-width: 400px;">
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="Santosh.jpg" alt="Santoshanand Adkar" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid var(--accent-cyan);">
+          <h3 style="font-family: var(--font-heading); font-size: 18px;">Santoshanand's Assistant</h3>
+        </div>
+        <button class="btn btn-secondary" id="closeLiveChatBtn">✕</button>
+      </div>
+
+      <div class="drawer-body" style="display: flex; flex-direction: column; height: 100%;">
+        <div id="chatMessagesLog" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; padding-right: 4px;">
+          <div class="chat-msg coach"><strong>Santoshanand's AI Assistant:</strong> Hello! Welcome to AgileVibe OS. How can Santoshanand Adkar assist your team's transformation today?</div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="chatMsgInput" placeholder="Type a message..." style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); padding: 10px; border-radius: 6px; color: #fff;">
+          <button class="btn btn-primary" id="sendChatMsgBtn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standalone App Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
