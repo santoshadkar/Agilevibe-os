@@ -1,311 +1,853 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgileSecOps Sentinel — Executive Portal | Santoshanand Adkar Ecosystem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #090d16;
-      color: #f8fafc;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .header-banner {
-      background: linear-gradient(90deg, #0f172a, #1e1b4b);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-    .header-banner .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .header-banner .brand-title {
-      color: #38bdf8;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-    }
-    .header-banner .return-btn {
-      padding: 8px 18px;
-      background: linear-gradient(135deg, #6366f1, #38bdf8);
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-      transition: all 0.2s ease;
-    }
-    .header-banner .return-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
-    }
-    .app-layout {
-      max-width: 1200px;
-      width: 92%;
-      margin: 30px auto;
-      flex: 1;
-    }
-    .hero-section {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-    .hero-top {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 12px;
-    }
-    .hero-icon {
-      font-size: 40px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-title h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-    }
-    .hero-sub {
-      color: #94a3b8;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 12px;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      font-size: 12px;
-      font-weight: 700;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      margin-bottom: 6px;
-    }
-    .nav-tabs {
-      display: flex;
-      gap: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 25px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-    }
-    .nav-tab {
-      padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      color: #94a3b8;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .nav-tab.active, .nav-tab:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: #38bdf8;
-      color: #38bdf8;
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
-    .app-card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-    .app-card h3 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 18px;
-      color: #fff;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-status {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-    .card-status.active {
-      background: rgba(34, 197, 94, 0.2);
-      color: #22c55e;
-      border: 1px solid rgba(34, 197, 94, 0.4);
-    }
-    .metric-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #94a3b8;
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.08);
-    }
-    .action-btn {
-      margin-top: 16px;
-      padding: 10px 18px;
-      background: linear-gradient(135deg, #6366f1, #38bdf8);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .action-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgileSecOps Sentinel | LangGraph DevSecOps & Agile Multi-Agent Orchestrator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <header class="header-banner">
-    <div class="brand">
-      <span>&#9889; Santoshanand Adkar Master Ecosystem</span>
-      <span style="opacity:0.4;">|</span>
-      <span class="brand-title">AgileSecOps Sentinel Command Center</span>
+<div class="master-return-banner" style="background: linear-gradient(90deg, #0f172a, #1e1b4b); border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 999999; font-family: sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.5);"><div style="display: flex; align-items: center; gap: 10px; color: #fff; font-size: 13px; font-weight: 600;"><span>&#9889; Santoshanand Adkar Master Ecosystem</span></div><a href="../../index.html" style="padding: 6px 14px; background: linear-gradient(135deg, #6366f1, #38bdf8); color: #fff; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); transition: transform 0.2s;"><span>&#127968;</span> Return to Main Portfolio</a></div>
+    <div class="app-container">
+        <!-- Top Header Navigation -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-shield-halved glow-shield"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>AgileSecOps <span>Sentinel</span></h1>
+                    <p>LangGraph Multi-Agent DevSecOps & Security Backlog Orchestrator</p>
+                </div>
+            </div>
+
+            <div class="header-status">
+                <span class="status-indicator live"></span>
+                <span id="system-status-text">LangGraph Memory Checkpointer: Active</span>
+                <span class="badge badge-accent">LangChain / LangGraph 0.2</span>
+            </div>
+        </header>
+
+        <!-- Main Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="overview">
+                <i class="fa-solid fa-house"></i> Overview & Concepts
+            </button>
+            <button class="tab-btn" data-tab="workflow">
+                <i class="fa-solid fa-diagram-project"></i> Live Agent Workflow
+            </button>
+            <button class="tab-btn" data-tab="scanner">
+                <i class="fa-solid fa-bug"></i> SAST Security Scanner
+            </button>
+            <button class="tab-btn" data-tab="kanban">
+                <i class="fa-solid fa-list-check"></i> Agile Security Board
+                <span class="tab-count" id="backlog-count">0</span>
+            </button>
+            <button class="tab-btn" data-tab="approval">
+                <i class="fa-solid fa-user-shield"></i> Human-in-the-Loop Gate
+                <span class="tab-count alert" id="approval-count">0</span>
+            </button>
+            <button class="tab-btn" data-tab="metrics">
+                <i class="fa-solid fa-chart-line"></i> Security Metrics
+            </button>
+            <button class="tab-btn" data-tab="guide">
+                <i class="fa-solid fa-graduation-cap"></i> LangGraph Case Study Guide
+            </button>
+        </nav>
+
+        <!-- Main Content View Container -->
+        <main class="content-area">
+
+            <!-- TAB 0: OVERVIEW & CONCEPTS LANDING PAGE -->
+            <section id="overview-view" class="tab-content active">
+                <!-- Hero Banner -->
+                <div class="hero-banner glass-card">
+                    <div class="hero-content">
+                        <span class="badge badge-accent hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Autonomous AI DevSecOps & Agile Orchestration</span>
+                        <h1 class="hero-title">Bridging <span>AI Multi-Agents</span>, <span>Cybersecurity</span>, and <span>Agile SDLC</span></h1>
+                        <p class="hero-subtitle">
+                            AgileSecOps Sentinel uses <strong>LangGraph</strong> to orchestrate stateful multi-agent teams that audit vulnerable codebases, generate Agile security user stories, write secure OWASP-compliant refactors, and enforce Human-in-the-Loop approval before publishing Git Pull Requests.
+                        </p>
+                        <div class="hero-cta-buttons">
+                            <button class="btn btn-primary btn-lg launch-demo-btn">
+                                <i class="fa-solid fa-rocket"></i> Launch Live Case Study Demo
+                            </button>
+                            <button class="btn btn-outline btn-lg explore-arch-btn">
+                                <i class="fa-solid fa-sitemap"></i> Explore Architecture Deep Dive
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Rationale: Why Are We Doing All This? -->
+                <div class="card glass-card margin-top">
+                    <div class="card-header highlight-header">
+                        <h2><i class="fa-solid fa-lightbulb text-yellow"></i> Why Are We Doing All This? The Strategic Value Proposition</h2>
+                        <span class="badge badge-accent">Core Rationale</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="rationale-grid">
+                            <div class="rationale-card">
+                                <h3><i class="fa-solid fa-diagram-project text-cyan"></i> Why LangGraph StateGraphs?</h3>
+                                <p>Simple LLM prompt chains fail in real enterprise engineering because software development is non-linear and cyclic. LangGraph provides state persistence (`MemorySaver`), multi-agent delegation, dynamic loops, and first-class Human-in-the-Loop breakpoints.</p>
+                            </div>
+                            <div class="rationale-card">
+                                <h3><i class="fa-solid fa-shield-cat text-red"></i> Why AI + Cybersecurity Triage?</h3>
+                                <p>Security vulnerabilities accumulate faster than human security teams can manually audit. AI agents acting as 24/7 assistants catch OWASP vulnerabilities instantly and generate secure refactors matching exact repository conventions.</p>
+                            </div>
+                            <div class="rationale-card">
+                                <h3><i class="fa-solid fa-list-check text-green"></i> Why Native Agile Backlog Integration?</h3>
+                                <p>Security isolated in PDF reports or external scanners gets ignored. Converting security findings into native Agile user stories with Fibonacci story points (`1`, `2`, `3`, `5`, `8`) ensures security debt is estimated, prioritized, and sprinted alongside product features.</p>
+                            </div>
+                            <div class="rationale-card">
+                                <h3><i class="fa-solid fa-user-shield text-orange"></i> Why Mandatory Human Governance (HITL)?</h3>
+                                <p>Fully autonomous AI code commits risk introducing regressions or hallucinated logic into production. A mandatory Human Approval gate gives security leads 1-click review and control, boosting remediation velocity by +350% with 0 loss of oversight.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision & Objective Grid -->
+                <div class="card glass-card margin-top">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-bullseye text-accent"></i> What Are We Trying To Achieve?</h2>
+                        <span class="sub-text">The DevSecOps & Agile Alignment Challenge</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="problem-solution-grid">
+                            <div class="problem-box">
+                                <h3><i class="fa-solid fa-triangle-exclamation text-red"></i> The Problem in Modern Software Teams</h3>
+                                <ul>
+                                    <li><strong>Slow Remediation (MTTR = 14+ Days):</strong> SAST scanners generate 100s of findings, but security engineers manually write tickets, delaying sprint delivery.</li>
+                                    <li><strong>Friction Between Security & Devs:</strong> Developers struggle to interpret complex CVE reports and write secure refactors under sprint deadlines.</li>
+                                    <li><strong>Unsafe Fully-Autonomous AI:</strong> Direct automated code commits without human governance risk introducing regressions or hallucinated bugs into production.</li>
+                                </ul>
+                            </div>
+
+                            <div class="solution-box">
+                                <h3><i class="fa-solid fa-circle-check text-green"></i> The AgileSecOps Sentinel Solution</h3>
+                                <ul>
+                                    <li><strong>Stateful Multi-Agent Automation:</strong> Autonomous AI agents scan code, prioritize Agile backlog items, and generate secure OWASP refactors in under 10 seconds.</li>
+                                    <li><strong>Human-in-the-Loop Governance:</strong> LangGraph state interrupts pause execution, requiring 1-click human security lead approval before any PR is created.</li>
+                                    <li><strong>Seamless Agile Integration:</strong> Automatically estimates story points (Fibonacci scale: 1, 2, 3, 5, 8) and tracks security debt burn-down velocity.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Concepts Detailed Breakdown Cards Grid -->
+                <div class="concepts-grid margin-top">
+                    
+                    <!-- Concept 1: LangGraph & LangChain -->
+                    <div class="card glass-card concept-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-diagram-project text-cyan"></i> 1. LangGraph & LangChain</h3>
+                            <span class="badge badge-accent">Multi-Agent StateGraph</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Why LangGraph instead of standard chain loops?</strong> Traditional LLM chains are linear and stateless. LangGraph introduces stateful, directed cyclic graphs built for multi-agent collaboration:</p>
+                            <ul class="concept-detail-list">
+                                <li><strong><code>StateGraph</code> & State Schema:</strong> Manages a single shared state dict (`SentinelState`) carrying vulnerabilities, user stories, code diffs, and execution logs across nodes.</li>
+                                <li><strong><code>MemorySaver</code> Checkpointing:</strong> Persists state in thread memory across user web requests, allowing multi-step agent interactions to resume seamlessly.</li>
+                                <li><strong>Human-in-the-Loop (HITL) Interrupts:</strong> Pauses graph execution at critical gates (`HumanApprovalNode`), holding the thread until explicit human authorization is received.</li>
+                                <li><strong>Conditional Edge Routing:</strong> Dynamically routes execution based on vulnerability severity (Critical vs Low) and human approval decisions (Approve vs Modify vs Reject).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Concept 2: Cybersecurity & AI Security -->
+                    <div class="card glass-card concept-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-shield-virus text-orange"></i> 2. Cybersecurity & SAST Triage</h3>
+                            <span class="badge badge-high">OWASP & CVSS Scoring</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Automated Static Analysis & Secure Refactoring:</strong> Scans source files against OWASP Top 10 rules and applies verified secure coding patterns:</p>
+                            <ul class="concept-detail-list">
+                                <li><strong>Injection Remediation (OWASP A03):</strong> Replaces string format SQL queries with parameterized prepared statements (`cursor.execute(query, (user, pass))`).</li>
+                                <li><strong>Secret Management (OWASP A07):</strong> Detects hardcoded AWS/JWT secrets and refactors code to load securely from environment variable vaults (`os.getenv`).</li>
+                                <li><strong>RCE Mitigation (OWASP A03):</strong> Replaces dangerous `os.system()` with `subprocess.run(shell=False)` and `shlex.quote()` escaping.</li>
+                                <li><strong>Automated Guardrails Assertions:</strong> Evaluates static assertion rules (e.g. zero plaintext keys, HTML context escaping) before presenting diffs to humans.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Concept 3: Agile SDLC & Sprint Velocity -->
+                    <div class="card glass-card concept-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-list-check text-green"></i> 3. Agile SDLC & Backlog Management</h3>
+                            <span class="badge badge-medium">Sprint Velocity</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Bridging Security Debt into Agile Workflows:</strong> Automatically translates technical security findings into actionable developer user stories:</p>
+                            <ul class="concept-detail-list">
+                                <li><strong>User Story Generation:</strong> Writes structured User Stories with clear roles, vulnerability descriptions, and acceptance criteria.</li>
+                                <li><strong>Fibonacci Story Pointing:</strong> Automatically estimates effort based on CVSS severity (CVSS > 9.0 = 8 SP, CVSS 7-9 = 5 SP, CVSS 4-7 = 3 SP).</li>
+                                <li><strong>Sprint Priority Matrix:</strong> Assigns priorities (`P0-Blocker`, `P1-High`, `P2-Medium`) to ensure critical security risks are sprint-blocked until resolved.</li>
+                                <li><strong>GitOps Automated PRs:</strong> Automatically opens GitHub/GitLab Pull Requests and updates Agile Kanban card states from `To Do` -> `In Review` -> `Done`.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 6 Pre-Loaded Live Case Studies Quick-Start Cards -->
+                <div class="card glass-card margin-top">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-laptop-code text-accent"></i> 6 Pre-Loaded Live Case Studies</h2>
+                        <span class="sub-text">Choose a live real-world scenario to run through the multi-agent pipeline</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="case-study-cards-grid">
+                            
+                            <!-- Case Study 1 -->
+                            <div class="case-card">
+                                <div class="case-card-header">
+                                    <i class="fa-solid fa-building-columns text-cyan"></i>
+                                    <h3>FinTech Payment API</h3>
+                                    <span class="badge badge-critical">Python / Flask</span>
+                                </div>
+                                <p class="case-card-desc">Contains raw SQL injection in user authentication, hardcoded AWS master secret keys, and OS command injection in refund processing.</p>
+                                <div class="case-card-footer">
+                                    <span class="case-meta"><i class="fa-solid fa-bug"></i> 3 Vulnerabilities</span>
+                                    <button class="btn btn-primary btn-sm quick-scan-btn" data-repo="FinTech Payment API (Python)">
+                                        <i class="fa-solid fa-play"></i> Run Case Study
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Case Study 2 -->
+                            <div class="case-card">
+                                <div class="case-card-header">
+                                    <i class="fa-solid fa-cart-shopping text-orange"></i>
+                                    <h3>E-Commerce Portal</h3>
+                                    <span class="badge badge-high">Node.js / Express</span>
+                                </div>
+                                <p class="case-card-desc">Features Reflected Cross-Site Scripting (XSS) in profile rendering and arbitrary Directory Path Traversal in report downloads.</p>
+                                <div class="case-card-footer">
+                                    <span class="case-meta"><i class="fa-solid fa-bug"></i> 2 Vulnerabilities</span>
+                                    <button class="btn btn-primary btn-sm quick-scan-btn" data-repo="E-Commerce Portal (Node.js)">
+                                        <i class="fa-solid fa-play"></i> Run Case Study
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Case Study 3 -->
+                            <div class="case-card">
+                                <div class="case-card-header">
+                                    <i class="fa-solid fa-hospital-user text-green"></i>
+                                    <h3>Healthcare Patient Records</h3>
+                                    <span class="badge badge-critical">Python / FastAPI</span>
+                                </div>
+                                <p class="case-card-desc">Exposes unsafe Bytecode Pickle Deserialization in session cookies and unauthenticated patient SSN data endpoints.</p>
+                                <div class="case-card-footer">
+                                    <span class="case-meta"><i class="fa-solid fa-bug"></i> 2 Vulnerabilities</span>
+                                    <button class="btn btn-primary btn-sm quick-scan-btn" data-repo="Healthcare Patient Records (Python)">
+                                        <i class="fa-solid fa-play"></i> Run Case Study
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Case Study 4 -->
+                            <div class="case-card">
+                                <div class="case-card-header">
+                                    <i class="fa-solid fa-robot text-cyan"></i>
+                                    <h3>AI LLM Agent & RAG Service</h3>
+                                    <span class="badge badge-critical">Python / LangChain</span>
+                                </div>
+                                <p class="case-card-desc">Vulnerable to OWASP LLM 01 System Prompt Injection, unsanitized RAG context injection, and unbounded shell command execution tool calls.</p>
+                                <div class="case-card-footer">
+                                    <span class="case-meta"><i class="fa-solid fa-bug"></i> 2 LLM Vulnerabilities</span>
+                                    <button class="btn btn-primary btn-sm quick-scan-btn" data-repo="AI Agent & RAG Service (Python)">
+                                        <i class="fa-solid fa-play"></i> Run Case Study
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Case Study 5 -->
+                            <div class="case-card">
+                                <div class="case-card-header">
+                                    <i class="fa-solid fa-cloud text-orange"></i>
+                                    <h3>Cloud Microservice</h3>
+                                    <span class="badge badge-high">Go / HashiCorp Vault</span>
+                                </div>
+                                <p class="case-card-desc">Features hardcoded HashiCorp Vault master tokens and insecure wildcard CORS configuration (`Access-Control-Allow-Origin: *`).</p>
+                                <div class="case-card-footer">
+                                    <span class="case-meta"><i class="fa-solid fa-bug"></i> 2 Cloud Risks</span>
+                                    <button class="btn btn-primary btn-sm quick-scan-btn" data-repo="Cloud Native Microservice (Go)">
+                                        <i class="fa-solid fa-play"></i> Run Case Study
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Case Study 6 -->
+                            <div class="case-card">
+                                <div class="case-card-header">
+                                    <i class="fa-solid fa-key text-green"></i>
+                                    <h3>Agile Auth Champion Service</h3>
+                                    <span class="badge badge-critical">Python / PyJWT</span>
+                                </div>
+                                <p class="case-card-desc">Exposes insecure JWT signature verification (`verify_signature: False`) permitting cryptographic authentication bypass (`alg: none`).</p>
+                                <div class="case-card-footer">
+                                    <span class="case-meta"><i class="fa-solid fa-bug"></i> 1 Auth Bypass</span>
+                                    <button class="btn btn-primary btn-sm quick-scan-btn" data-repo="Agile Security Champion & Auth (Python)">
+                                        <i class="fa-solid fa-play"></i> Run Case Study
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- TAB 1: LIVE AGENT WORKFLOW -->
+            <section id="workflow-view" class="tab-content">
+                <div class="grid-two-col">
+                    <!-- Graph Visualizer Card -->
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-network-wired"></i> LangGraph StateGraph Node Diagram</h2>
+                            <span class="sub-text">Interactive Multi-Agent State Flow</span>
+                        </div>
+                        <div class="card-body visualizer-container">
+                            <div class="graph-pipeline">
+                                <div class="graph-node" id="node-START">
+                                    <div class="node-icon"><i class="fa-solid fa-play"></i></div>
+                                    <div class="node-label">START</div>
+                                </div>
+                                <div class="graph-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+
+                                <div class="graph-node" id="node-IngestScanNode">
+                                    <div class="node-icon"><i class="fa-solid fa-magnifying-glass-code"></i></div>
+                                    <div class="node-title">IngestScanNode</div>
+                                    <div class="node-subtitle">SAST Parser Agent</div>
+                                </div>
+                                <div class="graph-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+
+                                <div class="graph-node" id="node-AgileBacklogNode">
+                                    <div class="node-icon"><i class="fa-solid fa-users-gear"></i></div>
+                                    <div class="node-title">AgileBacklogNode</div>
+                                    <div class="node-subtitle">Scrum Master Agent</div>
+                                </div>
+                                <div class="graph-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+
+                                <div class="graph-node" id="node-PatchGeneratorNode">
+                                    <div class="node-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                    <div class="node-title">PatchGeneratorNode</div>
+                                    <div class="node-subtitle">DevSecOps AI Agent</div>
+                                </div>
+                                <div class="graph-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+
+                                <div class="graph-node highlight-node" id="node-HumanApprovalNode">
+                                    <div class="node-icon"><i class="fa-solid fa-user-lock"></i></div>
+                                    <div class="node-title">HumanApprovalNode</div>
+                                    <div class="node-subtitle">HITL Breakpoint</div>
+                                </div>
+                                <div class="graph-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+
+                                <div class="graph-node" id="node-GitPRCreatorNode">
+                                    <div class="node-icon"><i class="fa-solid fa-code-pull-request"></i></div>
+                                    <div class="node-title">GitPRCreatorNode</div>
+                                    <div class="node-subtitle">GitOps Agent</div>
+                                </div>
+                                <div class="graph-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+
+                                <div class="graph-node" id="node-END">
+                                    <div class="node-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                                    <div class="node-label">END</div>
+                                </div>
+                            </div>
+
+                            <div class="scan-control-banner">
+                                <div class="repo-selection">
+                                    <label for="repo-select"><i class="fa-solid fa-folder-open"></i> Select Target Codebase:</label>
+                                    <select id="repo-select" class="form-select"></select>
+                                </div>
+                                <button id="run-scan-btn" class="btn btn-primary btn-lg">
+                                    <i class="fa-solid fa-bolt"></i> Trigger LangGraph Security Scan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Execution Stream Log -->
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-terminal"></i> Agent Execution Log Stream</h2>
+                            <span class="badge badge-outline" id="log-count-badge">0 logs</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="log-stream-box" id="log-stream">
+                                <div class="log-entry system">
+                                    <span class="log-time">[00:00:00]</span>
+                                    <span class="log-node">System</span>
+                                    <span class="log-msg">Ready. Select a codebase and click 'Trigger LangGraph Security Scan'.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: SAST SECURITY SCANNER -->
+            <section id="scanner-view" class="tab-content">
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-code"></i> Target Repository Vulnerability Inspection</h2>
+                        <span class="sub-text">SAST Engine & CVSS Risk Evaluator</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="vulnerability-summary-grid">
+                            <div class="stat-pill critical">
+                                <div class="stat-num" id="stat-critical">0</div>
+                                <div class="stat-label">Critical Vulnerabilities</div>
+                            </div>
+                            <div class="stat-pill high">
+                                <div class="stat-num" id="stat-high">0</div>
+                                <div class="stat-label">High Vulnerabilities</div>
+                            </div>
+                            <div class="stat-pill medium">
+                                <div class="stat-num" id="stat-medium">0</div>
+                                <div class="stat-label">Medium / Low</div>
+                            </div>
+                            <div class="stat-pill total">
+                                <div class="stat-num" id="stat-total">0</div>
+                                <div class="stat-label">Total SAST Findings</div>
+                            </div>
+                        </div>
+
+                        <div class="findings-list-table-container">
+                            <table class="custom-table" id="findings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Finding ID</th>
+                                        <th>Severity</th>
+                                        <th>Title & OWASP Category</th>
+                                        <th>File & Line</th>
+                                        <th>Vulnerable Code Snippet</th>
+                                        <th>CVSS Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" class="text-center empty-msg">No security scan performed yet. Trigger a scan from the Live Agent Workflow tab.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: AGILE SECURITY SPRINT BOARD -->
+            <section id="kanban-view" class="tab-content">
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-kanban"></i> Agile Security Sprint Backlog Board</h2>
+                        <span class="sub-text">Automated Security Debt Prioritization & Fibonacci Estimation</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="kanban-board">
+                            <!-- Column 1: To Do -->
+                            <div class="kanban-column" id="col-todo">
+                                <div class="col-header">
+                                    <h3><i class="fa-regular fa-circle"></i> Security Backlog (To Do)</h3>
+                                    <span class="count-pill" id="todo-count">0</span>
+                                </div>
+                                <div class="kanban-cards" id="cards-todo"></div>
+                            </div>
+
+                            <!-- Column 2: In Progress -->
+                            <div class="kanban-column" id="col-in-progress">
+                                <div class="col-header">
+                                    <h3><i class="fa-solid fa-wand-magic-sparkles"></i> AI Patching (In Progress)</h3>
+                                    <span class="count-pill" id="in-progress-count">0</span>
+                                </div>
+                                <div class="kanban-cards" id="cards-in-progress"></div>
+                            </div>
+
+                            <!-- Column 3: In Review (HITL) -->
+                            <div class="kanban-column" id="col-review">
+                                <div class="col-header alert-header">
+                                    <h3><i class="fa-solid fa-user-shield"></i> Security Gate (In Review)</h3>
+                                    <span class="count-pill" id="review-count">0</span>
+                                </div>
+                                <div class="kanban-cards" id="cards-review"></div>
+                            </div>
+
+                            <!-- Column 4: Done / PR Merged -->
+                            <div class="kanban-column" id="col-done">
+                                <div class="col-header success-header">
+                                    <h3><i class="fa-solid fa-circle-check"></i> PR Published (Done)</h3>
+                                    <span class="count-pill" id="done-count">0</span>
+                                </div>
+                                <div class="kanban-cards" id="cards-done"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: HUMAN-IN-THE-LOOP APPROVAL PORTAL -->
+            <section id="approval-view" class="tab-content">
+                <div class="card glass-card">
+                    <div class="card-header highlight-header">
+                        <h2><i class="fa-solid fa-shield-cat"></i> Human-in-the-Loop Security Patch Approval Gate</h2>
+                        <span class="badge badge-warning">LangGraph State Interrupt</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="no-approval-msg" class="empty-state">
+                            <i class="fa-solid fa-user-check empty-icon"></i>
+                            <h3>No Pending Human Approvals</h3>
+                            <p id="no-approval-sub-text">Trigger a security scan on a repository to initiate AI security patch generation and HITL review.</p>
+                        </div>
+
+                        <div id="approval-panel" class="approval-container hidden">
+                            <div class="patch-header-banner">
+                                <div class="patch-meta">
+                                    <h3 id="patch-title">Remediate SQL Injection & Hardcoded Credentials</h3>
+                                    <p id="patch-explanation">Automated OWASP secure coding compliance refactor generated by PatchGeneratorNode agent.</p>
+                                </div>
+                                <div class="patch-score">
+                                    <span class="score-label">AI Security Confidence</span>
+                                    <span class="score-val" id="patch-score-val">96/100</span>
+                                </div>
+                            </div>
+
+                            <!-- Diff Viewer -->
+                            <div class="diff-container">
+                                <div class="diff-header">
+                                    <span><i class="fa-solid fa-file-code"></i> Code Diff Viewer (Original vs Remediated)</span>
+                                    <span id="patch-filename" class="code-filename">app/auth.py</span>
+                                </div>
+                                <pre id="diff-content" class="diff-code"><code>No diff available.</code></pre>
+                            </div>
+
+                            <!-- AI Guardrails Verification Checklist -->
+                            <div class="guardrails-box">
+                                <h4><i class="fa-solid fa-clipboard-check"></i> Automated Guardrail Checklist</h4>
+                                <ul id="guardrails-list" class="guardrails-list"></ul>
+                            </div>
+
+                            <!-- Human Feedback & Action Buttons -->
+                            <div class="action-feedback-box">
+                                <div class="form-group">
+                                    <label for="human-feedback-input"><i class="fa-regular fa-comment-dots"></i> Optional Feedback / Instructions for AI Modification:</label>
+                                    <input type="text" id="human-feedback-input" class="form-control" placeholder="e.g. Please use environment variable VAULT_KEY instead of JWT_SECRET_KEY">
+                                </div>
+
+                                <div class="approval-buttons">
+                                    <button id="btn-approve" class="btn btn-success">
+                                        <i class="fa-solid fa-check-double"></i> Approve & Publish Git Pull Request
+                                    </button>
+                                    <button id="btn-modify" class="btn btn-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i> Request AI Patch Modification
+                                    </button>
+                                    <button id="btn-reject" class="btn btn-danger">
+                                        <i class="fa-solid fa-xmark"></i> Reject Patch & Keep Backlog Item
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PR Result Box -->
+                        <div id="pr-result-box" class="pr-banner hidden">
+                            <i class="fa-solid fa-circle-check pr-icon"></i>
+                            <div class="pr-details">
+                                <h3 id="pr-banner-title">Pull Request Successfully Created!</h3>
+                                <p id="pr-banner-sub">PR #142 published to branch 'security/autofix-sentinel-cve'.</p>
+                                <a id="pr-banner-link" href="#" target="_blank" class="btn btn-outline btn-sm"><i class="fa-brands fa-github"></i> View Simulated GitHub PR</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: SECURITY & AGILE METRICS -->
+            <section id="metrics-view" class="tab-content">
+                <div class="grid-two-col">
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-shield-virus"></i> OWASP & Vulnerability Distribution</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-chart-placeholder">
+                                <div class="bar-group">
+                                    <span class="bar-label">A03: Injection</span>
+                                    <div class="bar-wrapper"><div class="bar-fill critical-fill" style="width: 85%;"></div></div>
+                                    <span class="bar-val">85%</span>
+                                </div>
+                                <div class="bar-group">
+                                    <span class="bar-label">A07: Auth Failures</span>
+                                    <div class="bar-wrapper"><div class="bar-fill high-fill" style="width: 65%;"></div></div>
+                                    <span class="bar-val">65%</span>
+                                </div>
+                                <div class="bar-group">
+                                    <span class="bar-label">A01: Access Control</span>
+                                    <div class="bar-wrapper"><div class="bar-fill medium-fill" style="width: 45%;"></div></div>
+                                    <span class="bar-val">45%</span>
+                                </div>
+                                <div class="bar-group">
+                                    <span class="bar-label">A08: Integrity Failures</span>
+                                    <div class="bar-wrapper"><div class="bar-fill critical-fill" style="width: 75%;"></div></div>
+                                    <span class="bar-val">75%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-gauge-high"></i> Agile DevSecOps Velocity Impact</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="kpi-grid">
+                                <div class="kpi-card">
+                                    <div class="kpi-title">MTTR (Mean Time to Remediate)</div>
+                                    <div class="kpi-value text-accent">4.2 Minutes</div>
+                                    <div class="kpi-sub">vs 14 Days traditional manual triage</div>
+                                </div>
+                                <div class="kpi-card">
+                                    <div class="kpi-title">Automated Patch Rate</div>
+                                    <div class="kpi-value text-success">100%</div>
+                                    <div class="kpi-sub">Guardrail compliance checked</div>
+                                </div>
+                                <div class="kpi-card">
+                                    <div class="kpi-title">Human Oversight Ratio</div>
+                                    <div class="kpi-value text-warning">100% HITL</div>
+                                    <div class="kpi-sub">Zero un-reviewed code deployments</div>
+                                </div>
+                                <div class="kpi-card">
+                                    <div class="kpi-title">Sprint Security Velocity</div>
+                                    <div class="kpi-value text-accent">+350%</div>
+                                    <div class="kpi-sub">Security debt burn-down acceleration</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 6: LANGGRAPH CASE STUDY GUIDE (COMPREHENSIVE DEEP DIVE) -->
+            <section id="guide-view" class="tab-content">
+                <div class="card glass-card">
+                    <div class="card-header highlight-header">
+                        <h2><i class="fa-solid fa-book-open text-cyan"></i> Live Case Study: LangGraph Architecture & Key Concepts Deep Dive</h2>
+                        <span class="badge badge-accent">Architectural Deep Dive</span>
+                    </div>
+                    <div class="card-body guide-article">
+                        
+                        <!-- Section 1 -->
+                        <h3>1. What is LangGraph & Why Stateful Graphs beat Chains?</h3>
+                        <p>In classical LLM engineering, applications use <strong>LCEL (LangChain Expression Language)</strong> or basic linear chains: <code>Input -> Prompt -> LLM -> Output</code>. While chains work for simple Q&A, enterprise DevSecOps workflows require <strong>loops, memory persistence, dynamic routing, and state interrupts</strong>.</p>
+                        
+                        <div class="comparison-table-wrapper">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Architecture Feature</th>
+                                        <th>Linear LLM Chains (LCEL)</th>
+                                        <th>DAG (Directed Acyclic Graphs)</th>
+                                        <th>LangGraph StateGraph (Sentinel)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>State Retention</strong></td>
+                                        <td>Stateless (Lost between steps)</td>
+                                        <td>Per-node ephemeral inputs</td>
+                                        <td><strong>Central Pydantic Schema (`SentinelState`)</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cyclic Execution (Loops)</strong></td>
+                                        <td>❌ Impossible (Linear only)</td>
+                                        <td>❌ Forbidden (No cycles)</td>
+                                        <td><strong>✅ Native Cycles & Retry Feedback Loops</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Human-in-the-Loop</strong></td>
+                                        <td>❌ Requires custom API hacks</td>
+                                        <td>❌ Blocking process threads</td>
+                                        <td><strong>✅ Native `interrupt()` Breakpoints & Thread Memory</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Persistence Checkpointing</strong></td>
+                                        <td>❌ None</td>
+                                        <td>❌ Ephemeral memory</td>
+                                        <td><strong>✅ `MemorySaver` / DB Checkpointer</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="code-example-box margin-top">
+                            <h4><i class="fa-solid fa-code"></i> Exact LangGraph `StateGraph` Definition (`backend/graph.py`)</h4>
+                            <pre class="diff-code"><code>def build_sentinel_graph():
+    workflow = StateGraph(SentinelState)
+
+    # 1. Register Multi-Agent Nodes
+    workflow.add_node("ingest_scan", ingest_scan_node)
+    workflow.add_node("agile_backlog", agile_backlog_node)
+    workflow.add_node("patch_generator", patch_generator_node)
+    workflow.add_node("human_approval", human_approval_node)
+    workflow.add_node("git_pr_creator", git_pr_creator_node)
+
+    # 2. Wire Graph Edges & Dynamic Conditional Routes
+    workflow.add_edge(START, "ingest_scan")
+    workflow.add_conditional_edges("ingest_scan", route_after_scan, {"agile_backlog": "agile_backlog", END: END})
+    workflow.add_edge("agile_backlog", "patch_generator")
+    workflow.add_edge("patch_generator", "human_approval")
+    workflow.add_conditional_edges("human_approval", route_after_approval, {"git_pr_creator": "git_pr_creator", END: END})
+    workflow.add_edge("git_pr_creator", END)
+
+    # 3. Compile with Thread Checkpointer Memory
+    memory = MemorySaver()
+    return workflow.compile(checkpointer=memory)</code></pre>
+                        </div>
+
+                        <!-- Section 2 -->
+                        <h3 class="margin-top">2. The 5 Multi-Agent Roles & State Lifecycle Transformation</h3>
+                        <p>The system splits complex DevSecOps responsibilities across 5 specialized autonomous agents, each mutating specific slices of the central state schema:</p>
+
+                        <div class="agent-lifecycle-grid">
+                            <div class="agent-role-card">
+                                <div class="agent-role-header">
+                                    <i class="fa-solid fa-magnifying-glass-code text-cyan"></i>
+                                    <h4>IngestScanNode (SAST Parser Agent)</h4>
+                                </div>
+                                <p><strong>Input:</strong> Source Code Files (Python/Go/Node)</p>
+                                <p><strong>Action:</strong> Executes AST regex scanners against OWASP Top 10 rules & calculates CVSS v3.1 scores.</p>
+                                <p><strong>State Output:</strong> Populates <code>vulnerabilities</code> array & logs.</p>
+                            </div>
+
+                            <div class="agent-role-card">
+                                <div class="agent-role-header">
+                                    <i class="fa-solid fa-users-gear text-green"></i>
+                                    <h4>AgileBacklogNode (Scrum Master Agent)</h4>
+                                </div>
+                                <p><strong>Input:</strong> Detected Vulnerabilities Array</p>
+                                <p><strong>Action:</strong> Converts CVE findings into User Stories, applies Fibonacci story points (`1`, `2`, `3`, `5`, `8`), and sets priority badges (`P0-Blocker`).</p>
+                                <p><strong>State Output:</strong> Populates <code>agile_stories</code> backlog array.</p>
+                            </div>
+
+                            <div class="agent-role-card">
+                                <div class="agent-role-header">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-orange"></i>
+                                    <h4>PatchGeneratorNode (DevSecOps AI Agent)</h4>
+                                </div>
+                                <p><strong>Input:</strong> Vulnerability Snippets + Source Files</p>
+                                <p><strong>Action:</strong> Writes OWASP-compliant secure code refactors, produces Unified Git Diffs, and verifies static guardrails.</p>
+                                <p><strong>State Output:</strong> Populates <code>patch_proposals</code> & guardrail checks.</p>
+                            </div>
+
+                            <div class="agent-role-card">
+                                <div class="agent-role-header">
+                                    <i class="fa-solid fa-user-lock text-red"></i>
+                                    <h4>HumanApprovalNode (HITL Gate)</h4>
+                                </div>
+                                <p><strong>Input:</strong> AI Patch Proposals & Guardrails</p>
+                                <p><strong>Action:</strong> Holds execution at state interrupt until explicit Human Security Lead decision is submitted.</p>
+                                <p><strong>State Output:</strong> Updates <code>human_approval</code> status (approved/modified/rejected).</p>
+                            </div>
+
+                            <div class="agent-role-card">
+                                <div class="agent-role-header">
+                                    <i class="fa-solid fa-code-pull-request text-cyan"></i>
+                                    <h4>GitPRCreatorNode (GitOps Agent)</h4>
+                                </div>
+                                <p><strong>Input:</strong> Approved Patch Diffs</p>
+                                <p><strong>Action:</strong> Publishes Git Pull Request #142 to branch, links sprint board, and advances story state to <code>Done</code>.</p>
+                                <p><strong>State Output:</strong> Populates <code>git_pr</code> metadata & sets state to <code>completed</code>.</p>
+                            </div>
+                        </div>
+
+                        <!-- Section 3 -->
+                        <h3 class="margin-top">3. Memory Checkpointing & Thread Isolation (`MemorySaver`)</h3>
+                        <p>How does the application pause execution without crashing or holding server HTTP threads open?</p>
+                        <ul class="concept-detail-list">
+                            <li><strong>Thread ID Isolation:</strong> Every scan session generates a unique UUID (e.g. <code>thread_id="scan-a6c13438"</code>).</li>
+                            <li><strong>State Snapshot Serialization:</strong> LangGraph's <code>MemorySaver</code> checkpointer serializes the exact graph state object at the end of each node transition.</li>
+                            <li><strong>Non-Blocking Web Execution:</strong> When reaching <code>HumanApprovalNode</code>, the graph yields control back to FastAPI. The server returns HTTP 200 to the browser while the graph thread remains safely checkpointed in memory.</li>
+                            <li><strong>State Resumption:</strong> When the user clicks **Approve** on the web dashboard, FastAPI calls <code>sentinel_graph.invoke(current_state, config={"configurable": {"thread_id": scan_id}})</code>, which instantly restores the exact checkpoint and continues execution down <code>GitPRCreatorNode</code>.</li>
+                        </ul>
+
+                        <!-- Section 4 -->
+                        <h3 class="margin-top">4. Human-in-the-Loop (HITL) Approval Modes</h3>
+                        <p>Sentinel supports 3 distinct Human Governance workflows:</p>
+
+                        <div class="problem-solution-grid margin-top">
+                            <div class="solution-box">
+                                <h3><i class="fa-solid fa-check text-green"></i> 1. Direct Approval</h3>
+                                <p>The Security Lead reviews the diff, confirms the guardrails pass, and clicks **Approve**. The graph proceeds to publish Git PR #142 and sets Agile stories to <strong>Done</strong>.</p>
+                            </div>
+                            <div class="problem-box" style="border-left-color: var(--accent-orange);">
+                                <h3><i class="fa-solid fa-pen-to-square text-orange"></i> 2. Prompt Feedback Modification</h3>
+                                <p>The Security Lead provides custom guidance (e.g. *"Use VAULT_MASTER_KEY variable instead"*). The graph re-evaluates the patch with human feedback merged.</p>
+                            </div>
+                            <div class="problem-box">
+                                <h3><i class="fa-solid fa-xmark text-red"></i> 3. Rejection & Rollback</h3>
+                                <p>If the patch is deemed unnecessary or incorrect, the human rejects it. The graph sets state to <strong>`rejected`</strong>, aborts PR creation, and resets Agile backlog stories to **To Do**.</p>
+                            </div>
+                        </div>
+
+                        <!-- Section 5 -->
+                        <h3 class="margin-top">5. Automated Guardrail Assertions Matrix</h3>
+                        <p>Before any code diff is shown to a human, the <code>PatchGeneratorNode</code> verifies automated security guardrail assertions:</p>
+
+                        <div class="comparison-table-wrapper margin-top">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Vulnerability Category</th>
+                                        <th>Unsafe Pattern Detected</th>
+                                        <th>Secure Refactor Applied</th>
+                                        <th>Automated Guardrail Assertion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>SQL Injection</strong></td>
+                                        <td>Raw string concatenation in SQL query</td>
+                                        <td>Parameterized prepared statement (<code>?</code> placeholders)</td>
+                                        <td><span class="badge badge-accent">PASS</span> No raw format strings in query execution</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Hardcoded Secrets</strong></td>
+                                        <td>Plaintext AWS / JWT / Vault keys</td>
+                                        <td>Vault env variable getters (<code>os.getenv</code>)</td>
+                                        <td><span class="badge badge-accent">PASS</span> 0 plaintext credentials remaining</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Command Injection</strong></td>
+                                        <td>Unsafe <code>os.system(cmd)</code> call</td>
+                                        <td><code>subprocess.run(shell=False)</code> + <code>shlex.quote</code></td>
+                                        <td><span class="badge badge-accent">PASS</span> Shell expansion disabled</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Prompt Injection</strong></td>
+                                        <td>Raw user prompt in LLM system context</td>
+                                        <td>Prompt sandboxing & whitelist tool call validation</td>
+                                        <td><span class="badge badge-accent">PASS</span> System boundary enforced</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </div>
-    <a href="../../index.html" class="return-btn">
-      <span>&#127968;</span> Return to Main Portfolio
-    </a>
-  </header>
 
-  <main class="app-layout">
-    <section class="hero-section">
-      <div class="hero-top">
-        <div class="hero-icon">&#128737;</div>
-        <div class="hero-title">
-          <span class="badge">DevSecOps</span>
-          <h1>AgileSecOps Sentinel Command Center</h1>
-        </div>
-      </div>
-      <p class="hero-sub">Interactive enterprise application for AgileSecOps Sentinel. Designed & engineered by Santoshanand Adkar.</p>
-    </section>
-
-    <nav class="nav-tabs">
-      <button class="nav-tab" id="tab-btn-overview" onclick="switchTab('overview')">&#9889; Interactive Dashboard</button>
-<button class="nav-tab" id="tab-btn-analytics" onclick="switchTab('analytics')">&#128200; Live Metrics & Analytics</button>
-<button class="nav-tab" id="tab-btn-tools" onclick="switchTab('tools')">&#9881; Tooling & Action Center</button>
-
-    </nav>
-
-    <section id="app-content">
-      <!-- Dynamic interactive tab content rendered by JS -->
-    </section>
-  </main>
-
-  <script>
-    
-        function renderTab(tabId) {
-          const content = document.getElementById('app-content');
-          if (tabId === 'overview') {
-            content.innerHTML = `
-              <div class="card-grid">
-                <div class="app-card">
-                  <div class="card-status active">ONLINE</div>
-                  <h3><span>&#128737;</span> AgileSecOps Sentinel Core Module</h3>
-                  <p style="color:#94a3b8; font-size:14px;">Enterprise-grade capabilities with real-time data processing and modular workflow integration.</p>
-                  <div class="metric-row"><span>System Status:</span> <strong style="color:#22c55e;">Operational</strong></div>
-                  <div class="metric-row"><span>Uptime SLA:</span> <strong>99.99%</strong></div>
-                  <button class="action-btn" onclick="alert('Running operational health check...')">Run Health Check</button>
-                </div>
-                <div class="app-card">
-                  <div class="card-status active">ACTIVE</div>
-                  <h3><span>&#128640;</span> AI & Automation Engine</h3>
-                  <p style="color:#94a3b8; font-size:14px;">Automated reasoning pipelines, prompt engineering models, and analytics telemetry.</p>
-                  <div class="metric-row"><span>Execution Speed:</span> <strong>&lt; 120ms</strong></div>
-                  <button class="action-btn" onclick="alert('Triggering AI workflow execution...')">Execute Workflow</button>
-                </div>
-              </div>
-            `;
-          } else if (tabId === 'analytics') {
-            content.innerHTML = `
-              <div class="app-card">
-                <h3><span>&#128200;</span> Real-Time Analytics & Performance Metrics</h3>
-                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:20px; text-align:center;">
-                  <div style="background:#020617; border:1px solid #1e293b; padding:20px; border-radius:12px;">
-                    <div style="font-size:28px; color:#38bdf8; font-weight:800;">26+ Yrs</div>
-                    <div style="color:#94a3b8; font-size:12px; margin-top:4px;">Domain Excellence</div>
-                  </div>
-                  <div style="background:#020617; border:1px solid #1e293b; padding:20px; border-radius:12px;">
-                    <div style="font-size:28px; color:#22c55e; font-weight:800;">36+ AI Systems</div>
-                    <div style="color:#94a3b8; font-size:12px; margin-top:4px;">Master Ecosystem</div>
-                  </div>
-                  <div style="background:#020617; border:1px solid #1e293b; padding:20px; border-radius:12px;">
-                    <div style="font-size:28px; color:#a855f7; font-weight:800;">SAFe 6.0 RTE</div>
-                    <div style="color:#94a3b8; font-size:12px; margin-top:4px;">Barclays VP Standard</div>
-                  </div>
-                </div>
-              </div>
-            `;
-          } else if (tabId === 'tools') {
-            content.innerHTML = `
-              <div class="app-card">
-                <h3><span>&#9881;</span> Action & Configuration Center</h3>
-                <p style="color:#cbd5e1; font-size:14px; margin-bottom:15px;">Configure parameters, trigger batch processing, and export diagnostic logs.</p>
-                <div style="display:flex; gap:12px;">
-                  <button class="action-btn" onclick="alert('Exporting system telemetry logs...')">Export Logs</button>
-                  <button class="action-btn" style="background:rgba(255,255,255,0.05); border:1px solid #334155;" onclick="alert('System settings synced!')">Sync Settings</button>
-                </div>
-              </div>
-            `;
-          }
-        }
-        
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-      const activeBtn = document.getElementById('tab-btn-' + tabId);
-      if (activeBtn) activeBtn.classList.add('active');
-      renderTab(tabId);
-    }
-
-    // Default to first tab
-    document.addEventListener('DOMContentLoaded', () => {
-      const firstTab = 'overview';
-      switchTab(firstTab);
-    });
-  </script>
+    <script src="/static/app.js"></script>
 </body>
 </html>

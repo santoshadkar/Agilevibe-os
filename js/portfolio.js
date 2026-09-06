@@ -27,7 +27,7 @@ const PORTALS_DATA = [
     icon: "🤖",
     desc: "Autonomous multi-agent orchestration studio for enterprise workflows, agent collaboration, and dynamic task execution.",
     tags: ["Agentic AI", "Orchestration", "LLM Pipelines", "MCP Protocols"],
-    launchUrl: "omniagent-os/index.html",
+    launchUrl: "omniagent-os/frontend/index.html",
     isExternal: false,
     featured: true
   },
@@ -128,7 +128,7 @@ const PORTALS_DATA = [
     icon: "💎",
     desc: "AI-driven wealth management, portfolio asset allocation modeling, and high-net-worth financial roadmap simulator.",
     tags: ["Private Wealth", "Portfolio AI", "FinTech", "Risk Analytics"],
-    launchUrl: "aura-private-wealth/index.html",
+    launchUrl: "aura-private-wealth/client/index.html",
     isExternal: false
   },
   {
@@ -188,7 +188,7 @@ const PORTALS_DATA = [
     icon: "🛡️",
     desc: "Continuous automated security pipeline monitoring, SAST/DAST metrics tracker, and compliance vulnerability dashboard.",
     tags: ["AgileSecOps", "Vulnerability Tracker", "DevSecOps"],
-    launchUrl: "agilesecops-sentinel/index.html",
+    launchUrl: "agilesecops-sentinel/frontend/index.html",
     isExternal: false
   },
   {
@@ -200,7 +200,7 @@ const PORTALS_DATA = [
     icon: "🚀",
     desc: "Automated resume optimizer, interview preparation coach, job match scoring engine, and career agent studio.",
     tags: ["Career Agent", "Resume AI", "Interview Prep", "Job Hunter"],
-    launchUrl: "ai-job-hunter-agent/index.html",
+    launchUrl: "ai-job-hunter-agent/public/index.html",
     isExternal: false
   },
   {
@@ -368,7 +368,7 @@ const PORTALS_DATA = [
     icon: "🩺",
     desc: "Personalized health tracking OS, daily stress & energy optimizer, and executive wellness dashboard.",
     tags: ["Personal AI", "Health Tech", "Wellness Analytics"],
-    launchUrl: "myhealth/index.html",
+    launchUrl: "myhealth/frontend/index.html",
     isExternal: false
   },
   {
@@ -392,7 +392,7 @@ const PORTALS_DATA = [
     icon: "⏱️",
     desc: "Personal and squad task management engine with WIP limit enforcement, cycle time tracking, and focus timers.",
     tags: ["Task Management", "WIP Limits", "Sprint Board"],
-    launchUrl: "taskpulse_app/index.html",
+    launchUrl: "taskpulse_app/static/index.html",
     isExternal: false
   },
   {
@@ -416,7 +416,7 @@ const PORTALS_DATA = [
     icon: "📖",
     desc: "Interactive playbook detailing how GenAI, Cursor, and Agentic Workflows revolutionize enterprise agile coaching.",
     tags: ["Agile Book", "GenAI Coaching", "Playbook"],
-    launchUrl: "agile_ai_coaching_book/index.html",
+    launchUrl: "agile_ai_coaching_book/web_portal/index.html",
     isExternal: false
   },
   {
