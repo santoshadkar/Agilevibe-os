@@ -842,19 +842,61 @@ function setupContactForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
-  form.addEventListener("submit", (e) => {
+  const statusEl = document.getElementById("contactFormStatus");
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const submitBtnDefaultHtml = submitBtn ? submitBtn.innerHTML : "";
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = form.querySelector('[name="name"]')?.value || "";
     const email = form.querySelector('[name="email"]')?.value || "";
     const message = form.querySelector('[name="message"]')?.value || "";
 
-    const subject = encodeURIComponent(`Executive Advisory Inquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    if (statusEl) {
+      statusEl.textContent = "";
+      statusEl.style.color = "var(--text-muted)";
+    }
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
+    }
 
-    // No backend on this static site — hand off to the visitor's own email
-    // client, addressed and pre-filled, so the message actually reaches
-    // santoshadkar@gmail.com instead of silently going nowhere.
-    window.location.href = `mailto:santoshadkar@gmail.com?subject=${subject}&body=${body}`;
-    form.reset();
+    try {
+      // Submits directly to Web3Forms so the message actually reaches
+      // santoshadkar@gmail.com regardless of whether the visitor has a
+      // desktop email client configured.
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "f4e308b9-2daf-434b-bb57-72e1b31fef7b",
+          subject: `Executive Advisory Inquiry from ${name}`,
+          name,
+          email,
+          message,
+        }),
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        form.reset();
+        if (statusEl) {
+          statusEl.style.color = "var(--accent-emerald)";
+          statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Thanks, ${name || "there"} — your message was sent. I'll get back to you soon.`;
+        }
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      if (statusEl) {
+        statusEl.style.color = "var(--accent-rose)";
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Something went wrong sending this. Please email santoshadkar@gmail.com directly instead.`;
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitBtnDefaultHtml;
+      }
+    }
   });
 }
