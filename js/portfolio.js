@@ -1,6 +1,6 @@
 /* ----------------------------------------------------
    SANTOSHANAND ADKAR - EXECUTIVE PORTFOLIO DATA & SCRIPT
-   Updated with Root-Relative Launch URLs for All 36 Portals
+   Root-Relative Launch URLs, Flag Replacement, Universal Icons
    ---------------------------------------------------- */
 
 // 1. ALL 36 AI PORTALS REPOSITORY DATA
@@ -490,8 +490,8 @@ const ROADMAP_DATA = [
   {
     period: "NOV 2019 – DEC 2021",
     role: "Enterprise Agile Coach (Large Telecom Client)",
-    company: "📡 Tech Mahindra Ltd — Slough, UK Client",
-    nodeIcon: "🇬🇧",
+    company: "🌐 Tech Mahindra Ltd — Slough, UK Client",
+    nodeIcon: "📡",
     chips: ["Telecom Networks", "SAFe Multi-Vendor", "IoT Proof-of-Concept"],
     description: "Helped UK telecom giant transition networks area to Agile ways of working and SAFe framework.",
     achievements: [
@@ -515,7 +515,7 @@ const ROADMAP_DATA = [
   {
     period: "DEC 2016 – DEC 2017",
     role: "Agile Coach & Scrum Master (Telecom Billing)",
-    company: "🇺🇸 Tech Mahindra Ltd — Atlanta, USA Client",
+    company: "🏛️ Tech Mahindra Ltd — Atlanta, USA Client",
     nodeIcon: "💼",
     chips: ["Multi-Vendor Billing", "Risk Management", "Offshore Enablement"],
     description: "Scrum Master and Agile Coach for complex billing software project with multi-vendor teams.",
@@ -559,7 +559,7 @@ const ROADMAP_DATA = [
   {
     period: "MAR 2006 – OCT 2011",
     role: "Project Manager – Canada, Austria & Pune Projects",
-    company: "🇨🇦 Wipro Technologies Ltd — Pune",
+    company: "🎯 Wipro Technologies Ltd — Canada & Austria Client",
     nodeIcon: "🎯",
     chips: ["Insurance & Banking", "Code Harvesting", "Unitrax Retrofitting"],
     description: "Led end-to-end project management for India's largest insurance company & global banking org.",
@@ -570,7 +570,7 @@ const ROADMAP_DATA = [
   {
     period: "DEC 2003 – MAR 2006",
     role: "Team Leader / Project Lead",
-    company: "🇳🇱 IBM Global Services India — Netherlands Client",
+    company: "🚢 IBM Global Services — Netherlands Client",
     nodeIcon: "🚢",
     chips: ["13 Countries Span", "45 Offices", "24x7 AMS Delivery"],
     description: "Led 12-member team for Dutch Transport & Logistics Application Management spanning 13 countries and 45 offices.",

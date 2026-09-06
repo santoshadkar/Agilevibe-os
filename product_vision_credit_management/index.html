@@ -3,38 +3,248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>product_vision_credit_management | Santoshanand Adkar Master Ecosystem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+  <title>Product Vision & Credit Mgmt | Santoshanand Adkar Master Ecosystem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { margin:0; background:#090d16; color:#f8fafc; font-family:'Inter',sans-serif; }
-    .banner { background: linear-gradient(90deg, #0f172a, #1e1b4b); border-bottom: 1px solid #38bdf8; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; font-family: sans-serif; }
-    .banner a { padding: 6px 14px; background: linear-gradient(135deg, #6366f1, #38bdf8); color: #fff; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 700; }
-    .container { max-width:900px; margin:40px auto; padding:32px; background:rgba(15,23,42,0.85); border:1px solid rgba(56,189,248,0.3); border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
-    h1 { font-family:'Outfit',sans-serif; font-size:32px; color:#fff; margin-top:10px; }
-    .badge { display:inline-block; padding:4px 12px; border-radius:20px; background:rgba(56,189,248,0.15); color:#38bdf8; font-size:12px; font-weight:700; border:1px solid rgba(56,189,248,0.3); }
-    p { font-size:15px; color:#94a3b8; line-height:1.6; }
-    .box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:20px; border-radius:12px; margin-top:24px; }
-    .btn { display:inline-block; padding:10px 20px; background:linear-gradient(135deg,#6366f1,#38bdf8); color:#fff; border-radius:8px; text-decoration:none; font-weight:700; margin-top:20px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #090d16;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header-banner {
+      background: linear-gradient(90deg, #0f172a, #1e1b4b);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .header-banner .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .header-banner .brand-title {
+      color: #38bdf8;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+    .header-banner .return-btn {
+      padding: 8px 18px;
+      background: linear-gradient(135deg, #6366f1, #38bdf8);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+      transition: all 0.2s ease;
+    }
+    .header-banner .return-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+    }
+    .main-container {
+      max-width: 1100px;
+      width: 90%;
+      margin: 40px auto;
+      flex: 1;
+    }
+    .portal-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+    }
+    .portal-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 24px;
+    }
+    .portal-icon {
+      font-size: 48px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portal-title-area h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .portal-desc {
+      font-size: 16px;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    .grid-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .feature-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .feature-box:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .feature-box h3 {
+      font-size: 16px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-box p {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    .tags-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .tag {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .footer-actions {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .cta-btn {
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #6366f1, #38bdf8);
+      color: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+    }
+    .sec-btn {
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
-  <div class="banner">
-    <div style="color:#fff; font-size:13px; font-weight:600;">? Santoshanand Adkar Master Ecosystem</div>
-    <a href="../index.html">?? Return to Main Portfolio</a>
-  </div>
-  <div class="container">
-    <span class="badge">Enterprise System</span>
-    <h1>?? product_vision_credit_management</h1>
-    <p>Enterprise AI & Agile System designed by Santoshanand Adkar.</p>
-    <div class="box">
-      <h3 style="color:#38bdf8; margin-top:0;">? Enterprise Capabilities</h3>
-      <ul style="color:#cbd5e1; font-size:14px; line-height:1.8; padding-left:20px;">
-        <li>Designed & engineered by Santoshanand Adkar.</li>
-        <li>Production-grade enterprise architecture, code patterns, and governance models.</li>
-        <li>Part of Santoshanand's master 36+ AI Systems Ecosystem.</li>
-      </ul>
+  <header class="header-banner">
+    <div class="brand">
+      <span>&#9889; Santoshanand Adkar Master Ecosystem</span>
+      <span style="opacity:0.4;">|</span>
+      <span class="brand-title">Product Vision & Credit Mgmt</span>
     </div>
-    <a href="../index.html" class="btn">?? Return to Santoshanand Portfolio</a>
-  </div>
+    <a href="../index.html" class="return-btn">
+      <span>&#127968;</span> Return to Main Portfolio
+    </a>
+  </header>
+
+  <main class="main-container">
+    <div class="portal-card">
+      <div class="portal-header">
+        <div class="portal-icon">&#128179;</div>
+        <div class="portal-title-area">
+          <span class="badge">PBWM Credit</span>
+          <h1>Product Vision & Credit Mgmt</h1>
+        </div>
+      </div>
+
+      <p class="portal-desc">Barclays PBWM-aligned credit management product vision, loan decisioning workflow engine, and risk tiering dashboard.</p>
+
+      <div class="grid-section">
+        <div class="feature-box">
+          <h3><span>&#9889;</span> Enterprise Capabilities</h3>
+          <p>Architected and engineered by Santoshanand Adkar (VP at Barclays, 26+ Years Industry Veteran, SAFe 6.0 RTE).</p>
+        </div>
+        <div class="feature-box">
+          <h3><span>&#128737;</span> Production Standard</h3>
+          <p>Built with enterprise security, scalable modular design, and robust data flow isolation.</p>
+        </div>
+        <div class="feature-box">
+          <h3><span>&#128640;</span> AI & Agile Integration</h3>
+          <p>Direct integration with the master Santoshanand Adkar executive portfolio and 36+ ecosystem tools.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <h4 style="color: #94a3b8; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Domain Focus & Tech Stack</h4>
+        <div class="tags-flex">
+          <span class="tag">Credit Mgmt</span><span class="tag">PBWM Banking</span><span class="tag">Product Vision</span><span class="tag">Loan Workflows</span>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <a href="../index.html" class="cta-btn">
+          <span>&#127968;</span> Return to Main Executive Portfolio
+        </a>
+        <a href="../index.html#portals" class="sec-btn">
+          <span>&#127760;</span> Browse All 36+ Portals
+        </a>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
